@@ -1,3 +1,6 @@
+//  Game.cpp
+//  SnakeGame_OOP
+//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "../include/Game.h"
 #include "../include/Desk.h"
 #include "../include/Apple.h"

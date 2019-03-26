@@ -1,3 +1,6 @@
+//  Snake.cpp
+//  SnakeGame_OOP
+//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "../include/Snake.h"
 #include <ncurses.h>
 #include <fstream>

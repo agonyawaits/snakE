@@ -1,3 +1,6 @@
+//  Desk.h
+//  SnakeGame_OOP
+//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 #include "Figure.hpp"
 
@@ -10,7 +13,7 @@ public:
 
 public:
 	Desk(int,int);
-	
+
 public:
 	void Draw(Figure*, Figure*) const;
 	void Update(Figure*, Figure*);

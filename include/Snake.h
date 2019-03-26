@@ -1,3 +1,6 @@
+//  Snake.h
+//  SnakeGame_OOP
+//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 #include "Figure.hpp"
 #include <vector>
