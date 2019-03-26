@@ -6,6 +6,6 @@ public:
 	Apple(int, int);
 
 public:
-	void Draw() const;
-	void Update();
+	void Draw() const override;
+	void Update() override;
 };

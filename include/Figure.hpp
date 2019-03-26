@@ -5,7 +5,7 @@ protected:
 	int mX, mY;
 	bool mIsDead;
 	int mDeskHeight, mDeskWidth;
-	
+
 public:
 	virtual ~Figure() {};
 
@@ -18,6 +18,7 @@ public:
 	virtual void LevelUp() {};
 
 public:
-	int GetX() { return mX; }
-	int GetY() { return mY; }
+	int GetX() const { return mX; }
+	int GetY() const { return mY; }
+	bool GetIsDead() const { return mIsDead; }
 };

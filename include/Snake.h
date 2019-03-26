@@ -18,16 +18,15 @@ private:
 	int mHighScore;
 
 private:
-	void LevelUp();
+	void LevelUp() override;
 
 public:
 	Snake(int,int);
 	~Snake();
 public:
-	bool GetIsDead() const;
 	int GetScore() const;
 	int GetHighScore() const;
-	void Draw() const;
-	void Update();
-	void OnInput();
+	void Draw() const override;
+	void Update() override;
+	void OnInput() override;
 };

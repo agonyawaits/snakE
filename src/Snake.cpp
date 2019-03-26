@@ -21,7 +21,6 @@ Snake::Snake(int deskHeight, int deskWidth)
 	Figure::mIsDead = false;
 }
 
-bool Snake::GetIsDead() const { return mIsDead; }
 int Snake::GetScore() const { return mScore; }
 int Snake::GetHighScore() const { return mHighScore; }
 
