@@ -22,11 +22,11 @@ private:
 
 public:
 	Snake(int,int);
+	~Snake();
+public:
 	bool GetIsDead() const;
 	int GetScore() const;
 	int GetHighScore() const;
-	~Snake();
-public:
 	void Draw() const;
 	void Update();
 	void OnInput();

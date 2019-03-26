@@ -138,7 +138,7 @@ void Snake::Update() {
 		}
 	}
 
-	if (mX == mDeskWidth-1 || mY == mDeskHeight - 1 || mX == 0 || mY == 0) {
+	if (mX == mDeskWidth-1 || mY == mDeskHeight-1 || mX == 0 || mY == 0) {
 		mIsDead = true;
 	}
 }
