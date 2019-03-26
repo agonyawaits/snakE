@@ -23,10 +23,10 @@ void Game::Launch(const int mDeskHeight, const int mDeskWidth) const {
 
 	while (!mSnake.GetIsDead()) {
 		GameDesk.Draw(&mApple, &mSnake);
-		GameDesk.OnInput(&mSnake);
 		GameDesk.Update(&mApple, &mSnake);
 	}	
 	
+	std::this_thread::sleep_for(1s);
 	clear();
 	mvprintw(mDeskHeight/2, mDeskWidth/2, "GAME OVER!");
 	refresh();

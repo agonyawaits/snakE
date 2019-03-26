@@ -34,6 +34,8 @@ void Desk::OnInput(Figure* mCharacter) {
 }
 
 void Desk::Update(Figure* mFood, Figure* mCharacter) {
+	mCharacter->OnInput();
+	
 	mCharacter->Update();
 	if (mFood->GetX() == mCharacter->GetX() && mFood->GetY() == mCharacter->GetY()) {
 		mFood->Update();
