@@ -3,9 +3,7 @@
 #include <fstream>
 
 Snake::Snake(int deskHeight, int deskWidth)
-	: mDeskHeight(deskHeight),
-	  mDeskWidth(deskWidth),
-	  mDirection(NONE),
+	: mDirection(NONE),
 	  mScore(0),
 	  mHighScore(0)
 {
@@ -16,6 +14,8 @@ Snake::Snake(int deskHeight, int deskWidth)
 		fin.close();
 	}
 
+	Figure::mDeskHeight = deskHeight;
+	Figure::mDeskWidth = deskWidth;
 	Figure::mX = deskWidth/2;
 	Figure::mY = deskHeight/2;
 	Figure::mIsDead = false;

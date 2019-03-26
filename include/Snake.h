@@ -14,7 +14,6 @@ private:
 private:
 	SnakeContainer mSnakeBody;
 	Direction mDirection;
-	const int mDeskHeight, mDeskWidth;
 	int mScore;
 	int mHighScore;
 

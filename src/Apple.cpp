@@ -2,10 +2,9 @@
 #include <random>
 #include <ncurses.h>
 
-Apple::Apple(const int deskHeight, const int deskWidth) 
-	: mDeskHeight(deskHeight),
-	  mDeskWidth(deskWidth) 
-{
+Apple::Apple(const int deskHeight, const int deskWidth) {
+	Figure::mDeskHeight = deskHeight;
+	Figure::mDeskWidth = deskWidth;
 	Figure::mX = (rand() % (mDeskWidth-2)) + 1;
 	Figure::mY = (rand() % (mDeskHeight-2)) + 1;
 }

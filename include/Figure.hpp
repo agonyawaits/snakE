@@ -4,6 +4,7 @@ class Figure {
 protected:
 	int mX, mY;
 	bool mIsDead;
+	int mDeskHeight, mDeskWidth;
 public:
 	virtual ~Figure() {};
 public:

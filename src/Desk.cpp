@@ -1,7 +1,7 @@
 #include "../include/Desk.h"
 #include <ncurses.h>
 
-Desk::Desk(int height, int width) 
+Desk::Desk(const int height, const int width) 
 	: mHeight(height),
 	  mWidth(width) {} 
 
@@ -35,7 +35,7 @@ void Desk::OnInput(Figure* mCharacter) {
 
 void Desk::Update(Figure* mFood, Figure* mCharacter) {
 	mCharacter->OnInput();
-	
+
 	mCharacter->Update();
 	if (mFood->GetX() == mCharacter->GetX() && mFood->GetY() == mCharacter->GetY()) {
 		mFood->Update();

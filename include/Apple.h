@@ -2,8 +2,6 @@
 #include "Figure.hpp"
 
 class Apple : public Figure {
-private:
-	const int mDeskHeight, mDeskWidth;
 public:
 	Apple(int, int);
 
