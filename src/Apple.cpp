@@ -18,6 +18,6 @@ void Apple::Draw() const {
 }
 
 void Apple::Update() {
-	Figure::mX = (rand() % (mDeskWidth-2)) + 1;
-	Figure::mY = (rand() % (mDeskHeight-2)) + 1;
+	mX = (rand() % (mDeskWidth-2)) + 1;
+	mY = (rand() % (mDeskHeight-2)) + 1;
 }
