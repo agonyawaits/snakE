@@ -1,3 +1,6 @@
+//  Desk.cpp
+//  SnakeGame_OOP
+//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "../include/Desk.h"
 #include <ncurses.h>
 
@@ -5,7 +8,7 @@ Desk::Desk(const int height, const int width)
 	: mHeight(height),
 	  mWidth(width) {} 
 
-void Desk::Draw(Figure* mFood, Figure* mCharacter) const {
+void Desk::Draw(Figure* food, Figure* character) const {
 	clear();
 
 	for (int i = 0; i < mHeight; ++i) {
@@ -18,10 +21,10 @@ void Desk::Draw(Figure* mFood, Figure* mCharacter) const {
 				mvprintw(i, j, "*");
 			} else if (j == mWidth - 1) {
 				mvprintw(i, j, "*");
-			} else if (j == mCharacter->GetX() && i == mCharacter->GetY()) {
-				mCharacter->Draw();
-			} else if (j == mFood->GetX() && i == mFood->GetY()) {
-				mFood->Draw();
+			} else if (j == character->GetX() && i == character->GetY()) {
+				character->Draw();
+			} else if (j == food->GetX() && i == food->GetY()) {
+				food->Draw();
 			}
 		}
 	}
@@ -29,16 +32,16 @@ void Desk::Draw(Figure* mFood, Figure* mCharacter) const {
 	refresh();
 }
 
-void Desk::OnInput(Figure* mCharacter) {
-	mCharacter->OnInput();
+void Desk::OnInput(Figure* character) {
+	character->OnInput();
 }
 
-void Desk::Update(Figure* mFood, Figure* mCharacter) {
-	mCharacter->OnInput();
+void Desk::Update(Figure* food, Figure* character) {
+	character->OnInput();
 
-	mCharacter->Update();
-	if (mFood->GetX() == mCharacter->GetX() && mFood->GetY() == mCharacter->GetY()) {
-		mFood->Update();
-		mCharacter->LevelUp();
+	character->Update();
+	if (food->GetX() == character->GetX() && food->GetY() == character->GetY()) {
+		food->Update();
+		character->LevelUp();
 	}
 }
