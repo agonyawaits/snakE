@@ -22,6 +22,9 @@ Snake::Snake(int deskHeight, int deskWidth)
 	Figure::mX = deskWidth/2;
 	Figure::mY = deskHeight/2;
 	Figure::mIsDead = false;
+
+	mSnakeBody.push_back(SnakeSegment(mX-1, mY));
+	mSnakeBody.push_back(SnakeSegment(mX-2, mY));
 }
 
 int Snake::GetScore() const { return mScore; }
@@ -46,6 +49,7 @@ void Snake::Draw() const {
 			break;
 
 		case NONE :
+			mvprintw(mY, mX, ">");
 			break;
 	}
 	
@@ -90,19 +94,14 @@ void Snake::OnInput() {
 
 void Snake::Extend() {
 	mScore += 10;
-	if (mSnakeBody.empty()) {
-		SnakeSegment* newSegment = new SnakeSegment(mX, mY);
-		mSnakeBody.push_back(*newSegment);
-		delete newSegment;
-	} else {
-		SnakeSegment* newSegment = new SnakeSegment(mSnakeBody[mSnakeBody.size()-1].mX, mSnakeBody[mSnakeBody.size()-1].mY);
-		mSnakeBody.push_back(*newSegment);
-		delete newSegment;
-	}
+	
+	SnakeSegment* newSegment = new SnakeSegment(mSnakeBody[mSnakeBody.size()-1].mX, mSnakeBody[mSnakeBody.size()-1].mY);
+	mSnakeBody.push_back(*newSegment);
+	delete newSegment;
 }
 
 void Snake::Update() {
-	int tempX = mX, tempY = mY;
+	const int tempHeadX = mX, tempHeadY = mY;
 
 	switch (mDirection) {
 		case LEFT : 
@@ -121,7 +120,7 @@ void Snake::Update() {
 			++mY;
 			break;
 
-		default : break;
+		default : return;
 	}
 
 	for (int i = mSnakeBody.size()-1; i > 0; --i) {
@@ -129,8 +128,8 @@ void Snake::Update() {
 		mSnakeBody[i].mY = mSnakeBody[i-1].mY;
 	}
 	if (!mSnakeBody.empty()) {
-		mSnakeBody[0].mX = tempX;
-		mSnakeBody[0].mY = tempY;
+		mSnakeBody[0].mX = tempHeadX;
+		mSnakeBody[0].mY = tempHeadY;
 	}
 
 	for (const auto& seg : mSnakeBody) {
