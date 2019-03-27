@@ -88,7 +88,7 @@ void Snake::OnInput() {
 
 }
 
-void Snake::LevelUp() {
+void Snake::Extend() {
 	mScore += 10;
 	if (mSnakeBody.empty()) {
 		SnakeSegment* newSegment = new SnakeSegment(mX, mY);

@@ -21,7 +21,7 @@ private:
 	int mHighScore;
 
 private:
-	void LevelUp() override;
+	void Extend() override;
 
 public:
 	Snake(int,int);

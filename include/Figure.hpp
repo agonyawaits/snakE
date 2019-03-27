@@ -18,7 +18,7 @@ public:
 
 public:
 	virtual void OnInput() {};
-	virtual void LevelUp() {};
+	virtual void Extend() {};
 
 public:
 	int GetX() const { return mX; }

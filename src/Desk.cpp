@@ -42,6 +42,6 @@ void Desk::Update(Figure* food, Figure* character) {
 	character->Update();
 	if (food->GetX() == character->GetX() && food->GetY() == character->GetY()) {
 		food->Update();
-		character->LevelUp();
+		character->Extend();
 	}
 }
