@@ -14,7 +14,7 @@ Apple::Apple(const int deskHeight, const int deskWidth) {
 }
 
 void Apple::Draw() const {
-	mvprintw(mY, mX, "@");
+	mvprintw(mY, mX, "O");
 }
 
 void Apple::Update() {
