@@ -9,11 +9,11 @@
 using namespace std;
 
 int main() {
-	const int DeskHeight = 20; 
-	const int DeskWidth = 61;
+	const int deskHeight = 20; 
+	const int deskWidth = 61;
 
-	srand(time(nullptr));
+	srand( time( nullptr ) );
 
-	Game SnakeGame;
-	SnakeGame.Launch(DeskHeight, DeskWidth);
+	Game snakeGame;
+	snakeGame.Launch( deskHeight, deskWidth );
 }

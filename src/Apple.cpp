@@ -5,19 +5,22 @@
 #include <random>
 #include <ncurses.h>
 
-Apple::Apple(const int deskHeight, const int deskWidth) {
-	Figure::mDeskHeight = deskHeight;
-	Figure::mDeskWidth = deskWidth;
-	Figure::mIsDead = false;
-	Figure::mX = (rand() % (mDeskWidth-2)) + 1;
-	Figure::mY = (rand() % (mDeskHeight-2)) + 1;
+Apple::Apple( 
+	const int deskHeight, 
+	const int deskWidth 
+	) {
+	Figure::m_deskHeight = deskHeight;
+	Figure::m_deskWidth = deskWidth;
+	Figure::m_isDead = false;
+	Figure::m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
+	Figure::m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }
 
 void Apple::Draw() const {
-	mvprintw(mY, mX, "O");
+	mvprintw( m_y, m_x, "@" );
 }
 
 void Apple::Update() {
-	mX = (rand() % (mDeskWidth-2)) + 1;
-	mY = (rand() % (mDeskHeight-2)) + 1;
+	m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
+	m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }

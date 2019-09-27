@@ -4,10 +4,11 @@
 #pragma once
 
 class Figure {
+
 protected:
-	int mX, mY;
-	bool mIsDead;
-	int mDeskHeight, mDeskWidth;
+	int m_x, m_y;
+	bool m_isDead;
+	int m_deskHeight, m_deskWidth;
 
 public:
 	virtual ~Figure() {};
@@ -21,7 +22,8 @@ public:
 	virtual void Extend() {};
 
 public:
-	int GetX() const { return mX; }
-	int GetY() const { return mY; }
-	bool GetIsDead() const { return mIsDead; }
+	int GetX() const { return m_x; }
+	int GetY() const { return m_y; }
+	bool GetIsDead() const { return m_isDead; }
+	
 };

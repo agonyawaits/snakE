@@ -5,152 +5,162 @@
 #include <ncurses.h>
 #include <fstream>
 
-Snake::Snake(int deskHeight, int deskWidth)
-	: mDirection(NONE),
-	  mScore(0),
-	  mHighScore(0)
-{
+Snake::Snake( 
+	int deskHeight,
+	int deskWidth 
+	) : m_direction( NONE ), m_score( 0 ), m_highScore( 0 ) {
+
 	std::fstream fin;
-	fin.open("highscore.txt", std::ios::in);
-	if (fin.is_open()) {
-		fin >> mHighScore;
+	fin.open( "highscore.txt", std::ios::in );
+	if ( fin.is_open() ) {
+		fin >> m_highScore;
 		fin.close();
 	}
 
-	Figure::mDeskHeight = deskHeight;
-	Figure::mDeskWidth = deskWidth;
-	Figure::mX = deskWidth/2;
-	Figure::mY = deskHeight/2;
-	Figure::mIsDead = false;
+	Figure::m_deskHeight = deskHeight;
+	Figure::m_deskWidth = deskWidth;
+	Figure::m_x = deskWidth/2;
+	Figure::m_y = deskHeight/2;
+	Figure::m_isDead = false;
 
-	mSnakeBody.push_back(SnakeSegment(mX-1, mY));
-	mSnakeBody.push_back(SnakeSegment(mX-2, mY));
+	m_snakeBody.push_back( SnakeSegment( m_x-1, m_y ) );
+	m_snakeBody.push_back( SnakeSegment( m_x-2, m_y ) );
 }
 
-int Snake::GetScore() const { return mScore; }
-int Snake::GetHighScore() const { return mHighScore; }
+int Snake::GetScore() const { return m_score; }
+int Snake::GetHighScore() const { return m_highScore; }
 
 void Snake::Draw() const {
-	switch (mDirection) {
+
+	switch ( m_direction ) {
 		case LEFT : 
-		mvprintw(mY, mX, "<");
+		mvprintw( m_y, m_x, "<" );
 		break;
 		
 		case RIGHT : 
-			mvprintw(mY, mX, ">");
+			mvprintw( m_y, m_x, ">" );
 			break;
 
 		case UP : 
-			mvprintw(mY, mX, "^");
+			mvprintw( m_y, m_x, "^" );
 			break;
 
 		case DOWN : 
-			mvprintw(mY, mX, "v");
+			mvprintw( m_y, m_x, "v" );
 			break;
 
 		case NONE :
-			mvprintw(mY, mX, ">");
+			mvprintw( m_y, m_x, ">" );
 			break;
 	}
 	
-	for (const auto& seg : mSnakeBody) {
-		mvprintw(seg.mY, seg.mX, "o");
+	for ( const auto& seg : m_snakeBody ) {
+		mvprintw( seg.m_y, seg.m_x, "o" );
 	}
-	mvprintw(mDeskHeight+2, 0, "Score: %d", mScore);
-	mvprintw(mDeskHeight+3, 0, "Highscore: %d", mHighScore);
+	mvprintw( m_deskHeight+2, 0, "Score: %d", m_score );
+	mvprintw( m_deskHeight+3, 0, "Highscore: %d", m_highScore );
 }
 
 void Snake::OnInput() {
-	keypad(stdscr, TRUE);
-	halfdelay(1);
+
+	keypad( stdscr, TRUE );
+	halfdelay( 1 );
 
 	int input = getch();
-	switch (input) {
+	switch ( input ) {
 		case KEY_LEFT :
-			if (mDirection != RIGHT) {
-				mDirection = LEFT;	
+			if ( m_direction != RIGHT ) {
+				m_direction = LEFT;	
 			}
 			break;
 		case KEY_RIGHT :
-			if (mDirection != LEFT) {
-				mDirection = RIGHT;	
+			if ( m_direction != LEFT ) {
+				m_direction = RIGHT;	
 			}
 			break;
 		case KEY_UP :
-			if (mDirection != DOWN) {
-				mDirection = UP;	
+			if ( m_direction != DOWN ) {
+				m_direction = UP;	
 			}
 			break;
 		case KEY_DOWN :
-			if (mDirection != UP) {
-				mDirection = DOWN;	
+			if ( m_direction != UP ) {
+				m_direction = DOWN;	
 			}
 			break;
 
-		default : break;
+		default : 
+			break;
 	}
 
 }
 
 void Snake::Extend() {
-	mScore += 10;
+	m_score += 10;
 	
-	SnakeSegment* newSegment = new SnakeSegment(mSnakeBody[mSnakeBody.size()-1].mX, mSnakeBody[mSnakeBody.size()-1].mY);
-	mSnakeBody.push_back(*newSegment);
+	SnakeSegment* newSegment = new SnakeSegment( m_snakeBody[ m_snakeBody.size()-1 ].m_x, m_snakeBody[ m_snakeBody.size()-1 ].m_y);
+	m_snakeBody.push_back( *newSegment );
 	delete newSegment;
 }
 
 void Snake::Update() {
-	const int tempHeadX = mX, tempHeadY = mY;
+	const int tempHeadX = m_x, tempHeadY = m_y;
 
-	switch (mDirection) {
+	switch ( m_direction ) {
 		case LEFT : 
-			--mX;
+			--m_x;
 			break;
 		
 		case RIGHT : 
-			++mX;
+			++m_x;
 			break;
 
 		case UP : 
-			--mY;
+			--m_y;
 			break;
 
 		case DOWN : 
-			++mY;
+			++m_y;
 			break;
 
-		default : return;
+		default : 
+			return;
 	}
 
-	for (int i = mSnakeBody.size()-1; i > 0; --i) {
-		mSnakeBody[i].mX = mSnakeBody[i-1].mX;
-		mSnakeBody[i].mY = mSnakeBody[i-1].mY;
-	}
-	if (!mSnakeBody.empty()) {
-		mSnakeBody[0].mX = tempHeadX;
-		mSnakeBody[0].mY = tempHeadY;
+	for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
+		m_snakeBody[ i ].m_x = m_snakeBody[ i-1 ].m_x;
+		m_snakeBody[ i ].m_y = m_snakeBody[ i-1 ].m_y;
 	}
 
-	for (const auto& seg : mSnakeBody) {
-		if (seg.mX == mX && seg.mY == mY) {
-			mIsDead = true;
+	if ( !m_snakeBody.empty() ) {
+		m_snakeBody[ 0 ].m_x = tempHeadX;
+		m_snakeBody[ 0 ].m_y = tempHeadY;
+	}
+
+	for ( const auto& seg : m_snakeBody ) {
+		if ( seg.m_x == m_x && seg.m_y == m_y ) {
+			m_isDead = true;
 			break;
 		}
 	}
 
-	if (mX == mDeskWidth-1 || mY == mDeskHeight-1 || mX == 0 || mY == 0) {
-		mIsDead = true;
+	if ( m_x == m_deskWidth-1 ||
+		m_y == m_deskHeight-1 ||
+		m_x == 0 || m_y == 0) {
+
+		m_isDead = true;
+
 	}
 }
 
 Snake::~Snake() {
-	if (mScore > mHighScore) {
-		mHighScore = mScore;
+	if ( m_score > m_highScore ) {
+		m_highScore = m_score;
 		std::fstream fout;
-		fout.open("highscore.txt", std::ios::out);
-		if (fout.is_open()) {
-			fout << mHighScore;
+		fout.open( "highscore.txt", std::ios::out );
+
+		if ( fout.is_open() ) {
+			fout << m_highScore;
 			fout.close();
 		}
 	}

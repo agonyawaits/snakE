@@ -17,22 +17,25 @@ Game::Game() {
 	curs_set(0);
 }
 
-void Game::Launch(const int DeskHeight, const int DeskWidth) const {
+void Game::Launch(
+	const int deskHeight, 
+	const int deskWidth
+	) const {
 	using namespace std::chrono_literals;
 
-	Desk GameDesk(DeskHeight, DeskWidth);
-	Snake snake(GameDesk.mHeight, GameDesk.mWidth);
-	Apple apple(GameDesk.mHeight, GameDesk.mWidth);
+	Desk gameDesk( deskHeight, deskWidth );
+	Snake snake( gameDesk.m_height, gameDesk.m_width );
+	Apple apple( gameDesk.m_height, gameDesk.m_width );
 
-	while (!snake.GetIsDead()) {
-		GameDesk.Draw(&apple, &snake);
-		GameDesk.Update(&apple, &snake);
+	while ( !snake.GetIsDead() ) {
+		gameDesk.Draw( &apple, &snake );
+		gameDesk.Update( &apple, &snake );
 	}	
 	
-	std::this_thread::sleep_for(1s);
+	std::this_thread::sleep_for( 1s );
 	clear();
-	mvprintw(DeskHeight/2, DeskWidth/2, "GAME OVER!");
+	mvprintw( deskHeight/2, deskWidth/2, "GAME OVER!" );
 	refresh();
-	std::this_thread::sleep_for(2s);
+	std::this_thread::sleep_for( 2s );
 	endwin();
 }
