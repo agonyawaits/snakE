@@ -1,1 +1,1 @@
-# SnakeGame_OOP C++
+# Snake game written on C++
