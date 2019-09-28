@@ -6,8 +6,8 @@
 #include <random>
 #include <ctime>
 
-#define 20 DESK_HEIGHT
-#define 61 DESK_WIDTH
+#define DESK_HEIGHT 20
+#define DESK_WIDTH 61
 
 int main() {
 	srand( time( nullptr ) );
@@ -16,4 +16,4 @@ int main() {
 	snakeGame.Launch( DESK_HEIGHT, DESK_WIDTH );
 
 	return 0;
-}
+} 
