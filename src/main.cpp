@@ -16,4 +16,4 @@ int main() {
 	snakeGame.Launch( DESK_HEIGHT, DESK_WIDTH );
 
 	return 0;
-} 
+}
