@@ -1,1 +1,1 @@
-# Snake game written on C++
+# Snake game written on C++ for Unix.
