@@ -9,13 +9,14 @@ class Desk {
 private:
 	void OnInput( Figure* );
 
-public:
 	const int m_height, m_width;
 
 public:
 	Desk( int, int );
 
-public:
+	int GetHeight() const;
+	int GetWidth() const;
+
 	void Draw( Figure*, Figure* ) const;
 	void Update( Figure*, Figure* );
 	

@@ -12,7 +12,9 @@ private:
 		int m_x, m_y;
 		SnakeSegment( int x, int y ) : m_x( x ), m_y( y ) {}
 	};
+
 	using SnakeContainer = std::vector<SnakeSegment>;
+	
 	enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
 
 	SnakeContainer m_snakeBody;

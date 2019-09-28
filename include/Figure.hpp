@@ -13,15 +13,12 @@ protected:
 public:
 	virtual ~Figure() {};
 
-public:
 	virtual void Draw() const = 0;
 	virtual void Update() = 0;
 
-public:
 	virtual void OnInput() {};
 	virtual void Extend() {};
 
-public:
 	int GetX() const { return m_x; }
 	int GetY() const { return m_y; }
 	bool GetIsDead() const { return m_isDead; }

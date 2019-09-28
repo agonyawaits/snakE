@@ -40,6 +40,14 @@ void Desk::Draw(
 	refresh();
 }
 
+int Desk::GetHeight() const {
+	return m_height;
+}
+
+int Desk::GetWidth() const {
+	return m_width;
+}
+
 void Desk::OnInput( Figure* character ) {
 	character->OnInput();
 }
