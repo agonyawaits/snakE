@@ -6,14 +6,14 @@
 #include <random>
 #include <ctime>
 
-using namespace std;
+#define 20 DESK_HEIGHT
+#define 61 DESK_WIDTH
 
 int main() {
-	const int deskHeight = 20; 
-	const int deskWidth = 61;
-
 	srand( time( nullptr ) );
 
 	Game snakeGame;
-	snakeGame.Launch( deskHeight, deskWidth );
+	snakeGame.Launch( DESK_HEIGHT, DESK_WIDTH );
+
+	return 0;
 }
