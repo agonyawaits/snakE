@@ -9,7 +9,7 @@ class Apple : public Figure {
 public:
 	Apple( int, int );
 
-	void Draw() const override;
-	void Update() override;
+	void draw() const override;
+	void update() override;
 	
 };

@@ -7,6 +7,6 @@ class Game {
 
 public:
 	Game();
-	void Launch( const int, const int ) const;
+	void launch( const int, const int ) const;
 	
 };

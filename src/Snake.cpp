@@ -6,8 +6,8 @@
 #include <fstream>
 
 Snake::Snake( 
-	int deskHeight,
-	int deskWidth 
+	int t_deskHeight,
+	int t_deskWidth 
 	) : m_direction( NONE ), m_score( 0 ), m_highScore( 0 ) {
 
 	std::fstream fin;
@@ -17,20 +17,20 @@ Snake::Snake(
 		fin.close();
 	}
 
-	Figure::m_deskHeight = deskHeight;
-	Figure::m_deskWidth = deskWidth;
-	Figure::m_x = deskWidth/2;
-	Figure::m_y = deskHeight/2;
+	Figure::m_deskHeight = t_deskHeight;
+	Figure::m_deskWidth = t_deskWidth;
+	Figure::m_x = t_deskWidth/2;
+	Figure::m_y = t_deskHeight/2;
 	Figure::m_isDead = false;
 
 	m_snakeBody.push_back( SnakeSegment( m_x-1, m_y ) );
 	m_snakeBody.push_back( SnakeSegment( m_x-2, m_y ) );
 }
 
-int Snake::GetScore() const { return m_score; }
-int Snake::GetHighScore() const { return m_highScore; }
+int Snake::getScore() const { return m_score; }
+int Snake::getHighScore() const { return m_highScore; }
 
-void Snake::Draw() const {
+void Snake::draw() const {
 
 	switch ( m_direction ) {
 		case LEFT : 
@@ -61,7 +61,7 @@ void Snake::Draw() const {
 	mvprintw( m_deskHeight+3, 0, "Highscore: %d", m_highScore );
 }
 
-void Snake::OnInput() {
+void Snake::onInput() {
 
 	keypad( stdscr, TRUE );
 	halfdelay( 1 );
@@ -73,16 +73,19 @@ void Snake::OnInput() {
 				m_direction = LEFT;	
 			}
 			break;
+
 		case KEY_RIGHT :
 			if ( m_direction != LEFT ) {
 				m_direction = RIGHT;	
 			}
 			break;
+
 		case KEY_UP :
 			if ( m_direction != DOWN ) {
 				m_direction = UP;	
 			}
 			break;
+
 		case KEY_DOWN :
 			if ( m_direction != UP ) {
 				m_direction = DOWN;	
@@ -95,7 +98,7 @@ void Snake::OnInput() {
 
 }
 
-void Snake::Extend() {
+void Snake::extend() {
 	m_score += 10;
 	
 	SnakeSegment* newSegment = new SnakeSegment( m_snakeBody[ m_snakeBody.size()-1 ].m_x, m_snakeBody[ m_snakeBody.size()-1 ].m_y);
@@ -103,7 +106,7 @@ void Snake::Extend() {
 	delete newSegment;
 }
 
-void Snake::Update() {
+void Snake::update() {
 	const int tempHeadX = m_x, tempHeadY = m_y;
 
 	switch ( m_direction ) {

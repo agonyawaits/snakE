@@ -10,7 +10,7 @@ class Snake : public Figure {
 private:
 	struct SnakeSegment {
 		int m_x, m_y;
-		SnakeSegment( int x, int y ) : m_x( x ), m_y( y ) {}
+		SnakeSegment( int t_x, int t_y ) : m_x( t_x ), m_y( t_y ) {}
 	};
 
 	using SnakeContainer = std::vector<SnakeSegment>;
@@ -22,16 +22,16 @@ private:
 	int m_score;
 	int m_highScore;
 
-	void Extend() override;
+	void extend() override;
 
 public:
 	Snake( int,int );
 	~Snake();
 
-	int GetScore() const;
-	int GetHighScore() const;
-	void Draw() const override;
-	void Update() override;
-	void OnInput() override;
+	int getScore() const;
+	int getHighScore() const;
+	void draw() const override;
+	void update() override;
+	void onInput() override;
 
 };

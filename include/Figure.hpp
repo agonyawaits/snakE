@@ -13,14 +13,14 @@ protected:
 public:
 	virtual ~Figure() {};
 
-	virtual void Draw() const = 0;
-	virtual void Update() = 0;
+	virtual void draw() const = 0;
+	virtual void update() = 0;
 
-	virtual void OnInput() {};
-	virtual void Extend() {};
+	virtual void onInput() {};
+	virtual void extend() {};
 
-	int GetX() const { return m_x; }
-	int GetY() const { return m_y; }
-	bool GetIsDead() const { return m_isDead; }
+	int getX() const { return m_x; }
+	int getY() const { return m_y; }
+	bool getIsDead() const { return m_isDead; }
 	
 };

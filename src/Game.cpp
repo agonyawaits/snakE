@@ -14,27 +14,27 @@ Game::Game() {
   	clear();
 	noecho();
 	cbreak();
-	curs_set(0);
+	curs_set( 0 );
 }
 
-void Game::Launch(
-	const int deskHeight, 
-	const int deskWidth
+void Game::launch(
+	const int t_deskHeight, 
+	const int t_deskWidth
 	) const {
 	using namespace std::chrono_literals;
 
-	Desk gameDesk( deskHeight, deskWidth );
-	Snake snake( gameDesk.GetHeight(), gameDesk.GetWidth() );
-	Apple apple( gameDesk.GetHeight(), gameDesk.GetWidth() );
+	Desk gameDesk( t_deskHeight, t_deskWidth );
+	Snake snake( gameDesk.getHeight(), gameDesk.getWidth() );
+	Apple apple( gameDesk.getHeight(), gameDesk.getWidth() );
 
-	while ( !snake.GetIsDead() ) {
-		gameDesk.Draw( &apple, &snake );
-		gameDesk.Update( &apple, &snake );
+	while ( !snake.getIsDead() ) {
+		gameDesk.draw( &apple, &snake );
+		gameDesk.update( &apple, &snake );
 	}	
 	
 	std::this_thread::sleep_for( 1s );
 	clear();
-	mvprintw( deskHeight/2, deskWidth/2, "GAME OVER!" );
+	mvprintw( t_deskHeight/2, t_deskWidth/2, "GAME OVER!" );
 	refresh();
 	std::this_thread::sleep_for( 2s );
 	endwin();

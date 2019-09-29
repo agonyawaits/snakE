@@ -7,17 +7,17 @@
 class Desk {
 
 private:
-	void OnInput( Figure* );
+	void onInput( Figure* );
 
 	const int m_height, m_width;
 
 public:
 	Desk( int, int );
 
-	int GetHeight() const;
-	int GetWidth() const;
+	int getHeight() const;
+	int getWidth() const;
 
-	void Draw( Figure*, Figure* ) const;
-	void Update( Figure*, Figure* );
+	void draw( Figure*, Figure* ) const;
+	void update( Figure*, Figure* );
 	
 };

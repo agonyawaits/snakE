@@ -5,13 +5,13 @@
 #include <ncurses.h>
 
 Desk::Desk(
-	const int height, 
-	const int width
-	) : m_height(height), m_width(width) {} 
+	const int t_height, 
+	const int t_width
+	) : m_height( t_height ), m_width( t_width ) {} 
 
-void Desk::Draw(
-	Figure* food, 
-	Figure* character
+void Desk::draw(
+	Figure* t_food, 
+	Figure* t_character
 	) const {
 
 	clear();
@@ -25,13 +25,13 @@ void Desk::Draw(
 
 				mvprintw( i, j, "*" );
 
-			} else if ( j == character->GetX() && i == character->GetY() ) {
+			} else if ( j == t_character->getX() && i == t_character->getY() ) {
 
-				character->Draw();
+				t_character->draw();
 
-			} else if ( j == food->GetX() && i == food->GetY() ) {
+			} else if ( j == t_food->getX() && i == t_food->getY() ) {
 
-				food->Draw();
+				t_food->draw();
 
 			}
 		}
@@ -40,31 +40,31 @@ void Desk::Draw(
 	refresh();
 }
 
-int Desk::GetHeight() const {
+int Desk::getHeight() const {
 	return m_height;
 }
 
-int Desk::GetWidth() const {
+int Desk::getWidth() const {
 	return m_width;
 }
 
-void Desk::OnInput( Figure* character ) {
-	character->OnInput();
+void Desk::onInput( Figure* t_character ) {
+	t_character->onInput();
 }
 
-void Desk::Update(
-	Figure* food, 
-	Figure* character 
+void Desk::update(
+	Figure* t_food, 
+	Figure* t_character 
 	) {
-	OnInput( character );
+	onInput( t_character );
 
-	character->Update();
+	t_character->update();
 
-	if ( food->GetX() == character->GetX() && 
-		food->GetY() == character->GetY() ) {
+	if ( t_food->getX() == t_character->getX() && 
+		t_food->getY() == t_character->getY() ) {
 
-		food->Update();
-		character->Extend();
+		t_food->update();
+		t_character->extend();
 	}
 
 }

@@ -13,7 +13,7 @@ int main() {
 	srand( time( nullptr ) );
 
 	Game snakeGame;
-	snakeGame.Launch( DESK_HEIGHT, DESK_WIDTH );
+	snakeGame.launch( DESK_HEIGHT, DESK_WIDTH );
 
 	return 0;
 }

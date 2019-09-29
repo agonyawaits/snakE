@@ -6,21 +6,21 @@
 #include <ncurses.h>
 
 Apple::Apple( 
-	const int deskHeight, 
-	const int deskWidth 
+	const int t_deskHeight, 
+	const int t_deskWidth 
 	) {
-	Figure::m_deskHeight = deskHeight;
-	Figure::m_deskWidth = deskWidth;
+	Figure::m_deskHeight = t_deskHeight;
+	Figure::m_deskWidth = t_deskWidth;
 	Figure::m_isDead = false;
 	Figure::m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
 	Figure::m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }
 
-void Apple::Draw() const {
+void Apple::draw() const {
 	mvprintw( m_y, m_x, "@" );
 }
 
-void Apple::Update() {
+void Apple::update() {
 	m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
 	m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }
