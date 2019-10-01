@@ -107,7 +107,8 @@ void Snake::extend() {
 }
 
 void Snake::update() {
-	const int tempHeadX = m_x, tempHeadY = m_y;
+	const int tempHeadX = m_x;
+	const int tempHeadY = m_y;
 
 	switch ( m_direction ) {
 		case LEFT : 
@@ -130,7 +131,9 @@ void Snake::update() {
 			return;
 	}
 
-	for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
+	for ( int i = m_snakeBody.size()-1;
+		i > 0;
+		--i ) {
 		m_snakeBody[ i ].m_x = m_snakeBody[ i-1 ].m_x;
 		m_snakeBody[ i ].m_y = m_snakeBody[ i-1 ].m_y;
 	}

@@ -24,16 +24,13 @@ void Desk::draw(
 				( j == 0 ) || ( j == m_width - 1 ) ) {
 
 				mvprintw( i, j, "*" );
-
+			
 			} else if ( j == t_character->getX() && i == t_character->getY() ) {
-
 				t_character->draw();
-
 			} else if ( j == t_food->getX() && i == t_food->getY() ) {
-
 				t_food->draw();
-
 			}
+
 		}
 	}
 
