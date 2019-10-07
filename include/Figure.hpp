@@ -1,5 +1,5 @@
 //  Figure.hpp
-//  SnakeGame_OOP
+//  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 

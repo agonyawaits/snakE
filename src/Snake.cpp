@@ -1,5 +1,5 @@
 //  Snake.cpp
-//  SnakeGame_OOP
+//  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "../include/Snake.h"
 #include <ncurses.h>
@@ -33,19 +33,19 @@ int Snake::getHighScore() const { return m_highScore; }
 void Snake::draw() const {
 
 	switch ( m_direction ) {
-		case LEFT : 
+		case LEFT :
 		mvprintw( m_y, m_x, "<" );
 		break;
-		
-		case RIGHT : 
+
+		case RIGHT :
 			mvprintw( m_y, m_x, ">" );
 			break;
 
-		case UP : 
+		case UP :
 			mvprintw( m_y, m_x, "^" );
 			break;
 
-		case DOWN : 
+		case DOWN :
 			mvprintw( m_y, m_x, "v" );
 			break;
 
@@ -53,7 +53,7 @@ void Snake::draw() const {
 			mvprintw( m_y, m_x, ">" );
 			break;
 	}
-	
+
 	for ( const auto& seg : m_snakeBody ) {
 		mvprintw( seg.m_y, seg.m_x, "o" );
 	}
@@ -70,25 +70,25 @@ void Snake::onInput() {
 	switch ( input ) {
 		case KEY_LEFT :
 			if ( m_direction != RIGHT ) {
-				m_direction = LEFT;	
+				m_direction = LEFT;
 			}
 			break;
 
 		case KEY_RIGHT :
 			if ( m_direction != LEFT ) {
-				m_direction = RIGHT;	
+				m_direction = RIGHT;
 			}
 			break;
 
 		case KEY_UP :
 			if ( m_direction != DOWN ) {
-				m_direction = UP;	
+				m_direction = UP;
 			}
 			break;
 
 		case KEY_DOWN :
 			if ( m_direction != UP ) {
-				m_direction = DOWN;	
+				m_direction = DOWN;
 			}
 			break;
 
@@ -100,10 +100,9 @@ void Snake::onInput() {
 
 void Snake::extend() {
 	m_score += 10;
-	
-	SnakeSegment* newSegment = new SnakeSegment( m_snakeBody[ m_snakeBody.size()-1 ].m_x, m_snakeBody[ m_snakeBody.size()-1 ].m_y);
-	m_snakeBody.push_back( *newSegment );
-	delete newSegment;
+
+	SnakeSegment newSegment( m_snakeBody[ m_snakeBody.size()-1 ].m_x, m_snakeBody[ m_snakeBody.size()-1 ].m_y );
+	m_snakeBody.push_back( newSegment );
 }
 
 void Snake::update() {
@@ -114,7 +113,7 @@ void Snake::update() {
 		case LEFT : 
 			--m_x;
 			break;
-		
+
 		case RIGHT : 
 			++m_x;
 			break;

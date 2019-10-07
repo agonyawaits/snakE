@@ -1,5 +1,5 @@
 //  main.cpp
-//  SnakeGame_OOP
+//  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include <iostream>
 #include "../include/Game.h"
