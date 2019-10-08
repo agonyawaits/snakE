@@ -10,8 +10,7 @@ Snake::Snake(
 	int t_deskWidth 
 	) : m_direction( NONE ), m_score( 0 ), m_highScore( 0 ) {
 
-	std::fstream fin;
-	fin.open( "highscore.txt", std::ios::in );
+	std::fstream fin( "highscore.txt", std::ios::in );
 	if ( fin.is_open() ) {
 		fin >> m_highScore;
 		fin.close();
@@ -34,8 +33,8 @@ void Snake::draw() const {
 
 	switch ( m_direction ) {
 		case LEFT :
-		mvprintw( m_y, m_x, "<" );
-		break;
+			mvprintw( m_y, m_x, "<" );
+			break;
 
 		case RIGHT :
 			mvprintw( m_y, m_x, ">" );
@@ -151,7 +150,7 @@ void Snake::update() {
 
 	if ( m_x == m_deskWidth-1 ||
 		m_y == m_deskHeight-1 ||
-		m_x == 0 || m_y == 0) {
+		m_x == 0 || m_y == 0 ) {
 
 		m_isDead = true;
 
@@ -161,9 +160,8 @@ void Snake::update() {
 Snake::~Snake() {
 	if ( m_score > m_highScore ) {
 		m_highScore = m_score;
-		std::fstream fout;
-		fout.open( "highscore.txt", std::ios::out );
 
+		std::fstream fout( "highscore.txt", std::ios::out );
 		if ( fout.is_open() ) {
 			fout << m_highScore;
 			fout.close();

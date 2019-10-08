@@ -24,8 +24,8 @@ void Game::launch(
 	using namespace std::chrono_literals;
 
 	Desk gameDesk( t_deskHeight, t_deskWidth );
-	Snake snake( gameDesk.getHeight(), gameDesk.getWidth() );
-	Apple apple( gameDesk.getHeight(), gameDesk.getWidth() );
+	Snake snake( t_deskHeight, t_deskWidth );
+	Apple apple( t_deskHeight, t_deskWidth );
 
 	while ( !snake.getIsDead() ) {
 		gameDesk.draw( &apple, &snake );
