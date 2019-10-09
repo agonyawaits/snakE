@@ -7,8 +7,6 @@
 class Desk {
 
 private:
-	void onInput( Figure* );
-
 	const int m_height, m_width;
 
 public:

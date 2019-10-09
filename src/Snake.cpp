@@ -26,8 +26,13 @@ Snake::Snake(
 	m_snakeBody.push_back( SnakeSegment( m_x-2, m_y ) );
 }
 
-int Snake::getScore() const { return m_score; }
-int Snake::getHighScore() const { return m_highScore; }
+int Snake::getScore() const { 
+	return m_score;
+}
+
+int Snake::getHighScore() const { 
+	return m_highScore;
+}
 
 void Snake::draw() const {
 
@@ -105,6 +110,9 @@ void Snake::extend() {
 }
 
 void Snake::update() {
+
+	onInput();
+
 	const int tempHeadX = m_x;
 	const int tempHeadY = m_y;
 

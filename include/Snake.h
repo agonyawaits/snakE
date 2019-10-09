@@ -23,6 +23,7 @@ private:
 	int m_highScore;
 
 	void extend() override;
+	void onInput() override;
 
 public:
 	Snake( int,int );
@@ -32,6 +33,5 @@ public:
 	int getHighScore() const;
 	void draw() const override;
 	void update() override;
-	void onInput() override;
-
+	
 };

@@ -45,15 +45,10 @@ int Desk::getWidth() const {
 	return m_width;
 }
 
-void Desk::onInput( Figure* t_character ) {
-	t_character->onInput();
-}
-
 void Desk::update(
 	Figure* t_food, 
 	Figure* t_character 
 	) {
-	onInput( t_character );
 
 	t_character->update();
 
