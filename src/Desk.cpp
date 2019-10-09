@@ -48,7 +48,7 @@ int Desk::getWidth() const {
 void Desk::update(
 	Figure* t_food, 
 	Figure* t_character 
-	) {
+	) const {
 
 	t_character->update();
 

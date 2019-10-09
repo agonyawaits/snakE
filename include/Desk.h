@@ -16,6 +16,6 @@ public:
 	int getWidth() const;
 
 	void draw( Figure*, Figure* ) const;
-	void update( Figure*, Figure* );
+	void update( Figure*, Figure* ) const;
 	
 };
