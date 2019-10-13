@@ -10,10 +10,10 @@
 #define DESK_WIDTH 61
 
 int main() {
-	srand( time( nullptr ) );
+    srand( time( nullptr ) );
 
-	Game snakeGame;
-	snakeGame.launch( DESK_HEIGHT, DESK_WIDTH );
+    Game snakeGame;
+    snakeGame.launch( DESK_HEIGHT, DESK_WIDTH );
 
-	return 0;
+    return 0;
 }

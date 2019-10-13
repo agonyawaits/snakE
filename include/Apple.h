@@ -7,9 +7,9 @@
 class Apple : public Figure {
 
 public:
-	Apple( int, int );
+    Apple( int, int );
 
-	void draw() const override;
-	void update() override;
-	
+    void draw() const override;
+    void update() override;
+    
 };

@@ -7,15 +7,15 @@
 class Desk {
 
 private:
-	const int m_height, m_width;
+    const int m_height, m_width;
 
 public:
-	Desk( int, int );
+    Desk( int, int );
 
-	int getHeight() const;
-	int getWidth() const;
+    int getHeight() const;
+    int getWidth() const;
 
-	void draw( Figure*, Figure* ) const;
-	void update( Figure*, Figure* ) const;
-	
+    void draw( Figure*, Figure*, const int&, const int& ) const;
+    void update( Figure*, Figure*, int& );
+    
 };

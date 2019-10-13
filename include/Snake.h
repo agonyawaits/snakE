@@ -8,30 +8,24 @@
 class Snake : public Figure {
 
 private:
-	struct SnakeSegment {
-		int m_x, m_y;
-		SnakeSegment( int t_x, int t_y ) : m_x( t_x ), m_y( t_y ) {}
-	};
+    struct SnakeSegment {
+        int m_x, m_y;
+        SnakeSegment( int t_x, int t_y ) : m_x( t_x ), m_y( t_y ) {}
+    };
 
-	using SnakeContainer = std::vector<SnakeSegment>;
-	
-	enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
+    using SnakeContainer = std::vector<SnakeSegment>;
+    
+    enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
 
-	SnakeContainer m_snakeBody;
-	Direction m_direction;
-	int m_score;
-	int m_highScore;
+    SnakeContainer m_snakeBody;
+    Direction m_direction;
 
-	void extend() override;
-	void onInput() override;
+    void extend() override;
+    void onInput() override;
 
 public:
-	Snake( int,int );
-	~Snake();
+    Snake( int,int );
 
-	int getScore() const;
-	int getHighScore() const;
-	void draw() const override;
-	void update() override;
-	
+    void draw() const override;
+    void update() override; 
 };
