@@ -5,7 +5,6 @@
 #include "Figure.hpp"
 
 class Apple : public Figure {
-
 public:
     Apple( int, int );
 

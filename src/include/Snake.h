@@ -6,7 +6,12 @@
 #include <vector>
 
 class Snake : public Figure {
+public:
+    Snake( int, int );
 
+    void draw() const override;
+    void update() override;
+    
 private:
     struct SnakeSegment {
         int m_x, m_y;
@@ -22,10 +27,4 @@ private:
 
     void extend() override;
     void onInput() override;
-
-public:
-    Snake( int,int );
-
-    void draw() const override;
-    void update() override; 
 };

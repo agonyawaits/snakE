@@ -5,10 +5,6 @@
 #include "Figure.hpp"
 
 class Desk {
-
-private:
-    const int m_height, m_width;
-
 public:
     Desk( int, int );
 
@@ -17,5 +13,7 @@ public:
 
     void draw( Figure*, Figure*, const int&, const int& ) const;
     void update( Figure*, Figure*, int& );
-    
+
+private:
+    const int m_height, m_width;
 };

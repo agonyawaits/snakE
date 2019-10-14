@@ -1,7 +1,7 @@
 //  Snake.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "../include/Snake.h"
+#include "include/Snake.h"
 #include <ncurses.h>
 
 Snake::Snake( 

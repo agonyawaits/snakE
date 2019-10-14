@@ -1,7 +1,7 @@
 //  Desk.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "../include/Desk.h"
+#include "include/Desk.h"
 #include <ncurses.h>
 
 Desk::Desk(

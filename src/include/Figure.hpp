@@ -4,12 +4,6 @@
 #pragma once
 
 class Figure {
-
-protected:
-    int m_x, m_y;
-    bool m_isDead;
-    int m_deskHeight, m_deskWidth;
-
 public:
     virtual ~Figure() {};
 
@@ -21,6 +15,10 @@ public:
 
     int getX() const { return m_x; }
     int getY() const { return m_y; }
-    bool getIsDead() const { return m_isDead; }
+    bool isDead() const { return m_isDead; }
     
+protected:
+    int m_x, m_y;
+    bool m_isDead;
+    int m_deskHeight, m_deskWidth;
 };

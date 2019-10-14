@@ -1,11 +1,11 @@
 //  Game.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "../include/Game.h"
-#include "../include/Desk.h"
-#include "../include/Apple.h"
-#include "../include/Snake.h"
-#include "../include/ScoreManager.hpp"
+#include "include/Game.h"
+#include "include/Desk.h"
+#include "include/Apple.h"
+#include "include/Snake.h"
+#include "include/ScoreManager.hpp"
 #include <ncurses.h>
 #include <thread>
 #include <ctime>
@@ -18,7 +18,7 @@ Game::Game() :
     noecho();
     cbreak();
     curs_set( 0 );
-    ScoreManager::initScore( m_highScore );
+    m_highScore = ScoreManager::getScore();
 }
 
 void Game::launch(
@@ -27,13 +27,13 @@ void Game::launch(
     ) {
     using namespace std::chrono_literals;
 
-    Desk gameDesk( t_deskHeight, t_deskWidth );
+    Desk desk( t_deskHeight, t_deskWidth );
     Snake snake( t_deskHeight, t_deskWidth );
     Apple apple( t_deskHeight, t_deskWidth );
 
-    while ( !snake.getIsDead() ) {
-        gameDesk.draw( &apple, &snake, m_score, m_highScore );
-        gameDesk.update( &apple, &snake, m_score );
+    while ( !snake.isDead() ) {
+        desk.draw( &apple, &snake, m_score, m_highScore );
+        desk.update( &apple, &snake, m_score );
     }   
     
     std::this_thread::sleep_for( 1s );

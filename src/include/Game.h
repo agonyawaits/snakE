@@ -4,12 +4,13 @@
 #pragma once
 
 class Game {
-private:
-    int m_score;
-    int m_highScore;
 public:
     Game();
     ~Game();
 
     void launch( const int, const int );
+    
+private:
+    int m_score;
+    int m_highScore;
 };
