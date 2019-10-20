@@ -18,8 +18,7 @@ private:
         SnakeSegment( int t_xPos, int t_yPos ) : m_xPos( t_xPos ), m_yPos( t_yPos ) {}
     };
     
-    enum Direction { 
-        NONE, 
+    enum Direction {  
         LEFT, 
         RIGHT, 
         UP, 

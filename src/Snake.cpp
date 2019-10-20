@@ -7,13 +7,14 @@
 Snake::Snake( 
     int t_deskHeight,
     int t_deskWidth 
-    ) : m_direction( NONE ) {
+    ) : m_direction( RIGHT ) {
     m_deskHeight = t_deskHeight;
     m_deskWidth = t_deskWidth;
     m_xPos = t_deskWidth/2;
     m_yPos = t_deskHeight/2;
     m_isDead = false;
     m_snakeBody.push_back( SnakeSegment( m_xPos-1, m_yPos ) );
+    m_snakeBody.push_back( SnakeSegment( m_xPos-2, m_yPos ) );
 }
 
 void Snake::draw() const {
@@ -34,8 +35,7 @@ void Snake::draw() const {
             mvprintw( m_yPos, m_xPos, "v" );
             break;
 
-        case NONE :
-            mvprintw( m_yPos, m_xPos, ">" );
+        default:
             break;
     }
 
