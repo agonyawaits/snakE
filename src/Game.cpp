@@ -10,6 +10,8 @@
 #include <thread>
 #include <ctime>
 
+using namespace std::chrono_literals;
+
 Game::Game() :
     m_score( 0 ),
     m_highScore( 0 ) {
@@ -25,15 +27,13 @@ void Game::launch(
     const int t_deskHeight, 
     const int t_deskWidth
     ) {
-    using namespace std::chrono_literals;
-
     Desk desk( t_deskHeight, t_deskWidth );
     Snake snake( t_deskHeight, t_deskWidth );
     Apple apple( t_deskHeight, t_deskWidth );
 
     while ( !snake.isDead() ) {
-        desk.draw( &apple, &snake, m_score, m_highScore );
-        desk.update( &apple, &snake, m_score );
+        desk.draw( apple, snake, m_score, m_highScore );
+        desk.update( apple, snake, m_score );
     }   
     
     std::this_thread::sleep_for( 1s );

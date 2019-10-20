@@ -14,17 +14,24 @@ public:
     
 private:
     struct SnakeSegment {
-        int m_x, m_y;
-        SnakeSegment( int t_x, int t_y ) : m_x( t_x ), m_y( t_y ) {}
+        int m_xPos, m_yPos;
+        SnakeSegment( int t_xPos, int t_yPos ) : m_xPos( t_xPos ), m_yPos( t_yPos ) {}
+    };
+    
+    enum Direction { 
+        NONE, 
+        LEFT, 
+        RIGHT, 
+        UP, 
+        DOWN 
     };
 
-    using SnakeContainer = std::vector<SnakeSegment>;
-    
-    enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
-
-    SnakeContainer m_snakeBody;
+    std::vector<SnakeSegment> m_snakeBody;
     Direction m_direction;
 
     void extend() override;
     void onInput() override;
+    void changeDirection( int );
+    bool hasDied() const;
+    void moveOneStepForward();
 };

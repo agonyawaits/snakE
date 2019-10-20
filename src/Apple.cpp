@@ -12,15 +12,15 @@ Apple::Apple(
     m_deskHeight = t_deskHeight;
     m_deskWidth = t_deskWidth;
     m_isDead = false;
-    m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
-    m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
+    m_xPos = ( rand() % ( m_deskWidth-2 ) ) + 1;
+    m_yPos = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }
 
 void Apple::draw() const {
-    mvprintw( m_y, m_x, "@" );
+    mvprintw( m_yPos, m_xPos, "@" );
 }
 
 void Apple::update() {
-    m_x = ( rand() % ( m_deskWidth-2 ) ) + 1;
-    m_y = ( rand() % ( m_deskHeight-2 ) ) + 1;
+    m_xPos = ( rand() % ( m_deskWidth-2 ) ) + 1;
+    m_yPos = ( rand() % ( m_deskHeight-2 ) ) + 1;
 }

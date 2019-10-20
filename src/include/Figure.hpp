@@ -13,12 +13,12 @@ public:
     virtual void onInput() {};
     virtual void extend() {};
 
-    int getX() const { return m_x; }
-    int getY() const { return m_y; }
-    bool isDead() const { return m_isDead; }
+    inline int getX() const { return m_xPos; }
+    inline int getY() const { return m_yPos; }
+    inline bool isDead() const { return m_isDead; }
     
 protected:
-    int m_x, m_y;
+    int m_xPos, m_yPos;
     bool m_isDead;
     int m_deskHeight, m_deskWidth;
 };

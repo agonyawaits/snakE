@@ -10,8 +10,8 @@ Desk::Desk(
     ) : m_height( t_height ), m_width( t_width ) {}
 
 void Desk::draw(
-    Figure* t_food, 
-    Figure* t_character,
+    const Figure& t_food, 
+    const Figure& t_character,
     const int& t_score,
     const int& t_highScore
     ) const {
@@ -24,10 +24,10 @@ void Desk::draw(
                 ( i == m_height - 1 && j % 2 == 0 ) ||
                 ( j == 0 ) || ( j == m_width - 1 ) ) {
                 mvprintw( i, j, "*" );
-            } else if ( j == t_character->getX() && i == t_character->getY() ) {
-                t_character->draw();
-            } else if ( j == t_food->getX() && i == t_food->getY() ) {
-                t_food->draw();
+            } else if ( j == t_character.getX() && i == t_character.getY() ) {
+                t_character.draw();
+            } else if ( j == t_food.getX() && i == t_food.getY() ) {
+                t_food.draw();
             }
         }
     }
@@ -37,28 +37,15 @@ void Desk::draw(
     refresh();
 }
 
-int Desk::getHeight() const {
-    return m_height;
-}
-
-int Desk::getWidth() const {
-    return m_width;
-}
-
 void Desk::update(
-    Figure* t_food, 
-    Figure* t_character,
+    Figure& t_food, 
+    Figure& t_character,
     int& t_score
     ) {
-
-    t_character->update();
-
-    if ( t_food->getX() == t_character->getX() && 
-        t_food->getY() == t_character->getY() ) {
-
-        t_food->update();
-        t_character->extend();
+    t_character.update();
+    if ( t_food.getX() == t_character.getX() && t_food.getY() == t_character.getY() ) {
+        t_food.update();
+        t_character.extend();
         t_score += 10;
     }
-
 }

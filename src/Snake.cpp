@@ -7,140 +7,136 @@
 Snake::Snake( 
     int t_deskHeight,
     int t_deskWidth 
-    ) : m_direction( NONE ) 
-{
+    ) : m_direction( NONE ) {
     m_deskHeight = t_deskHeight;
     m_deskWidth = t_deskWidth;
-    m_x = t_deskWidth/2;
-    m_y = t_deskHeight/2;
+    m_xPos = t_deskWidth/2;
+    m_yPos = t_deskHeight/2;
     m_isDead = false;
-
-    m_snakeBody.push_back( SnakeSegment( m_x-1, m_y ) );
+    m_snakeBody.push_back( SnakeSegment( m_xPos-1, m_yPos ) );
 }
 
 void Snake::draw() const {
     switch ( m_direction ) {
         case LEFT :
-            mvprintw( m_y, m_x, "<" );
+            mvprintw( m_yPos, m_xPos, "<" );
             break;
 
         case RIGHT :
-            mvprintw( m_y, m_x, ">" );
+            mvprintw( m_yPos, m_xPos, ">" );
             break;
 
         case UP :
-            mvprintw( m_y, m_x, "^" );
+            mvprintw( m_yPos, m_xPos, "^" );
             break;
 
         case DOWN :
-            mvprintw( m_y, m_x, "v" );
+            mvprintw( m_yPos, m_xPos, "v" );
             break;
 
         case NONE :
-            mvprintw( m_y, m_x, ">" );
+            mvprintw( m_yPos, m_xPos, ">" );
             break;
     }
 
     for ( const auto& seg : m_snakeBody ) {
-        mvprintw( seg.m_y, seg.m_x, "o" );
+        mvprintw( seg.m_yPos, seg.m_xPos, "o" );
     }
 }
 
 void Snake::onInput() {
     keypad( stdscr, TRUE );
     halfdelay( 1 );
+    int userInput = getch();
+    changeDirection( userInput );
+}
 
-    int input = getch();
-    switch ( input ) {
+void Snake::changeDirection( int t_playerInput ) {
+    switch ( t_playerInput ) {
         case KEY_LEFT :
-            if ( m_direction != RIGHT ) {
-                m_direction = LEFT;
-            }
+            m_direction = m_direction != RIGHT ? LEFT : m_direction;
             break;
 
         case KEY_RIGHT :
-            if ( m_direction != LEFT ) {
-                m_direction = RIGHT;
-            }
+            m_direction = m_direction != LEFT ? RIGHT : m_direction;
             break;
 
         case KEY_UP :
-            if ( m_direction != DOWN ) {
-                m_direction = UP;
-            }
+            m_direction = m_direction != DOWN ? UP : m_direction;
             break;
 
         case KEY_DOWN :
-            if ( m_direction != UP ) {
-                m_direction = DOWN;
-            }
+            m_direction = m_direction != UP ? DOWN : m_direction;
             break;
 
         default : 
             break;
     }
-
 }
 
 void Snake::extend() {
     m_snakeBody.push_back(
         SnakeSegment(
-            m_snakeBody[ m_snakeBody.size()-1 ].m_x, 
-            m_snakeBody[ m_snakeBody.size()-1 ].m_y 
+            m_snakeBody[ m_snakeBody.size()-1 ].m_xPos, 
+            m_snakeBody[ m_snakeBody.size()-1 ].m_yPos 
         )
     );
 }
 
 void Snake::update() {
     onInput();
+    moveOneStepForward();
+    m_isDead = hasDied();
+}
 
-    const int tempHeadX = m_x;
-    const int tempHeadY = m_y;
+void Snake::moveOneStepForward() {
+    const int headPosX = m_xPos;
+    const int headPosY = m_yPos;
 
     switch ( m_direction ) {
         case LEFT : 
-            --m_x;
+            --m_xPos;
             break;
 
         case RIGHT : 
-            ++m_x;
+            ++m_xPos;
             break;
 
         case UP : 
-            --m_y;
+            --m_yPos;
             break;
 
         case DOWN : 
-            ++m_y;
+            ++m_yPos;
             break;
 
         default : 
             return;
     }
 
-    for ( int i = m_snakeBody.size()-1;
-        i > 0;
-        --i ) {
-        m_snakeBody[ i ].m_x = m_snakeBody[ i-1 ].m_x;
-        m_snakeBody[ i ].m_y = m_snakeBody[ i-1 ].m_y;
+    for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
+        m_snakeBody[ i ].m_xPos = m_snakeBody[ i-1 ].m_xPos;
+        m_snakeBody[ i ].m_yPos = m_snakeBody[ i-1 ].m_yPos;
     }
 
     if ( !m_snakeBody.empty() ) {
-        m_snakeBody[ 0 ].m_x = tempHeadX;
-        m_snakeBody[ 0 ].m_y = tempHeadY;
+        m_snakeBody[ 0 ].m_xPos = headPosX;
+        m_snakeBody[ 0 ].m_yPos = headPosY;
     }
+}
 
+bool Snake::hasDied() const {
     for ( const auto& seg : m_snakeBody ) {
-        if ( seg.m_x == m_x && seg.m_y == m_y ) {
-            m_isDead = true;
+        if ( seg.m_xPos == m_xPos && seg.m_yPos == m_yPos ) {
+            return true;
             break;
         }
     }
 
-    if ( m_x == m_deskWidth-1 ||
-        m_y == m_deskHeight-1 ||
-        m_x == 0 || m_y == 0 ) 
-    {
-        m_isDead = true;
+    if ( m_xPos == m_deskWidth-1 || m_yPos == m_deskHeight-1 ||
+        m_xPos == 0 || m_yPos == 0 ) {
+        return true;
     }
+
+    return false;
 }

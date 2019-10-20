@@ -11,6 +11,5 @@ public:
     void launch( const int, const int );
     
 private:
-    int m_score;
-    int m_highScore;
+    int m_score, m_highScore;
 };
