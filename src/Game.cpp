@@ -6,15 +6,14 @@
 #include "include/Apple.h"
 #include "include/Snake.h"
 #include "include/ScoreManager.hpp"
+#include "include/Config.hpp"
 #include <ncurses.h>
 #include <thread>
 #include <ctime>
 
 using namespace std::chrono_literals;
 
-Game::Game() :
-    m_score( 0 ),
-    m_highScore( 0 ) {
+Game::Game() : m_score( 0 ), m_highScore( 0 ) {
     initscr();
     clear();
     noecho();
@@ -23,13 +22,10 @@ Game::Game() :
     m_highScore = ScoreManager::getScore();
 }
 
-void Game::launch(
-    const int t_deskHeight, 
-    const int t_deskWidth
-    ) {
-    Desk desk( t_deskHeight, t_deskWidth );
-    Snake snake( t_deskHeight, t_deskWidth );
-    Apple apple( t_deskHeight, t_deskWidth );
+void Game::launch() {
+    Desk desk;
+    Snake snake;
+    Apple apple;
 
     while ( !snake.isDead() ) {
         desk.draw( apple, snake, m_score, m_highScore );
@@ -38,7 +34,7 @@ void Game::launch(
     
     std::this_thread::sleep_for( 1s );
     clear();
-    mvprintw( t_deskHeight/2, t_deskWidth/2, "GAME OVER!" );
+    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
     refresh();
     std::this_thread::sleep_for( 2s );
     endwin();

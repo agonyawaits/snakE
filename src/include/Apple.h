@@ -2,11 +2,11 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
-#include "Figure.hpp"
+#include "Object.hpp"
 
-class Apple : public Figure {
+class Apple : public Object {
 public:
-    Apple( int, int );
+    Apple();
 
     void draw() const override;
     void update() override;

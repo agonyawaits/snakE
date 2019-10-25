@@ -3,15 +3,14 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "include/Desk.h"
 #include <ncurses.h>
+#include "include/Config.hpp"
+#include "include/Object.hpp"
 
-Desk::Desk(
-    const int t_height, 
-    const int t_width
-    ) : m_height( t_height ), m_width( t_width ) {}
+Desk::Desk() : m_height( Config::deskHeight ), m_width( Config::deskWidth ) {}
 
 void Desk::draw(
-    const Figure& t_food, 
-    const Figure& t_character,
+    const Object& t_food, 
+    const Object& t_character,
     const int& t_score,
     const int& t_highScore
     ) const {
@@ -29,6 +28,7 @@ void Desk::draw(
             } else if ( j == t_food.getX() && i == t_food.getY() ) {
                 t_food.draw();
             }
+
         }
     }
     mvprintw( m_height+2, 0, "Score: %d", t_score );
@@ -38,8 +38,8 @@ void Desk::draw(
 }
 
 void Desk::update(
-    Figure& t_food, 
-    Figure& t_character,
+    Object& t_food, 
+    Object& t_character,
     int& t_score
     ) {
     t_character.update();

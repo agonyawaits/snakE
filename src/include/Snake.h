@@ -2,20 +2,24 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
-#include "Figure.hpp"
+#include "Object.hpp"
 #include <vector>
+#include "Vector2.hpp"
 
-class Snake : public Figure {
+class Snake : public Object {
 public:
-    Snake( int, int );
+    Snake();
 
     void draw() const override;
     void update() override;
-    
+    bool isDead() const;
 private:
     struct SnakeSegment {
-        int m_xPos, m_yPos;
-        SnakeSegment( int t_xPos, int t_yPos ) : m_xPos( t_xPos ), m_yPos( t_yPos ) {}
+        Vector2i m_position;
+        SnakeSegment( int t_xPos, int t_yPos ) {
+            m_position.m_x = t_xPos; 
+            m_position.m_y = t_yPos;
+        }
     };
     
     enum Direction {  
@@ -27,10 +31,11 @@ private:
 
     std::vector<SnakeSegment> m_snakeBody;
     Direction m_direction;
+    bool m_isDead;
 
     void extend() override;
     void onInput() override;
     void changeDirection( int );
-    bool hasDied() const;
-    void moveOneStepForward();
+    bool checkCollision() const;
+    void move();
 };

@@ -1,11 +1,12 @@
-//  Figure.hpp
+//  Object.hpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
+#include "Vector2.hpp"
 
-class Figure {
+class Object {
 public:
-    virtual ~Figure() {};
+    virtual ~Object() {};
 
     virtual void draw() const = 0;
     virtual void update() = 0;
@@ -13,12 +14,11 @@ public:
     virtual void onInput() {};
     virtual void extend() {};
 
-    inline int getX() const { return m_xPos; }
-    inline int getY() const { return m_yPos; }
+    inline int getX() const { return m_position.m_x; }
+    inline int getY() const { return m_position.m_y; }
     inline bool isDead() const { return m_isDead; }
     
 protected:
-    int m_xPos, m_yPos;
+    Vector2i m_position;
     bool m_isDead;
-    int m_deskHeight, m_deskWidth;
 };

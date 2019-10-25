@@ -4,23 +4,19 @@
 #include "include/Apple.h"
 #include <random>
 #include <ncurses.h>
+#include "include/Config.hpp"
 
-Apple::Apple( 
-    const int t_deskHeight, 
-    const int t_deskWidth 
-    ) {
-    m_deskHeight = t_deskHeight;
-    m_deskWidth = t_deskWidth;
+Apple::Apple() {
     m_isDead = false;
-    m_xPos = ( rand() % ( m_deskWidth-2 ) ) + 1;
-    m_yPos = ( rand() % ( m_deskHeight-2 ) ) + 1;
+    m_position.m_x = ( rand() % ( Config::deskWidth-2 ) ) + 1;
+    m_position.m_y = ( rand() % ( Config::deskHeight-2 ) ) + 1;
 }
 
 void Apple::draw() const {
-    mvprintw( m_yPos, m_xPos, "@" );
+    mvprintw( m_position.m_y, m_position.m_x, "@" );
 }
 
 void Apple::update() {
-    m_xPos = ( rand() % ( m_deskWidth-2 ) ) + 1;
-    m_yPos = ( rand() % ( m_deskHeight-2 ) ) + 1;
+    m_position.m_x = ( rand() % ( Config::deskWidth-2 ) ) + 1;
+    m_position.m_y = ( rand() % ( Config::deskHeight-2 ) ) + 1;
 }

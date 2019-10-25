@@ -6,14 +6,11 @@
 #include <random>
 #include <ctime>
 
-#define DESK_HEIGHT 20
-#define DESK_WIDTH 61
-
 int main() {
     srand( time( nullptr ) );
 
-    Game snakeGame;
-    snakeGame.launch( DESK_HEIGHT, DESK_WIDTH );
+    Game game;
+    game.launch();
 
     return 0;
 }

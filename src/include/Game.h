@@ -8,7 +8,7 @@ public:
     Game();
     ~Game();
 
-    void launch( const int, const int );
+    void launch();
     
 private:
     int m_score, m_highScore;

@@ -3,36 +3,33 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "include/Snake.h"
 #include <ncurses.h>
+#include "include/Config.hpp"
 
-Snake::Snake( 
-    int t_deskHeight,
-    int t_deskWidth 
-    ) : m_direction( RIGHT ) {
-    m_deskHeight = t_deskHeight;
-    m_deskWidth = t_deskWidth;
-    m_xPos = t_deskWidth/2;
-    m_yPos = t_deskHeight/2;
+Snake::Snake() : m_direction( RIGHT ) {
+    m_position.m_x = Config::deskWidth/2;
+    m_position.m_y = Config::deskHeight/2;
     m_isDead = false;
-    m_snakeBody.push_back( SnakeSegment( m_xPos-1, m_yPos ) );
-    m_snakeBody.push_back( SnakeSegment( m_xPos-2, m_yPos ) );
+
+    m_snakeBody.push_back( SnakeSegment( m_position.m_x-1, m_position.m_y ) );
+    m_snakeBody.push_back( SnakeSegment( m_position.m_x-2, m_position.m_y ) );
 }
 
 void Snake::draw() const {
     switch ( m_direction ) {
         case LEFT :
-            mvprintw( m_yPos, m_xPos, "<" );
+            mvprintw( m_position.m_y, m_position.m_x, "<" );
             break;
 
         case RIGHT :
-            mvprintw( m_yPos, m_xPos, ">" );
+            mvprintw( m_position.m_y, m_position.m_x, ">" );
             break;
 
         case UP :
-            mvprintw( m_yPos, m_xPos, "^" );
+            mvprintw( m_position.m_y, m_position.m_x, "^" );
             break;
 
         case DOWN :
-            mvprintw( m_yPos, m_xPos, "v" );
+            mvprintw( m_position.m_y, m_position.m_x, "v" );
             break;
 
         default:
@@ -40,15 +37,15 @@ void Snake::draw() const {
     }
 
     for ( const auto& seg : m_snakeBody ) {
-        mvprintw( seg.m_yPos, seg.m_xPos, "o" );
+        mvprintw( seg.m_position.m_y, seg.m_position.m_x, "o" );
     }
 }
 
 void Snake::onInput() {
     keypad( stdscr, TRUE );
     halfdelay( 1 );
-    int userInput = getch();
-    changeDirection( userInput );
+    int playerInput = getch();
+    changeDirection( playerInput );
 }
 
 void Snake::changeDirection( int t_playerInput ) {
@@ -77,37 +74,37 @@ void Snake::changeDirection( int t_playerInput ) {
 void Snake::extend() {
     m_snakeBody.push_back(
         SnakeSegment(
-            m_snakeBody[ m_snakeBody.size()-1 ].m_xPos, 
-            m_snakeBody[ m_snakeBody.size()-1 ].m_yPos 
+            m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_x, 
+            m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_y 
         )
     );
 }
 
 void Snake::update() {
     onInput();
-    moveOneStepForward();
-    m_isDead = hasDied();
+    move();
+    m_isDead = checkCollision();
 }
 
-void Snake::moveOneStepForward() {
-    const int headPosX = m_xPos;
-    const int headPosY = m_yPos;
+void Snake::move() {
+    const int headPosX = m_position.m_x;
+    const int headPosY = m_position.m_y;
 
     switch ( m_direction ) {
         case LEFT : 
-            --m_xPos;
+            --m_position.m_x;
             break;
 
         case RIGHT : 
-            ++m_xPos;
+            ++m_position.m_x;
             break;
 
         case UP : 
-            --m_yPos;
+            --m_position.m_y;
             break;
 
         case DOWN : 
-            ++m_yPos;
+            ++m_position.m_y;
             break;
 
         default : 
@@ -115,28 +112,33 @@ void Snake::moveOneStepForward() {
     }
 
     for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
-        m_snakeBody[ i ].m_xPos = m_snakeBody[ i-1 ].m_xPos;
-        m_snakeBody[ i ].m_yPos = m_snakeBody[ i-1 ].m_yPos;
+        m_snakeBody[ i ].m_position.m_x = m_snakeBody[ i-1 ].m_position.m_x;
+        m_snakeBody[ i ].m_position.m_y = m_snakeBody[ i-1 ].m_position.m_y;
     }
 
     if ( !m_snakeBody.empty() ) {
-        m_snakeBody[ 0 ].m_xPos = headPosX;
-        m_snakeBody[ 0 ].m_yPos = headPosY;
+        m_snakeBody[ 0 ].m_position.m_x = headPosX;
+        m_snakeBody[ 0 ].m_position.m_y = headPosY;
     }
 }
 
-bool Snake::hasDied() const {
+bool Snake::checkCollision() const {
     for ( const auto& seg : m_snakeBody ) {
-        if ( seg.m_xPos == m_xPos && seg.m_yPos == m_yPos ) {
+        if ( seg.m_position.m_x == m_position.m_x &&
+            seg.m_position.m_y == m_position.m_y ) {
             return true;
-            break;
         }
     }
 
-    if ( m_xPos == m_deskWidth-1 || m_yPos == m_deskHeight-1 ||
-        m_xPos == 0 || m_yPos == 0 ) {
+    if ( m_position.m_x == Config::deskWidth-1 ||
+        m_position.m_y == Config::deskHeight-1 ||
+        m_position.m_x == 0 || m_position.m_y == 0 ) {
         return true;
     }
 
     return false;
+}
+
+bool Snake::isDead() const {
+    return m_isDead;
 }
