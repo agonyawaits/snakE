@@ -15,8 +15,8 @@ public:
     bool isDead() const;
 private:
     struct SnakeSegment {
-        SnakeSegment( int t_x, int t_y ) : m_position( Vector2i( t_x, t_y ) ) {}
-        Vector2i m_position;
+        SnakeSegment( int t_x, int t_y ) : position( Vector2i( t_x, t_y ) ) {}
+        Vector2i position;
     };
     
     enum Direction {  

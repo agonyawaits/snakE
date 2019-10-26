@@ -5,27 +5,30 @@
 #include <ncurses.h>
 #include "include/Config.hpp"
 
-Snake::Snake() : m_direction( RIGHT ), m_isDead( false ) {
-    m_position.m_x = Config::deskWidth/2;
-    m_position.m_y = Config::deskHeight/2;
+Snake::Snake() : 
+    m_direction( RIGHT ), 
+    m_isDead( false ) 
+{
+    m_position.x = Config::deskWidth/2;
+    m_position.y = Config::deskHeight/2;
 }
 
 void Snake::draw() const {
     switch ( m_direction ) {
         case LEFT :
-            mvprintw( m_position.m_y, m_position.m_x, "<" );
+            mvprintw( m_position.y, m_position.x, "<" );
             break;
 
         case RIGHT :
-            mvprintw( m_position.m_y, m_position.m_x, ">" );
+            mvprintw( m_position.y, m_position.x, ">" );
             break;
 
         case UP :
-            mvprintw( m_position.m_y, m_position.m_x, "^" );
+            mvprintw( m_position.y, m_position.x, "^" );
             break;
 
         case DOWN :
-            mvprintw( m_position.m_y, m_position.m_x, "v" );
+            mvprintw( m_position.y, m_position.x, "v" );
             break;
 
         default:
@@ -33,13 +36,14 @@ void Snake::draw() const {
     }
 
     for ( auto seg : m_snakeBody ) {
-        mvprintw( seg.m_position.m_y, seg.m_position.m_x, "o" );
+        mvprintw( seg.position.y, seg.position.x, "o" );
     }
 }
 
 void Snake::onInput() {
     keypad( stdscr, TRUE );
     halfdelay( 1 );
+
     int playerInput = getch();
     changeDirection( playerInput );
 }
@@ -69,12 +73,17 @@ void Snake::changeDirection( int t_playerInput ) {
 
 void Snake::extend() {
     if ( m_snakeBody.empty() ) {
-        m_snakeBody.push_back( SnakeSegment( m_position.m_x, m_position.m_y) );    
+        m_snakeBody.push_back( 
+            SnakeSegment( 
+                m_position.x, 
+                m_position.y
+                ) 
+            );    
     } else {
         m_snakeBody.push_back(
             SnakeSegment(
-                m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_x, 
-                m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_y
+                m_snakeBody[ m_snakeBody.size()-1 ].position.x, 
+                m_snakeBody[ m_snakeBody.size()-1 ].position.y
             )
         );
     }
@@ -87,24 +96,24 @@ void Snake::update() {
 }
 
 void Snake::move() {
-    const int headPosX = m_position.m_x;
-    const int headPosY = m_position.m_y;
+    const int headPosX = m_position.x;
+    const int headPosY = m_position.y;
 
     switch ( m_direction ) {
         case LEFT : 
-            --m_position.m_x;
+            --m_position.x;
             break;
 
         case RIGHT : 
-            ++m_position.m_x;
+            ++m_position.x;
             break;
 
         case UP : 
-            --m_position.m_y;
+            --m_position.y;
             break;
 
         case DOWN : 
-            ++m_position.m_y;
+            ++m_position.y;
             break;
 
         default : 
@@ -112,26 +121,27 @@ void Snake::move() {
     }
 
     for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
-        m_snakeBody[ i ].m_position.m_x = m_snakeBody[ i-1 ].m_position.m_x;
-        m_snakeBody[ i ].m_position.m_y = m_snakeBody[ i-1 ].m_position.m_y;
+        m_snakeBody[ i ].position.x = m_snakeBody[ i-1 ].position.x;
+        m_snakeBody[ i ].position.y = m_snakeBody[ i-1 ].position.y;
     }
 
     if ( !m_snakeBody.empty() ) {
-        m_snakeBody[ 0 ].m_position.m_x = headPosX;
-        m_snakeBody[ 0 ].m_position.m_y = headPosY;
+        m_snakeBody[ 0 ].position.x = headPosX;
+        m_snakeBody[ 0 ].position.y = headPosY;
     }
 }
 
 bool Snake::checkCollision() const {
     for ( auto seg : m_snakeBody ) {
-        if ( seg.m_position.m_x == m_position.m_x && seg.m_position.m_y == m_position.m_y ) {
+        if ( seg.position.x == m_position.x && seg.position.y == m_position.y ) {
             return true;
         }
     }
 
-    if ( m_position.m_x == Config::deskWidth-1 ||
-        m_position.m_y == Config::deskHeight-1 ||
-        m_position.m_x == 0 || m_position.m_y == 0 ) {
+    if ( m_position.x == Config::deskWidth-1 ||
+        m_position.y == Config::deskHeight-1 ||
+        m_position.x == 0 || m_position.y == 0 ) 
+    {
         return true;
     }
 

@@ -12,8 +12,8 @@ void Desk::draw(
     const Object& t_food, 
     const Object& t_character,
     const int& t_score,
-    const int& t_highScore
-    ) const {
+    const int& t_highScore ) const 
+{
     clear();
 
     for ( int i = 0; i < m_height; ++i ) {
@@ -40,8 +40,8 @@ void Desk::draw(
 void Desk::update(
     Object& t_food, 
     Object& t_character,
-    int& t_score
-    ) {
+    int& t_score ) 
+{
     t_character.update();
     if ( t_food.getX() == t_character.getX() && t_food.getY() == t_character.getY() ) {
         t_food.update();

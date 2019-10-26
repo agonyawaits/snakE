@@ -14,8 +14,8 @@ public:
     virtual void onInput() {};
     virtual void extend() {};
 
-    inline int getX() const { return m_position.m_x; }
-    inline int getY() const { return m_position.m_y; }
+    inline int getX() const { return m_position.x; }
+    inline int getY() const { return m_position.y; }
     
 protected:
     Vector2i m_position;
