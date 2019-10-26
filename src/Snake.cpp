@@ -13,6 +13,10 @@ Snake::Snake() :
     m_position.y = Config::deskHeight/2;
 }
 
+bool Snake::isDead() const {
+    return m_isDead;
+}
+
 void Snake::draw() const {
     switch ( m_direction ) {
         case LEFT :
@@ -82,8 +86,8 @@ void Snake::extend() {
     } else {
         m_snakeBody.push_back(
             SnakeSegment(
-                m_snakeBody[ m_snakeBody.size()-1 ].position.x, 
-                m_snakeBody[ m_snakeBody.size()-1 ].position.y
+                m_snakeBody.back().position.x, 
+                m_snakeBody.back().position.y
             )
         );
     }
@@ -126,8 +130,8 @@ void Snake::move() {
     }
 
     if ( !m_snakeBody.empty() ) {
-        m_snakeBody[ 0 ].position.x = headPosX;
-        m_snakeBody[ 0 ].position.y = headPosY;
+        m_snakeBody.front().position.x = headPosX;
+        m_snakeBody.front().position.y = headPosY;
     }
 }
 
@@ -146,8 +150,4 @@ bool Snake::checkCollision() const {
     }
 
     return false;
-}
-
-bool Snake::isDead() const {
-    return m_isDead;
 }
