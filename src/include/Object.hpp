@@ -16,9 +16,7 @@ public:
 
     inline int getX() const { return m_position.m_x; }
     inline int getY() const { return m_position.m_y; }
-    inline bool isDead() const { return m_isDead; }
     
 protected:
     Vector2i m_position;
-    bool m_isDead;
 };

@@ -5,13 +5,9 @@
 #include <ncurses.h>
 #include "include/Config.hpp"
 
-Snake::Snake() : m_direction( RIGHT ) {
+Snake::Snake() : m_direction( RIGHT ), m_isDead( false ) {
     m_position.m_x = Config::deskWidth/2;
     m_position.m_y = Config::deskHeight/2;
-    m_isDead = false;
-
-    m_snakeBody.push_back( SnakeSegment( m_position.m_x-1, m_position.m_y ) );
-    m_snakeBody.push_back( SnakeSegment( m_position.m_x-2, m_position.m_y ) );
 }
 
 void Snake::draw() const {
@@ -36,7 +32,7 @@ void Snake::draw() const {
             break;
     }
 
-    for ( const auto& seg : m_snakeBody ) {
+    for ( auto seg : m_snakeBody ) {
         mvprintw( seg.m_position.m_y, seg.m_position.m_x, "o" );
     }
 }
@@ -72,12 +68,16 @@ void Snake::changeDirection( int t_playerInput ) {
 }
 
 void Snake::extend() {
-    m_snakeBody.push_back(
-        SnakeSegment(
-            m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_x, 
-            m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_y 
-        )
-    );
+    if ( m_snakeBody.empty() ) {
+        m_snakeBody.push_back( SnakeSegment( m_position.m_x, m_position.m_y) );    
+    } else {
+        m_snakeBody.push_back(
+            SnakeSegment(
+                m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_x, 
+                m_snakeBody[ m_snakeBody.size()-1 ].m_position.m_y
+            )
+        );
+    }
 }
 
 void Snake::update() {
@@ -123,9 +123,8 @@ void Snake::move() {
 }
 
 bool Snake::checkCollision() const {
-    for ( const auto& seg : m_snakeBody ) {
-        if ( seg.m_position.m_x == m_position.m_x &&
-            seg.m_position.m_y == m_position.m_y ) {
+    for ( auto seg : m_snakeBody ) {
+        if ( seg.m_position.m_x == m_position.m_x && seg.m_position.m_y == m_position.m_y ) {
             return true;
         }
     }

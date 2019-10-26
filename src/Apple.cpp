@@ -7,7 +7,6 @@
 #include "include/Config.hpp"
 
 Apple::Apple() {
-    m_isDead = false;
     m_position.m_x = ( rand() % ( Config::deskWidth-2 ) ) + 1;
     m_position.m_y = ( rand() % ( Config::deskHeight-2 ) ) + 1;
 }
