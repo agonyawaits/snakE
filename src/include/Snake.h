@@ -33,6 +33,6 @@ private:
 
     void onInput() override;
     void changeDirection( int );
-    bool checkCollision() const;
+    void checkCollision();
     void move();
 };

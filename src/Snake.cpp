@@ -39,7 +39,7 @@ void Snake::draw() const {
             break;
     }
 
-    for ( auto seg : m_snakeBody ) {
+    for ( const auto& seg : m_snakeBody ) {
         mvprintw( seg.position.y, seg.position.x, "o" );
     }
 }
@@ -77,18 +77,14 @@ void Snake::changeDirection( int t_playerInput ) {
 
 void Snake::extend() {
     if ( m_snakeBody.empty() ) {
-        m_snakeBody.push_back( 
-            SnakeSegment( 
-                m_position.x, 
-                m_position.y
-                ) 
-            );    
+        m_snakeBody.emplace_back(
+            m_position.x, 
+            m_position.y 
+        );
     } else {
-        m_snakeBody.push_back(
-            SnakeSegment(
-                m_snakeBody.back().position.x, 
-                m_snakeBody.back().position.y
-            )
+        m_snakeBody.emplace_back(
+            m_snakeBody.back().position.x, 
+            m_snakeBody.back().position.y
         );
     }
 }
@@ -96,7 +92,7 @@ void Snake::extend() {
 void Snake::update() {
     onInput();
     move();
-    m_isDead = checkCollision();
+    checkCollision();
 }
 
 void Snake::move() {
@@ -135,10 +131,10 @@ void Snake::move() {
     }
 }
 
-bool Snake::checkCollision() const {
+void Snake::checkCollision() {
     for ( auto seg : m_snakeBody ) {
         if ( seg.position.x == m_position.x && seg.position.y == m_position.y ) {
-            return true;
+            m_isDead = true;
         }
     }
 
@@ -146,8 +142,6 @@ bool Snake::checkCollision() const {
         m_position.y == Config::deskHeight-1 ||
         m_position.x == 0 || m_position.y == 0 ) 
     {
-        return true;
+        m_isDead = true;
     }
-
-    return false;
 }
