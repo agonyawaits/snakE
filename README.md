@@ -1,14 +1,7 @@
 Snake game written on C++ for Unix Terminal
 -------------------------------------------
-To launch the game:
-1) Download the executable file /src/snake_exec.
-2) Execute the following command in terminal: "chmod +x src/snake_exec".
-3) Run and enjoy :)
-
-**OR**
-
-You can create an executable yourself:
-1) First, you need to install ncurses ( i/o lib for unix )
+To play the game:
+1) Install ncurses
 ```bash
 $ brew install ncurses
 ```
@@ -18,6 +11,6 @@ $ git clone https://github.com/agonyawaits/snake
 ```
 3) Compile and run:
 ```bash
-$ g++ Apple.cpp Desk.cpp Game.cpp Snake.cpp main.cpp -lncurses -std=c++17
+$ g++ Apple.cpp Desk.cpp Game.cpp Snake.cpp main.cpp -lncurses -std=c++2a
 $ ./a.out
 ```
