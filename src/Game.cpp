@@ -22,7 +22,7 @@ Game::Game() : m_score( 0 ), m_highScore( 0 ) {
     m_highScore = ScoreManager::getScore();
 }
 
-void Game::launch() {
+int Game::start() {
     Desk desk;
     Snake snake;
     Apple apple;
@@ -38,6 +38,13 @@ void Game::launch() {
     refresh();
     std::this_thread::sleep_for( 2s );
     endwin();
+
+    return 0;
+}
+
+int Game::run() {
+    Game game;
+    return game.start();
 }
 
 Game::~Game() {

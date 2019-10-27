@@ -8,8 +8,8 @@ public:
     Game();
     ~Game();
 
-    void launch();
-    
+    int start();
+    static int run();
 private:
     int m_score, m_highScore;
 };

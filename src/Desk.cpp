@@ -18,17 +18,16 @@ void Desk::draw(
 
     for ( int i = 0; i < m_height; ++i ) {
         for ( int j = 0; j < m_width; ++j ) {
-
             if ( ( i == 0 && j % 2 == 0 ) ||
                 ( i == m_height - 1 && j % 2 == 0 ) ||
-                ( j == 0 ) || ( j == m_width - 1 ) ) {
+                ( j == 0 ) || ( j == m_width - 1 ) ) 
+            {
                 mvprintw( i, j, "*" );
             } else if ( j == t_character.getX() && i == t_character.getY() ) {
                 t_character.draw();
             } else if ( j == t_food.getX() && i == t_food.getY() ) {
                 t_food.draw();
             }
-
         }
     }
     mvprintw( m_height+2, 0, "Score: %d", t_score );
@@ -43,7 +42,9 @@ void Desk::update(
     int& t_score ) 
 {
     t_character.update();
-    if ( t_food.getX() == t_character.getX() && t_food.getY() == t_character.getY() ) {
+    if ( t_food.getX() == t_character.getX() && 
+        t_food.getY() == t_character.getY() ) 
+    {
         t_food.update();
         t_character.extend();
         t_score += 10;

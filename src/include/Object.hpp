@@ -10,13 +10,13 @@ public:
 
     virtual void draw() const = 0;
     virtual void update() = 0;
-
-    virtual void onInput() {};
     virtual void extend() {};
 
     inline int getX() const { return m_position.x; }
     inline int getY() const { return m_position.y; }
     
 protected:
+    virtual void onInput() {};
+
     Vector2i m_position;
 };

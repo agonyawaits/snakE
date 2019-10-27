@@ -13,6 +13,7 @@ public:
     void draw() const override;
     void update() override;
     bool isDead() const;
+    void extend() override;
 private:
     struct SnakeSegment {
         SnakeSegment( int t_x, int t_y ) : position( Vector2i( t_x, t_y ) ) {}
@@ -26,11 +27,10 @@ private:
         DOWN 
     };
 
-    std::vector<SnakeSegment> m_snakeBody;
-    Direction m_direction;
-    bool m_isDead;
+    std::vector<SnakeSegment>   m_snakeBody;
+    Direction                   m_direction;
+    bool                        m_isDead;
 
-    void extend() override;
     void onInput() override;
     void changeDirection( int );
     bool checkCollision() const;
