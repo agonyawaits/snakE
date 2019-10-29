@@ -13,7 +13,9 @@
 
 using namespace std::chrono_literals;
 
-Game::Game() : m_score( 0 ), m_highScore( 0 ) {
+Game::Game() 
+    : m_score( 0 ), m_highScore( 0 ) 
+{
     initscr();
     clear();
     noecho();

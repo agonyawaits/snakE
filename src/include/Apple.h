@@ -4,7 +4,7 @@
 #pragma once
 #include "Object.hpp"
 
-class Apple : public Object {
+class Apple final : public Object {
 public:
     Apple();
 

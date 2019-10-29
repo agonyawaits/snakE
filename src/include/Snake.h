@@ -6,17 +6,20 @@
 #include <vector>
 #include "Vector2.hpp"
 
-class Snake : public Object {
+class Snake final : public Object {
 public:
     Snake();
 
+    bool isDead() const;
     void draw() const override;
     void update() override;
-    bool isDead() const;
     void extend() override;
+    int size() const override;
 private:
     struct SnakeSegment {
-        SnakeSegment( int t_x, int t_y ) : position( Vector2i( t_x, t_y ) ) {}
+        SnakeSegment( const int& t_x, const int& t_y ) 
+            : position( Vector2i( t_x, t_y ) ) {}
+
         Vector2i position;
     };
     
@@ -27,12 +30,13 @@ private:
         DOWN 
     };
 
-    std::vector<SnakeSegment>   m_snakeBody;
     Direction                   m_direction;
     bool                        m_isDead;
+    std::vector<SnakeSegment>   m_snakeBody;
 
     void onInput() override;
-    void changeDirection( int );
-    void checkCollision();
+    void changeDirection( const int& );
     void move();
+    void checkCollision();
+    void cut( const std::vector<SnakeSegment>::iterator& );
 };

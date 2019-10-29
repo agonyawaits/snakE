@@ -16,20 +16,9 @@ void Desk::draw(
 {
     clear();
 
-    for ( int i = 0; i < m_height; ++i ) {
-        for ( int j = 0; j < m_width; ++j ) {
-            if ( ( i == 0 && j % 2 == 0 ) ||
-                ( i == m_height - 1 && j % 2 == 0 ) ||
-                ( j == 0 ) || ( j == m_width - 1 ) ) 
-            {
-                mvprintw( i, j, "*" );
-            } else if ( j == t_character.getX() && i == t_character.getY() ) {
-                t_character.draw();
-            } else if ( j == t_food.getX() && i == t_food.getY() ) {
-                t_food.draw();
-            }
-        }
-    }
+    draw();
+    t_character.draw();
+    t_food.draw();
     mvprintw( m_height+2, 0, "Score: %d", t_score );
     mvprintw( m_height+3, 0, "Highscore: %d", t_highScore );
 
@@ -47,6 +36,19 @@ void Desk::update(
     {
         t_food.update();
         t_character.extend();
-        t_score += 10;
+    }
+    t_score = t_character.size() * 10;
+}
+
+void Desk::draw() const {
+    for ( int i = 0; i < m_height; ++i ) {
+        for ( int j = 0; j < m_width; ++j ) {
+            if ( ( i == 0 && j % 2 == 0 ) ||
+                ( i == m_height - 1 && j % 2 == 0 ) ||
+                ( j == 0 ) || ( j == m_width - 1 ) ) 
+            {
+                mvprintw( i, j, "*" );
+            }
+        }
     }
 }
