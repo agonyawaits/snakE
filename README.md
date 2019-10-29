@@ -11,6 +11,6 @@ $ git clone https://github.com/agonyawaits/snake
 ```
 3) Build and run:
 ```bash
-$ mkdir snake/build && cd snake/build && make ../src
+$ mkdir snake/build && cd snake/build && cmake ../src
 $ ./snake
 ```
