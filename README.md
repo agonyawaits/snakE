@@ -9,8 +9,8 @@ $ brew install ncurses
 ```bash
 $ git clone https://github.com/agonyawaits/snake
 ```
-3) Compile and run:
+3) Build and run:
 ```bash
-$ g++ Apple.cpp Desk.cpp Game.cpp Snake.cpp main.cpp -lncurses -std=c++2a
-$ ./a.out
+$ mkdir snake/build && cd snake/build && make ../src
+$ ./snake
 ```
