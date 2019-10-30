@@ -15,12 +15,13 @@ public:
     void update() override;
     void extend() override;
     int size() const override;
+
 private:
     struct SnakeSegment {
+        Vector2i position;
+        
         SnakeSegment( const int& t_x, const int& t_y ) 
             : position( Vector2i( t_x, t_y ) ) {}
-
-        Vector2i position;
     };
     
     enum Direction {  

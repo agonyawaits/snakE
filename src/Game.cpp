@@ -11,8 +11,6 @@
 #include <thread>
 #include <ctime>
 
-using namespace std::chrono_literals;
-
 Game::Game() 
     : m_score( 0 ), m_highScore( 0 ) 
 {
@@ -34,11 +32,11 @@ int Game::start() {
         desk.update( apple, snake, m_score );
     }   
     
-    std::this_thread::sleep_for( 1s );
+    std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
     clear();
     mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
     refresh();
-    std::this_thread::sleep_for( 2s );
+    std::this_thread::sleep_for( std::chrono::seconds( 2 ) );
     endwin();
 
     return 0;
