@@ -6,7 +6,8 @@
 #include "include/Config.hpp"
 #include "include/Object.hpp"
 
-Desk::Desk() : m_height( Config::deskHeight ), m_width( Config::deskWidth ) {}
+Desk::Desk() 
+    : m_height( Config::deskHeight ), m_width( Config::deskWidth ) {}
 
 void Desk::draw(
     const Object& t_food, 
