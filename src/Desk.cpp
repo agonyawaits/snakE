@@ -2,54 +2,57 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "include/Desk.h"
-#include <ncurses.h>
 #include "include/Config.hpp"
 #include "include/Object.hpp"
+#include <ncurses.h>
 
-Desk::Desk() 
-    : m_height( Config::deskHeight ), m_width( Config::deskWidth ) {}
+Desk::Desk( Object& t_snake,
+            Object& t_food,
+            int& t_score )
+    : m_height( Config::deskHeight ), 
+    m_width( Config::deskWidth ),
+    m_snake( t_snake ),
+    m_food( t_food ),
+    m_score( t_score ) {}
 
-void Desk::draw(
-    const Object& t_food, 
-    const Object& t_character,
-    const int& t_score,
-    const int& t_highScore ) const 
-{
+void Desk::draw() const {
     clear();
 
-    draw();
-    t_character.draw();
-    t_food.draw();
-    mvprintw( m_height+2, 0, "Score: %d", t_score );
-    mvprintw( m_height+3, 0, "Highscore: %d", t_highScore );
+    drawSelf();
+    m_snake.draw();
+    m_food.draw();
+    mvprintw( m_height+1, 0, "Score: %d", m_score );
 
     refresh();
 }
 
-void Desk::update(
-    Object& t_food, 
-    Object& t_character,
-    int& t_score ) 
-{
-    t_character.update();
-    if ( t_food.getX() == t_character.getX() && 
-        t_food.getY() == t_character.getY() ) 
+void Desk::update( const int& t_playerInput ) const {
+    onInput( t_playerInput );
+    m_snake.update();
+
+    if ( m_food.getX() == m_snake.getX() && 
+        m_food.getY() == m_snake.getY() )
     {
-        t_food.update();
-        t_character.extend();
+        m_food.update();
+        m_snake.extend();
     }
-    t_score = t_character.size() * 10;
+
+    m_score = m_snake.size() * 10;
 }
 
-void Desk::draw() const {
+void Desk::drawSelf() const {
     for ( int i = 0; i < m_height; ++i ) {
         for ( int j = 0; j < m_width; ++j ) {
             if ( ( i == 0 && j % 2 == 0 ) ||
                 ( i == m_height - 1 && j % 2 == 0 ) ||
-                ( j == 0 ) || ( j == m_width - 1 ) ) 
+                ( j == 0 ) || ( j == m_width - 1 ) )
             {
                 mvprintw( i, j, "*" );
             }
         }
     }
+}
+
+void Desk::onInput( const int& t_playerInput ) const {
+    m_snake.onInput( t_playerInput );
 }

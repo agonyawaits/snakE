@@ -6,10 +6,18 @@
 
 class Desk final {
 public:
-    Desk();
-    void draw( const Object&, const Object&, const int&, const int& ) const;
-    void update( Object&, Object&, int& );
-private:
+    Desk( Object&,
+          Object&,
+          int& );
+
     void draw() const;
+    void update( const int& ) const;
+private:
+    void drawSelf() const;
+    void onInput ( const int& ) const;
+
     const int m_height, m_width;
+    Object& m_snake;
+    Object& m_food;
+    int& m_score;
 };

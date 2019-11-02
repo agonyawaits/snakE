@@ -23,13 +23,16 @@ Game::Game()
 }
 
 int Game::start() {
-    Desk desk;
     Snake snake;
     Apple apple;
+    Desk desk( snake, apple, m_score );
 
     while ( !snake.isDead() ) {
-        desk.draw( apple, snake, m_score, m_highScore );
-        desk.update( apple, snake, m_score );
+        keypad( stdscr, TRUE );
+        halfdelay( 1 );
+
+        desk.draw();
+        desk.update( getch() );
     }   
     
     std::this_thread::sleep_for( std::chrono::seconds( 1 ) );

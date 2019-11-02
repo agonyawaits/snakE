@@ -3,8 +3,8 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 #include "Object.hpp"
-#include <vector>
 #include "Vector2.hpp"
+#include <vector>
 
 class Snake final : public Object {
 public:
@@ -15,6 +15,7 @@ public:
     void update() override;
     void extend() override;
     int size() const override;
+    void onInput( const int& ) override;
 
 private:
     struct SnakeSegment {
@@ -35,7 +36,6 @@ private:
     bool                        m_isDead;
     std::vector<SnakeSegment>   m_snakeBody;
 
-    void onInput() override;
     void changeDirection( const int& );
     void move();
     void checkCollision();

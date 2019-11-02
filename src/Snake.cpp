@@ -2,8 +2,8 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "include/Snake.h"
-#include <ncurses.h>
 #include "include/Config.hpp"
+#include <ncurses.h>
 
 Snake::Snake()
     : m_direction( RIGHT ), m_isDead( false ) 
@@ -44,7 +44,6 @@ void Snake::draw() const {
 }
 
 void Snake::update() {
-    onInput();
     move();
     checkCollision();
 }
@@ -60,12 +59,8 @@ int Snake::size() const {
     return m_snakeBody.size();
 }
 
-void Snake::onInput() {
-    keypad( stdscr, TRUE );
-    halfdelay( 1 );
-
-    int playerInput = getch();
-    changeDirection( playerInput );
+void Snake::onInput( const int& t_playerInput ) {
+    changeDirection( t_playerInput );
 }
 
 void Snake::changeDirection( const int& t_playerInput ) {

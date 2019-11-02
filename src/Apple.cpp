@@ -2,9 +2,9 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "include/Apple.h"
+#include "include/Config.hpp"
 #include <random>
 #include <ncurses.h>
-#include "include/Config.hpp"
 
 Apple::Apple() {
     m_position.x = rand() % ( Config::deskWidth-2 ) + 1;
