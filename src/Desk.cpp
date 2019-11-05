@@ -9,11 +9,8 @@
 Desk::Desk( Object& t_snake,
             Object& t_food,
             int& t_score )
-    : m_height( Config::deskHeight ), 
-    m_width( Config::deskWidth ),
-    m_snake( t_snake ),
-    m_food( t_food ),
-    m_score( t_score ) {}
+    : m_height( Config::deskHeight ), m_width( Config::deskWidth ),
+    m_snake( t_snake ), m_food( t_food ), m_score( t_score ) {}
 
 void Desk::draw() const {
     clear();

@@ -12,14 +12,15 @@
 #include <ctime>
 
 Game::Game() 
-    : m_score( 0 ), m_highScore( 0 ) 
+    : m_score( 0 ), m_highScore( ScoreManager::getScore() ) 
 {
     initscr();
     clear();
     noecho();
     cbreak();
     curs_set( 0 );
-    m_highScore = ScoreManager::getScore();
+    keypad( stdscr, TRUE );
+    halfdelay( 1 );
 }
 
 int Game::start() {
@@ -28,9 +29,6 @@ int Game::start() {
     Desk desk( snake, apple, m_score );
 
     while ( !snake.isDead() ) {
-        keypad( stdscr, TRUE );
-        halfdelay( 1 );
-
         desk.draw();
         desk.update( getch() );
     }   
@@ -40,7 +38,6 @@ int Game::start() {
     mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
     refresh();
     std::this_thread::sleep_for( std::chrono::seconds( 2 ) );
-    endwin();
 
     return 0;
 }
@@ -51,6 +48,7 @@ int Game::run() {
 }
 
 Game::~Game() {
+    endwin();
     if ( m_score > m_highScore ) {
         ScoreManager::logScore( m_score );
     }

@@ -13,7 +13,7 @@ public:
 int ScoreManager::getScore() {
     int score = 0;
     std::fstream fin( "../data/highscore.txt", std::ios::in );
-    if ( fin.is_open() ) {
+    if ( fin ) {
         fin >> score;
         fin.close();
     }
