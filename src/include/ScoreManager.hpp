@@ -13,6 +13,7 @@ public:
 int ScoreManager::getScore() {
     int score = 0;
     std::fstream fin( "../data/highscore.txt", std::ios::in );
+
     if ( fin ) {
         fin >> score;
         fin.close();
@@ -23,7 +24,8 @@ int ScoreManager::getScore() {
 
 void ScoreManager::logScore( const int& t_score ) {
     std::fstream fout( "../data/highscore.txt", std::ios::out );
-    if ( fout.is_open() ) {
+    
+    if ( fout ) {
         fout << t_score;
         fout.close();
     }
