@@ -33,12 +33,6 @@ int Game::start() {
         desk.update( getch() );
     }   
     
-    std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
-    clear();
-    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
-    refresh();
-    std::this_thread::sleep_for( std::chrono::seconds( 2 ) );
-
     return 0;
 }
 
@@ -48,7 +42,13 @@ int Game::run() {
 }
 
 Game::~Game() {
+    std::this_thread::sleep_for( std::chrono::milliseconds(500) );
+    clear();
+    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
+    refresh();
+    std::this_thread::sleep_for( std::chrono::seconds(1) );
     endwin();
+    
     if ( m_score > m_highScore ) {
         ScoreManager::logScore( m_score );
     }
