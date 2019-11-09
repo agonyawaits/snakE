@@ -1,36 +1,32 @@
 //  Snake.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "include/Snake.h"
-#include "include/Config.hpp"
+#include "Snake.h"
+#include "Config.hpp"
 #include <ncurses.h>
 
 Snake::Snake()
-    : m_direction( RIGHT ), m_isDead( false ) 
+    : m_direction( Direction::RIGHT ), m_isDead( false ) 
 {
     m_position.x = Config::deskWidth/2;
     m_position.y = Config::deskHeight/2;
 }
 
-bool Snake::isDead() const {
-    return m_isDead;
-}
-
 void Snake::draw() const {
     switch ( m_direction ) {
-        case LEFT :
+        case Direction::LEFT :
             mvprintw( m_position.y, m_position.x, "<" );
             break;
 
-        case RIGHT :
+        case Direction::RIGHT :
             mvprintw( m_position.y, m_position.x, ">" );
             break;
 
-        case UP :
+        case Direction::UP :
             mvprintw( m_position.y, m_position.x, "^" );
             break;
 
-        case DOWN :
+        case Direction::DOWN :
             mvprintw( m_position.y, m_position.x, "v" );
             break;
 
@@ -49,14 +45,8 @@ void Snake::update() {
 }
 
 void Snake::extend() {
-    m_snakeBody.emplace_back(
-        m_snakeBody.empty() ? m_position.x : m_snakeBody.back().position.x, 
-        m_snakeBody.empty() ? m_position.y : m_snakeBody.back().position.y
-    );
-}
-
-int Snake::size() const {
-    return m_snakeBody.size();
+    m_snakeBody.emplace_back(m_snakeBody.empty() ? m_position.x : m_snakeBody.back().position.x, 
+                             m_snakeBody.empty() ? m_position.y : m_snakeBody.back().position.y);
 }
 
 void Snake::onInput( const int& t_playerInput ) {
@@ -66,19 +56,19 @@ void Snake::onInput( const int& t_playerInput ) {
 void Snake::changeDirection( const int& t_playerInput ) {
     switch ( t_playerInput ) {
         case KEY_LEFT :
-            m_direction = m_direction != RIGHT ? LEFT : m_direction;
+            m_direction = m_direction != Direction::RIGHT ? Direction::LEFT : m_direction;
             break;
 
         case KEY_RIGHT :
-            m_direction = m_direction != LEFT ? RIGHT : m_direction;
+            m_direction = m_direction != Direction::LEFT ? Direction::RIGHT : m_direction;
             break;
 
         case KEY_UP :
-            m_direction = m_direction != DOWN ? UP : m_direction;
+            m_direction = m_direction != Direction::DOWN ? Direction::UP : m_direction;
             break;
 
         case KEY_DOWN :
-            m_direction = m_direction != UP ? DOWN : m_direction;
+            m_direction = m_direction != Direction::UP ? Direction::DOWN : m_direction;
             break;
 
         default : 
@@ -98,19 +88,19 @@ void Snake::move() {
     }
 
     switch ( m_direction ) {
-        case LEFT : 
+        case Direction::LEFT : 
             --m_position.x;
             break;
 
-        case RIGHT : 
+        case Direction::RIGHT : 
             ++m_position.x;
             break;
 
-        case UP : 
+        case Direction::UP : 
             --m_position.y;
             break;
 
-        case DOWN : 
+        case Direction::DOWN : 
             ++m_position.y;
             break;
 
@@ -120,16 +110,16 @@ void Snake::move() {
 }
 
 void Snake::checkCollision() {
-    if ( m_position.x == Config::deskWidth-1 ||
+    if (m_position.x == Config::deskWidth-1 ||
         m_position.y == Config::deskHeight-1 ||
-        m_position.x == 0 || m_position.y == 0 ) 
+        m_position.x == 0 || m_position.y == 0) 
     {
         m_isDead = true;
     }
 
     for ( int i = 0; i < m_snakeBody.size(); ++i ) {
-        if ( m_snakeBody[i].position.x == m_position.x && 
-            m_snakeBody[i].position.y == m_position.y ) 
+        if (m_snakeBody[i].position.x == m_position.x && 
+            m_snakeBody[i].position.y == m_position.y) 
         {
             cut( m_snakeBody.begin()+i );
         }

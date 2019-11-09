@@ -10,12 +10,13 @@ class Snake final : public Object {
 public:
     Snake();
 
-    bool isDead() const;
     void draw() const override;
     void update() override;
     void extend() override;
-    int size() const override;
     void onInput( const int& ) override;
+
+    inline bool isDead() const { return m_isDead; }
+    inline int size() const override { return m_snakeBody.size(); }
 
 private:
     struct SnakeSegment {
@@ -25,14 +26,13 @@ private:
             : position( Vector2i( t_x, t_y ) ) {}
     };
     
-    enum Direction {  
+    enum class Direction {  
         LEFT, 
         RIGHT, 
         UP, 
         DOWN 
-    };
+    } m_direction;
 
-    Direction                   m_direction;
     bool                        m_isDead;
     std::vector<SnakeSegment>   m_snakeBody;
 

@@ -1,12 +1,12 @@
 //  Game.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "include/Game.h"
-#include "include/Desk.h"
-#include "include/Apple.h"
-#include "include/Snake.h"
-#include "include/ScoreManager.hpp"
-#include "include/Config.hpp"
+#include "Game.h"
+#include "Desk.h"
+#include "Apple.h"
+#include "Snake.h"
+#include "ScoreManager.hpp"
+#include "Config.hpp"
 #include <ncurses.h>
 #include <thread>
 #include <ctime>

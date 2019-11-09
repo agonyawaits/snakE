@@ -16,6 +16,7 @@ public:
 
     inline int getX() const { return m_position.x; }
     inline int getY() const { return m_position.y; }
+    
 protected:
     Vector2i m_position;
 };

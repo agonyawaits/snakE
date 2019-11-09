@@ -1,9 +1,9 @@
 //  Desk.cpp
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "include/Desk.h"
-#include "include/Config.hpp"
-#include "include/Object.hpp"
+#include "Desk.h"
+#include "Config.hpp"
+#include "Object.hpp"
 #include <ncurses.h>
 
 Desk::Desk( Object& t_snake,
