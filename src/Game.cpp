@@ -21,6 +21,8 @@ Game::Game()
     curs_set( 0 );
     keypad( stdscr, TRUE );
     halfdelay( 1 );
+
+    m_window = newwin( Config::deskHeight, Config::deskWidth, 0, 0 );
 }
 
 int Game::start() {
@@ -29,7 +31,11 @@ int Game::start() {
     Desk desk( snake, apple, m_score );
 
     while ( !snake.isDead() ) {
-        desk.draw();
+        wclear( m_window );
+
+        desk.draw( m_window );
+        wrefresh( m_window );
+        refresh();
         desk.update( getch() );
     }   
     
@@ -44,9 +50,10 @@ int Game::run() {
 Game::~Game() {
     std::this_thread::sleep_for( std::chrono::milliseconds(500) );
     clear();
-    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "GAME OVER!" );
+    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "Game Over!" );
     refresh();
     std::this_thread::sleep_for( std::chrono::seconds(1) );
+    delwin( m_window );
     endwin();
     
     if ( m_score > m_highScore ) {

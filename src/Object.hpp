@@ -3,12 +3,13 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 #include "Vector2.hpp"
+#include <ncurses.h>
 
 class Object {
 public:
     virtual ~Object() {};
 
-    virtual void draw() const = 0;
+    virtual void draw( WINDOW* ) const = 0;
     virtual void onInput( const int& ) {};
     virtual void update() = 0;
     virtual void extend() {};

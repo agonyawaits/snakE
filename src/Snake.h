@@ -10,7 +10,7 @@ class Snake final : public Object {
 public:
     Snake();
 
-    void draw() const override;
+    void draw( WINDOW* ) const override;
     void update() override;
     void extend() override;
     void onInput( const int& ) override;

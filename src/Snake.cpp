@@ -12,22 +12,22 @@ Snake::Snake()
     m_position.y = Config::deskHeight/2;
 }
 
-void Snake::draw() const {
+void Snake::draw( WINDOW* window ) const {
     switch ( m_direction ) {
         case Direction::LEFT :
-            mvprintw( m_position.y, m_position.x, "<" );
+            mvwprintw( window, m_position.y, m_position.x, "<" );
             break;
 
         case Direction::RIGHT :
-            mvprintw( m_position.y, m_position.x, ">" );
+            mvwprintw( window, m_position.y, m_position.x, ">" );
             break;
 
         case Direction::UP :
-            mvprintw( m_position.y, m_position.x, "^" );
+            mvwprintw( window, m_position.y, m_position.x, "^" );
             break;
 
         case Direction::DOWN :
-            mvprintw( m_position.y, m_position.x, "v" );
+            mvwprintw( window, m_position.y, m_position.x, "v" );
             break;
 
         default:
@@ -35,7 +35,7 @@ void Snake::draw() const {
     }
 
     for ( const auto& seg : m_snakeBody ) {
-        mvprintw( seg.position.y, seg.position.x, "o" );
+        mvwprintw( window, seg.position.y, seg.position.x, "o" );
     }
 }
 

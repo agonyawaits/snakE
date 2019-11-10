@@ -11,8 +11,8 @@ Apple::Apple() {
     m_position.y = rand() % ( Config::deskHeight-2 ) + 1;
 }
 
-void Apple::draw() const {
-    mvprintw( m_position.y, m_position.x, "@" );
+void Apple::draw( WINDOW* window ) const {
+    mvwprintw( window, m_position.y, m_position.x, "@" );
 }
 
 void Apple::update() {

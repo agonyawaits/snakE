@@ -3,21 +3,20 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 #include "Object.hpp"
+#include <ncurses.h>
 
 class Desk final {
 public:
-    Desk( Object&,
-          Object&,
-          int& );
+    Desk( Object&, Object&, int& );
 
-    void draw() const;
+    void draw( WINDOW* ) const;
     void update( const int& ) const;
+
 private:
-    void drawSelf() const;
-    void onInput ( const int& ) const;
+    void onInput( const int& ) const;
 
     const int m_height, m_width;
-    Object& m_snake;
+    Object& m_char;
     Object& m_food;
     int& m_score;
 };
