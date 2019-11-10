@@ -35,7 +35,6 @@ int Game::start() {
 
         desk.draw( m_window );
         wrefresh( m_window );
-        refresh();
         desk.update( getch() );
     }   
     
