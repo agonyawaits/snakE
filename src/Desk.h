@@ -7,7 +7,7 @@
 
 class Desk final {
 public:
-    Desk( Object&, Object&, int& );
+    Desk( Object&, Object& );
 
     void draw( WINDOW* ) const;
     void update( const int& ) const;
@@ -18,5 +18,4 @@ private:
     const int m_height, m_width;
     Object& m_char;
     Object& m_food;
-    int& m_score;
 };

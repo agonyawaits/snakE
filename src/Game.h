@@ -15,4 +15,6 @@ public:
 private:
     int m_score, m_highScore;
     WINDOW* m_window;
+
+    void updateScore( const int& );
 };

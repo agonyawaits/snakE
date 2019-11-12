@@ -5,6 +5,8 @@
 #include "Config.hpp"
 #include <ncurses.h>
 
+#define SEGMENT 'o'
+
 Snake::Snake()
     : m_direction( Direction::RIGHT ), m_isDead( false ) 
 {
@@ -15,19 +17,19 @@ Snake::Snake()
 void Snake::draw( WINDOW* window ) const {
     switch ( m_direction ) {
         case Direction::LEFT :
-            mvwprintw( window, m_position.y, m_position.x, "<" );
+            mvwaddch( window, m_position.y, m_position.x, ACS_LARROW );
             break;
 
         case Direction::RIGHT :
-            mvwprintw( window, m_position.y, m_position.x, ">" );
+            mvwaddch( window, m_position.y, m_position.x, ACS_RARROW );
             break;
 
         case Direction::UP :
-            mvwprintw( window, m_position.y, m_position.x, "^" );
+            mvwaddch( window, m_position.y, m_position.x, ACS_UARROW );
             break;
 
         case Direction::DOWN :
-            mvwprintw( window, m_position.y, m_position.x, "v" );
+            mvwaddch( window, m_position.y, m_position.x, ACS_DARROW );
             break;
 
         default:
@@ -35,7 +37,7 @@ void Snake::draw( WINDOW* window ) const {
     }
 
     for ( const auto& seg : m_snakeBody ) {
-        mvwprintw( window, seg.position.y, seg.position.x, "o" );
+        mvwaddch( window, seg.position.y, seg.position.x, SEGMENT );
     }
 }
 

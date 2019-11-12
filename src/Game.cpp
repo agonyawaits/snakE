@@ -19,23 +19,24 @@ Game::Game()
     noecho();
     cbreak();
     curs_set( 0 );
-    keypad( stdscr, TRUE );
     halfdelay( 1 );
 
-    m_window = newwin( Config::deskHeight, Config::deskWidth, 0, 0 );
+    m_window = newwin( Config::deskHeight, Config::deskWidth, 1, 0 );
+    keypad( m_window, TRUE );
+    // TODO: Add difficulty levels
 }
 
 int Game::start() {
     Snake snake;
     Apple apple;
-    Desk desk( snake, apple, m_score );
+    Desk desk( snake, apple );
 
     while ( !snake.isDead() ) {
         wclear( m_window );
 
         desk.draw( m_window );
-        wrefresh( m_window );
-        desk.update( getch() );
+        desk.update( wgetch( m_window ) );
+        updateScore( snake.size() );
     }   
     
     return 0;
@@ -46,11 +47,16 @@ int Game::run() {
     return game.start();
 }
 
+void Game::updateScore( const int& t_charSize ) {
+    m_score = 10 * t_charSize;
+    mvprintw( 0, 0, "Score: %d", m_score );
+    refresh();
+}
+
 Game::~Game() {
     std::this_thread::sleep_for( std::chrono::milliseconds(500) );
-    clear();
-    mvprintw( Config::deskHeight/2, Config::deskWidth/2, "Game Over!" );
-    refresh();
+    mvwprintw( m_window, Config::deskHeight/2-1, Config::deskWidth/2 - 5, "Game Over!" );
+    wrefresh( m_window );
     std::this_thread::sleep_for( std::chrono::seconds(1) );
     delwin( m_window );
     endwin();
