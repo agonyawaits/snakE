@@ -7,6 +7,10 @@
 
 class Desk final {
 public:
+    static const int height = 20;
+    static const int width = 60;
+    
+public:
     Desk( Object&, Object& );
 
     void draw( WINDOW* ) const;
@@ -15,7 +19,6 @@ public:
 private:
     void onInput( const int& ) const;
 
-    const int m_height, m_width;
     Object& m_char;
     Object& m_food;
 };

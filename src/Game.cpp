@@ -6,10 +6,7 @@
 #include "Apple.h"
 #include "Snake.h"
 #include "ScoreManager.hpp"
-#include "Config.hpp"
 #include <ncurses.h>
-#include <thread>
-#include <ctime>
 
 Game::Game() 
     : m_score( 0 ), m_highScore( ScoreManager::getScore() ) 
@@ -21,9 +18,8 @@ Game::Game()
     curs_set( 0 );
     halfdelay( 1 );
 
-    m_window = newwin( Config::deskHeight, Config::deskWidth, 1, 0 );
+    m_window = newwin( Desk::height, Desk::width, 1, 0 );
     keypad( m_window, TRUE );
-    // TODO: Add difficulty levels
 }
 
 int Game::start() {
@@ -47,17 +43,17 @@ int Game::run() {
     return game.start();
 }
 
-void Game::updateScore( const int& t_charSize ) {
-    m_score = 10 * t_charSize;
+void Game::updateScore( const int& charSize ) {
+    m_score = 10 * charSize;
     mvprintw( 0, 0, "Score: %d", m_score );
     refresh();
 }
 
 Game::~Game() {
-    std::this_thread::sleep_for( std::chrono::milliseconds(500) );
-    mvwprintw( m_window, Config::deskHeight/2-1, Config::deskWidth/2 - 5, "Game Over!" );
-    wrefresh( m_window );
-    std::this_thread::sleep_for( std::chrono::seconds(1) );
+    mvwprintw( m_window, Desk::height/2-1, Desk::width/2 - 5, "Game Over!" );
+    mvwprintw( m_window, Desk::height/2, Desk::width/2 - 10, "Press enter to exit..." );
+    nocbreak();
+    wgetch( m_window );
     delwin( m_window );
     endwin();
     

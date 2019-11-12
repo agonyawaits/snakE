@@ -22,11 +22,11 @@ int ScoreManager::getScore() {
     return score;
 }
 
-void ScoreManager::logScore( const int& t_score ) {
+void ScoreManager::logScore( const int& score ) {
     std::fstream fout( "../data/highscore.txt", std::ios::out );
     
     if ( fout ) {
-        fout << t_score;
+        fout << score;
         fout.close();
     }
 }
