@@ -12,9 +12,7 @@ Game::Game()
     : m_score( 0 ), m_highScore( ScoreManager::getScore() ) 
 {
     initscr();
-    clear();
     noecho();
-    cbreak();
     curs_set( 0 );
     halfdelay( 1 );
 
