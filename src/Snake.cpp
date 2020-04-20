@@ -5,54 +5,56 @@
 #include "Desk.h"
 #include <ncurses.h>
 
-#define SEGMENT 'o'
-
-Snake::Snake()
-    : m_direction( Direction::RIGHT ), m_isDead( false ) 
-{
-    m_position.x = Desk::width/2;
-    m_position.y = Desk::height/2;
-}
+Snake::Snake( const Vector2i& position )
+    : Object( position ), m_direction( Direction::RIGHT ), m_isDead( false ) {}
 
 void Snake::draw( WINDOW* window ) const {
-    switch ( m_direction ) {
-        case Direction::LEFT :
-            mvwaddch( window, m_position.y, m_position.x, ACS_LARROW );
-            break;
-
-        case Direction::RIGHT :
-            mvwaddch( window, m_position.y, m_position.x, ACS_RARROW );
-            break;
-
-        case Direction::UP :
-            mvwaddch( window, m_position.y, m_position.x, ACS_UARROW );
-            break;
-
-        case Direction::DOWN :
-            mvwaddch( window, m_position.y, m_position.x, ACS_DARROW );
-            break;
-
-        default:
-            break;
-    }
+    mvwaddch( window, getY(), getX(), currentHeadSymbol() );
 
     for ( const auto& seg : m_snakeBody ) {
-        mvwaddch( window, seg.position.y, seg.position.x, SEGMENT );
+        seg.draw( window );
     }
 }
 
 void Snake::update() {
     move();
-    checkCollision();
+    checkAndUpdateIfCollision();
 }
 
 void Snake::extend() {
-    m_snakeBody.emplace_back(m_snakeBody.empty() ? m_position.x : m_snakeBody.back().position.x, 
-                             m_snakeBody.empty() ? m_position.y : m_snakeBody.back().position.y);
+    if ( m_snakeBody.empty() ) {
+        m_snakeBody.emplace_back(
+            SnakeSegment( Vector2i( getX(), getY() ) )
+        );
+    } else {
+        m_snakeBody.emplace_back(
+            SnakeSegment( Vector2i( m_snakeBody.back().getX(), m_snakeBody.back().getY() ) )
+        );
+    }
 }
 
 void Snake::onInput( const int& input ) {
     changeDirection( input );
+}
+
+void Snake::move() {
+    moveBody();
+    moveHead();
+}
+
+void Snake::checkAndUpdateIfCollision() {
+    if ( crashedOut() ) {
+        m_isDead = true;
+    }
+
+    int clashedSegmentIdx = clashedSegmentIndex();
+    if ( clashedSegmentIdx ) {
+        cut( clashedSegmentIdx );
+    }
+}
+
+void Snake::cut( const int& cutFromIndex ) {
+    m_snakeBody.erase( m_snakeBody.begin()+cutFromIndex, m_snakeBody.end() );
 }
 
 void Snake::changeDirection( const int& input ) {
@@ -73,61 +75,73 @@ void Snake::changeDirection( const int& input ) {
             m_direction = m_direction != Direction::UP ? Direction::DOWN : m_direction;
             break;
 
-        default : 
+        default :
             break;
     }
 }
 
-void Snake::move() {
-    for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
-        m_snakeBody[ i ].position.x = m_snakeBody[ i-1 ].position.x;
-        m_snakeBody[ i ].position.y = m_snakeBody[ i-1 ].position.y;
-    }
-
-    if ( !m_snakeBody.empty() ) {
-        m_snakeBody.front().position.x = m_position.x;
-        m_snakeBody.front().position.y = m_position.y;
-    }
-
+void Snake::moveHead() {
     switch ( m_direction ) {
-        case Direction::LEFT : 
+        case Direction::LEFT :
             --m_position.x;
             break;
 
-        case Direction::RIGHT : 
+        case Direction::RIGHT :
             ++m_position.x;
             break;
 
-        case Direction::UP : 
+        case Direction::UP :
             --m_position.y;
             break;
 
-        case Direction::DOWN : 
+        case Direction::DOWN :
             ++m_position.y;
             break;
-
-        default : 
-            return;
     }
 }
 
-void Snake::checkCollision() {
-    if (m_position.x == Desk::width-1 ||
-        m_position.y == Desk::height-1 ||
-        m_position.x == 0 || m_position.y == 0) 
-    {
-        m_isDead = true;
+void Snake::moveBody() {
+    for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
+        m_snakeBody[ i ].setX( m_snakeBody[ i-1 ].getX() );
+        m_snakeBody[ i ].setY( m_snakeBody[ i-1 ].getY() );
     }
 
-    for ( int i = 0; i < m_snakeBody.size(); ++i ) {
-        if (m_snakeBody[i].position.x == m_position.x && 
-            m_snakeBody[i].position.y == m_position.y) 
+    if ( !m_snakeBody.empty() ) {
+        m_snakeBody.front().setX( getX() );
+        m_snakeBody.front().setY( getY() );
+    }
+}
+
+chtype Snake::currentHeadSymbol() const {
+    switch ( m_direction ) {
+        case Direction::LEFT :
+            return ACS_LARROW;
+
+        case Direction::RIGHT :
+            return ACS_RARROW;
+
+        case Direction::UP :
+            return ACS_UARROW;
+
+        case Direction::DOWN :
+            return ACS_DARROW;
+    }
+}
+
+bool Snake::crashedOut() const {
+    return getX() == Desk::width-1 || getY() == Desk::height-1 ||
+        getX() == 0 || getY() == 0;
+}
+
+int Snake::clashedSegmentIndex() const {
+    for ( int i = 0; i < m_snakeBody.size(); ++i )
+    {
+        if ( m_snakeBody[ i ].getX() == getX() &&
+             m_snakeBody[ i ].getY() == getY() )
         {
-            cut( m_snakeBody.begin()+i );
+            return i;
         }
     }
-}
 
-void Snake::cut( const std::vector<SnakeSegment>::iterator& cutFrom ) {
-    m_snakeBody.erase( cutFrom, m_snakeBody.end() );
+    return 0;
 }
