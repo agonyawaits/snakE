@@ -125,8 +125,7 @@ bool Snake::crashedOut() const {
 }
 
 int Snake::clashedMyself() const {
-    for ( const auto& seg : m_snakeBody )
-    {
+    for ( const auto& seg : m_snakeBody ) {
         if ( seg.getX() == getX() && seg.getY() == getY() )
             return true;
     }
