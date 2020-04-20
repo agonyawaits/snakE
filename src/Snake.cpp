@@ -43,18 +43,9 @@ void Snake::move() {
 }
 
 void Snake::checkAndUpdateIfCollision() {
-    if ( crashedOut() ) {
+    if ( crashedOut() || clashedMyself() ) {
         m_isDead = true;
     }
-
-    int clashedSegmentIdx = clashedSegmentIndex();
-    if ( clashedSegmentIdx ) {
-        cut( clashedSegmentIdx );
-    }
-}
-
-void Snake::cut( const int& cutFromIndex ) {
-    m_snakeBody.erase( m_snakeBody.begin()+cutFromIndex, m_snakeBody.end() );
 }
 
 void Snake::changeDirection( const int& input ) {
@@ -133,15 +124,12 @@ bool Snake::crashedOut() const {
         getX() == 0 || getY() == 0;
 }
 
-int Snake::clashedSegmentIndex() const {
-    for ( int i = 0; i < m_snakeBody.size(); ++i )
+int Snake::clashedMyself() const {
+    for ( const auto& seg : m_snakeBody )
     {
-        if ( m_snakeBody[ i ].getX() == getX() &&
-             m_snakeBody[ i ].getY() == getY() )
-        {
-            return i;
-        }
+        if ( seg.getX() == getX() && seg.getY() == getY() )
+            return true;
     }
 
-    return 0;
+    return false;
 }

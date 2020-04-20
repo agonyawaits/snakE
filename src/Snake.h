@@ -51,14 +51,14 @@ private:
     void    changeDirection( const int& );
     void    move();
     void    checkAndUpdateIfCollision();
-    void    cut( const int& );
     chtype  currentHeadSymbol() const;
     void    moveHead();
     void    moveBody();
     bool    crashedOut() const;
-    int     clashedSegmentIndex() const;
+    int     clashedMyself() const;
 
 private:
+    using Object::m_position; // Snake head position in context of Snake class. 
     using Object::setX;
     using Object::setY;
 };

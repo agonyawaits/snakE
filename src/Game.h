@@ -13,11 +13,13 @@ public:
     ~Game();
 
     int start();
-    void setupScreen();
-    void finalizeScreen();
 
     static int run();
 private:
     WINDOW* m_window;
     std::unique_ptr<ScoreManager> m_scoreManager;
+
+private:
+    void setupScreen();
+    void finalizeScreen();
 };

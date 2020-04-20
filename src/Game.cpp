@@ -25,7 +25,7 @@ int Game::start() {
 
         desk.draw( m_window );
         desk.update( wgetch( m_window ) );
-        
+
         m_scoreManager->updateScore( snake.size() );
         m_scoreManager->printScore();
     }
