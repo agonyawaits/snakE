@@ -3,6 +3,8 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "Desk.h"
 #include "Object.hpp"
+#include "Vector2.hpp"
+#include <random>
 #include <ncurses.h>
 
 Desk::Desk( Object& character, Object& food )
@@ -16,10 +18,11 @@ void Desk::draw( WINDOW* window ) const {
 
 void Desk::update( const int& input ) const {
     onInput( input );
+
     m_char.update();
 
-    if (m_food.getX() == m_char.getX() && 
-        m_food.getY() == m_char.getY())
+    if ( m_food.getX() == m_char.getX() &&
+         m_food.getY() == m_char.getY() )
     {
         m_food.update();
         m_char.extend();
@@ -28,4 +31,12 @@ void Desk::update( const int& input ) const {
 
 void Desk::onInput( const int& input ) const {
     m_char.onInput( input );
+    m_food.onInput( input );
+}
+
+Vector2i Desk::getRandomPosition() {
+    return Vector2i(
+        rand() % ( Desk::width-2 ) + 1,
+        rand() % ( Desk::height-2 ) + 1
+    );
 }

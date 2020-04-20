@@ -7,8 +7,12 @@
 
 class Apple final : public Object {
 public:
-    Apple();
+    Apple( const Vector2i& );
 
     void draw( WINDOW* ) const override;
     void update() override;
+
+private:
+    using Object::setX;
+    using Object::setY;
 };

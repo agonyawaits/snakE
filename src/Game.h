@@ -3,7 +3,9 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 
+#include "ScoreManager.hpp"
 #include <ncurses.h>
+#include <memory>
 
 class Game final {
 public:
@@ -11,10 +13,13 @@ public:
     ~Game();
 
     int start();
+
     static int run();
 private:
-    int m_score, m_highScore;
     WINDOW* m_window;
+    std::unique_ptr<ScoreManager> m_scoreManager;
 
-    void updateScore( const int& );
+private:
+    void setupScreen();
+    void finalizeScreen();
 };
