@@ -9,14 +9,14 @@ public:
     Vector2();
     Vector2( const T&, const T& );
 
-    T m_x;
-    T m_y;
+    T x;
+    T y;
 };
 
 template <typename T>
-Vector2<T>::Vector2() : m_x( 0 ), m_y( 0 ) {}
+Vector2<T>::Vector2() : x( 0 ), y( 0 ) {}
 
 template <typename T>
-Vector2<T>::Vector2( const T& x, const T& y ) : m_x( x ), m_y( y ) {}
+Vector2<T>::Vector2( const T& _x, const T& _y ) : x( _x ), y( _y ) {}
 
 typedef Vector2<int> Vector2i;

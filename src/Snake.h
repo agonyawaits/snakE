@@ -16,8 +16,8 @@ public:
     void draw( WINDOW* ) const override;
     void update() override;
 
-    void extend();
-    void onInput( const int& );
+    void extend() override;
+    void onInput( const int& ) override;
 
     inline bool alive() const { return !m_isDead; }
     inline int size() const { return m_snakeBody.size(); }
@@ -33,7 +33,7 @@ private:
         }
 
     private:
-        void update() {};
+        void update() override {};
     };
 
     enum class Direction {

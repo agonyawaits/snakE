@@ -10,7 +10,7 @@
 Apple::Apple( const Vector2i& position ) : Object( position ) {}
 
 void Apple::draw( WINDOW* window ) const {
-    mvwaddch( window, m_position.y, m_position.x, APPLE );
+    mvwaddch( window, getY(), getX(), APPLE );
 }
 
 void Apple::update() {
