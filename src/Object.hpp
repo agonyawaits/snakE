@@ -16,10 +16,10 @@ public:
     virtual void extend() {}
     virtual void onInput( const int& ) {}
 
-    inline int getX() const { return m_position.x; }
-    inline int getY() const { return m_position.y; }
-    inline void setX( const int& x ) { m_position.x = x; }
-    inline void setY( const int& y ) { m_position.y = y; }
+    inline int getX() const { return m_position.getX(); }
+    inline int getY() const { return m_position.getY(); }
+    inline void setX( const int& x ) { m_position.setX( x ); }
+    inline void setY( const int& y ) { m_position.setY( y ); }
 
 protected:
     Vector2i m_position;

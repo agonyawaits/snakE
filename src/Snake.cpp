@@ -74,19 +74,19 @@ void Snake::changeDirection( const int& input ) {
 void Snake::moveHead() {
     switch ( m_direction ) {
         case Direction::LEFT :
-            --m_position.x;
+            m_position.setX( m_position.getX()-1 );
             break;
 
         case Direction::RIGHT :
-            ++m_position.x;
+            m_position.setX( m_position.getX()+1 );
             break;
 
         case Direction::UP :
-            --m_position.y;
+            m_position.setY( m_position.getY()-1 );
             break;
 
         case Direction::DOWN :
-            ++m_position.y;
+            m_position.setY( m_position.getY()+1 );
             break;
     }
 }
