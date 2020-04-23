@@ -25,7 +25,7 @@ public:
     static const int step = 10;
 
     static int getLastHighScore() {
-        std::fstream fin( "../data/highscore.txt", std::ios::in );
+        std::fstream fin( "data/highscore.txt", std::ios::in );
         int score = 0;
 
         if ( fin ) {
@@ -37,7 +37,7 @@ public:
     }
 
     static void logNewHighScore( const int& score ) {
-        std::fstream fout( "../data/highscore.txt", std::ios::out );
+        std::fstream fout( "data/highscore.txt", std::ios::out );
 
         if ( fout ) {
             fout << score;
