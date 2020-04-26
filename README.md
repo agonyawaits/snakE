@@ -1,4 +1,4 @@
-c++ object-oriented terminal snake ( the best ) 
+c++ object-oriented terminal snake
 -------------------------------------------
 To play the game:
 1) Install ncurses lib (google)
