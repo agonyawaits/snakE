@@ -10,9 +10,5 @@ public:
     Apple( const Vector2i& );
 
     void draw( WINDOW* ) const override;
-    void update() override;
-
-private:
-    using Object::setX;
-    using Object::setY;
+    void update() override {}
 };

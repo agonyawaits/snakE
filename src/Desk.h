@@ -8,20 +8,25 @@
 
 class Desk final {
 public:
-    static const int height = 20;
-    static const int width = 60;
+    Desk( const int&, const int& );
 
-    static Vector2i getRandomPosition();
+    inline int height() const { return m_height; }
+    inline int width() const { return m_width; }
 
-public:
-    Desk( Object&, Object& );
+    inline void setHero( Object* hero ) { m_hero = hero; }
+    inline void setFood( Object* food ) { m_food = food; }
 
     void draw( WINDOW* ) const;
-    void update( const int& ) const;
-
+    void update( const int& );
+    Vector2i getRandomPosition() const;
 private:
+    bool initialized() const;
     void onInput( const int& ) const;
+    bool heroHasCrashed() const;
+    void killHero();
 
-    Object& m_char;
-    Object& m_food;
+    int         m_height;
+    int         m_width;
+    Object*     m_hero;
+    Object*     m_food;
 };

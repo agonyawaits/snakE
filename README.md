@@ -1,4 +1,4 @@
-Snake game written on C++ for Unix Terminal
+c++ object-oriented terminal snake ( the best ) 
 -------------------------------------------
 To play the game:
 1) Install ncurses lib (google)

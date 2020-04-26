@@ -15,11 +15,9 @@ public:
 
     void draw( WINDOW* ) const override;
     void update() override;
-
     void extend() override;
     void onInput( const int& ) override;
 
-    inline bool alive() const { return !m_isDead; }
     inline int size() const { return m_snakeBody.size(); }
 
 private:
@@ -44,7 +42,6 @@ private:
     };
 
 private:
-    bool                        m_isDead;
     std::vector<SnakeSegment>   m_snakeBody;
     Direction                   m_direction;
 
@@ -54,11 +51,5 @@ private:
     chtype  currentHeadSymbol() const;
     void    moveHead();
     void    moveBody();
-    bool    crashedOut() const;
     int     clashedMyself() const;
-
-private:
-    using Object::m_position; // Snake head position in context of Snake class. 
-    using Object::setX;
-    using Object::setY;
 };

@@ -5,7 +5,10 @@
 #include <random>
 #include <ctime>
 
-int main() {
+int main( int argc, const char** argv ) {
     srand( time( nullptr ) );
-    return Game::run();
+
+    return argc < 3 ?
+        Game::run() :
+        Game::run( std::atoi( argv[ 1 ] ), std::atoi( argv[ 2 ] ) );
 }
