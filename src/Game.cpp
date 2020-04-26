@@ -5,20 +5,25 @@
 #include "Desk.h"
 #include "Apple.h"
 #include "Snake.h"
-#include "ScoreManager.hpp"
+#include "ScoreManager.h"
+#include "Vector2.hpp"
 #include <ncurses.h>
 #include <memory>
 
-Game::Game()
-    : m_scoreManager( std::make_unique<ScoreManager>() )
+Game::Game( const int& windowHeight, const int& windowWidth )
+    : m_scoreManager( std::make_unique<ScoreManager>() ),
+    m_windowHeight( windowHeight ), m_windowWidth( windowWidth )
 {
     setupScreen();
 }
 
 int Game::start() {
-    Snake snake( Desk::getRandomPosition() );
-    Apple apple( Desk::getRandomPosition() );
-    Desk desk( snake, apple );
+    Desk desk( m_windowHeight, m_windowWidth );
+    Snake snake( Vector2i( 1, 1 ) );
+    Apple apple( desk.getRandomPosition() );
+
+    desk.setHero( &snake );
+    desk.setFood( &apple );
 
     while ( snake.alive() ) {
         wclear( m_window );
@@ -33,16 +38,12 @@ int Game::start() {
     return 0;
 }
 
-int Game::run() {
-    return Game().start();
-}
-
 Game::~Game() {
     finalizeScreen();
 
     int finalScore = m_scoreManager->getScore();
-    if ( finalScore > ScoreManager::getLastHighScore() ) {
-        ScoreManager::logNewHighScore( finalScore );
+    if ( finalScore > m_scoreManager->getLastHighScore() ) {
+        m_scoreManager->logNewHighScore( finalScore );
     }
 }
 
@@ -52,13 +53,13 @@ void Game::setupScreen() {
     curs_set( 0 );
     halfdelay( 1 );
 
-    m_window = newwin( Desk::height, Desk::width, 1, 0 );
+    m_window = newwin( m_windowHeight, m_windowWidth, 1, 0 );
     keypad( m_window, TRUE );
 }
 
 void Game::finalizeScreen() {
-    mvwprintw( m_window, Desk::height/2-1, Desk::width/2 - 5, "Game Over!" );
-    mvwprintw( m_window, Desk::height/2, Desk::width/2 - 10, "Press enter to exit..." );
+    mvwprintw( m_window, m_windowHeight/2-1, m_windowWidth/2 - 5, "Game Over!" );
+    mvwprintw( m_window, m_windowHeight/2, m_windowWidth/2 - 10, "Press enter to exit..." );
     nocbreak();
     wgetch( m_window );
     delwin( m_window );

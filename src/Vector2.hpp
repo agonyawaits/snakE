@@ -15,6 +15,9 @@ public:
     inline void setX( const T& _x ) { x = _x; }
     inline void setY( const T& _y ) { y = _y; }
 
+    bool operator== ( const Vector2& other ) {
+        return x == other.x && y == other.y;
+    }
 private:
     T x;
     T y;
