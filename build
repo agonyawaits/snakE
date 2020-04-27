@@ -1,4 +1,0 @@
-#!/bin/bash
-cd src/
-g++ main.cpp Apple.cpp Snake.cpp Desk.cpp Game.cpp -std=c++17 -lncurses -o snake
-mv snake ../

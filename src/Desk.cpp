@@ -7,36 +7,63 @@
 #include <random>
 #include <ncurses.h>
 
-Desk::Desk( Object& character, Object& food )
-    : m_char( character ), m_food( food ) {}
+Desk::Desk( const int& height, const int& width )
+    : m_height( height ), m_width( width ), m_hero( nullptr ), m_food( nullptr ) {}
 
 void Desk::draw( WINDOW* window ) const {
+    if ( !initialized() ) {
+        return;
+    }
+
     box( window, 0, 0 );
-    m_char.draw( window );
-    m_food.draw( window );
+    m_hero->draw( window );
+    m_food->draw( window );
 }
 
-void Desk::update( const int& input ) const {
+void Desk::update( const int& input ) {
+    if ( !initialized() ) {
+        return;
+    }
+    
     onInput( input );
 
-    m_char.update();
+    m_hero->update();
 
-    if ( m_food.getX() == m_char.getX() &&
-         m_food.getY() == m_char.getY() )
-    {
-        m_food.update();
-        m_char.extend();
+    if ( heroHasCrashed() ) {
+        if ( m_hero->alive() ) {
+            killHero();
+        }
+
+        return;
+    }
+
+    if ( m_food->getPosition() == m_hero->getPosition() ) {
+        m_food->setPosition( getRandomPosition() );
+        m_hero->extend();
     }
 }
 
-void Desk::onInput( const int& input ) const {
-    m_char.onInput( input );
-    m_food.onInput( input );
+bool Desk::initialized() const {
+    return m_hero != nullptr && m_food != nullptr;
 }
 
-Vector2i Desk::getRandomPosition() {
+void Desk::onInput( const int& input ) const {
+    m_hero->onInput( input );
+    m_food->onInput( input );
+}
+
+Vector2i Desk::getRandomPosition() const {
     return Vector2i(
-        rand() % ( Desk::width-2 ) + 1,
-        rand() % ( Desk::height-2 ) + 1
+        rand() % ( m_width-2 ) + 1,
+        rand() % ( m_height-2 ) + 1
     );
+}
+
+bool Desk::heroHasCrashed() const {
+    return m_hero->getX() == m_width-1 || m_hero->getY() == m_height-1 ||
+        m_hero->getX() == 0 ||  m_hero->getY() == 0;
+}
+
+void Desk::killHero() {
+    m_hero->suicide();
 }

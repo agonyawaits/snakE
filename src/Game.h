@@ -3,21 +3,26 @@
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 
-#include "ScoreManager.hpp"
+#include "ScoreManager.h"
 #include <ncurses.h>
 #include <memory>
 
 class Game final {
 public:
-    Game();
+    Game( const int&, const int& );
     ~Game();
 
     int start();
 
-    static int run();
+    static int run( const int windowHeight=25, const int windowWidth=37 ) {
+        return Game( windowHeight, windowWidth ).start();
+    }
+
 private:
-    WINDOW* m_window;
-    std::unique_ptr<ScoreManager> m_scoreManager;
+    WINDOW*                         m_window;
+    int                             m_windowHeight;
+    int                             m_windowWidth;
+    std::unique_ptr<ScoreManager>   m_scoreManager;
 
 private:
     void setupScreen();

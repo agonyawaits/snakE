@@ -1,13 +1,13 @@
-Snake game written on C++ for Unix Terminal
+c++ object-oriented terminal snake
 -------------------------------------------
 To play the game:
 1) Install ncurses lib (google)
 2) Clone repository
 ```bash
-$ git clone https://github.com/agonyawaits/snake
+$ git clone https://github.com/agonyawaits/snakE
 ```
 3) Build and run:
 ```bash
-$ ./build
-$ ./snake
+$ bin/build
+$ bin/snake
 ```

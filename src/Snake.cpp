@@ -6,7 +6,7 @@
 #include <ncurses.h>
 
 Snake::Snake( const Vector2i& position )
-    : Object( position ), m_direction( Direction::RIGHT ), m_isDead( false ) {}
+    : Object( position ), m_direction( Direction::RIGHT ) {}
 
 void Snake::draw( WINDOW* window ) const {
     mvwaddch( window, getY(), getX(), currentHeadSymbol() );
@@ -24,11 +24,11 @@ void Snake::update() {
 void Snake::extend() {
     if ( m_snakeBody.empty() ) {
         m_snakeBody.emplace_back(
-            SnakeSegment( Vector2i( getX(), getY() ) )
+            SnakeSegment( m_position )
         );
     } else {
         m_snakeBody.emplace_back(
-            SnakeSegment( Vector2i( m_snakeBody.back().getX(), m_snakeBody.back().getY() ) )
+            SnakeSegment( m_snakeBody.back().getPosition() )
         );
     }
 }
@@ -43,8 +43,8 @@ void Snake::move() {
 }
 
 void Snake::checkAndUpdateIfCollision() {
-    if ( crashedOut() || clashedMyself() ) {
-        m_isDead = true;
+    if ( clashedMyself() ) {
+        suicide();
     }
 }
 
@@ -93,13 +93,11 @@ void Snake::moveHead() {
 
 void Snake::moveBody() {
     for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
-        m_snakeBody[ i ].setX( m_snakeBody[ i-1 ].getX() );
-        m_snakeBody[ i ].setY( m_snakeBody[ i-1 ].getY() );
+        m_snakeBody[ i ].setPosition( m_snakeBody[ i-1 ].getPosition() );
     }
 
     if ( !m_snakeBody.empty() ) {
-        m_snakeBody.front().setX( getX() );
-        m_snakeBody.front().setY( getY() );
+        m_snakeBody.front().setPosition( m_position );
     }
 }
 
@@ -119,15 +117,11 @@ chtype Snake::currentHeadSymbol() const {
     }
 }
 
-bool Snake::crashedOut() const {
-    return getX() == Desk::width-1 || getY() == Desk::height-1 ||
-        getX() == 0 || getY() == 0;
-}
-
 int Snake::clashedMyself() const {
     for ( const auto& seg : m_snakeBody ) {
-        if ( seg.getX() == getX() && seg.getY() == getY() )
+        if ( seg.getPosition() == m_position ) {
             return true;
+        }
     }
 
     return false;
