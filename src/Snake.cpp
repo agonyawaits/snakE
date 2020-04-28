@@ -118,8 +118,12 @@ chtype Snake::currentHeadSymbol() const {
 }
 
 int Snake::clashedMyself() const {
-    for ( const auto& seg : m_snakeBody ) {
-        if ( seg.getPosition() == m_position ) {
+    if ( m_snakeBody.size() < 4 ) {
+        return false;
+    }
+
+    for ( int i = 3; i < m_snakeBody.size(); ++i ) {
+        if ( m_snakeBody[ i ].getPosition() == m_position ) {
             return true;
         }
     }

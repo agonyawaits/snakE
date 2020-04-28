@@ -32,7 +32,7 @@ int Game::start() {
         desk.update( wgetch( m_window ) );
 
         m_scoreManager->updateScore( snake.size() );
-        m_scoreManager->printScore();
+        m_scoreManager->printScores( Vector2i( 0, 0 ), Vector2i( m_windowWidth - 15, 0 ) );
     }
 
     return 0;
@@ -42,7 +42,7 @@ Game::~Game() {
     finalizeScreen();
 
     int finalScore = m_scoreManager->getScore();
-    if ( finalScore > m_scoreManager->getLastHighScore() ) {
+    if ( finalScore > m_scoreManager->getHighScore() ) {
         m_scoreManager->logNewHighScore( finalScore );
     }
 }

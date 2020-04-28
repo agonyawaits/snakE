@@ -2,18 +2,23 @@
 //  snake
 //  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #include "ScoreManager.h"
+#include "Vector2.hpp"
 #include <fstream>
 #include <ncurses.h>
 
 ScoreManager::ScoreManager()
-    : m_score( 0 ), m_step( 10 ) {}
+    : m_score( 0 ), m_highScore( getLastHighScore() ), m_step( 10 ) {}
 
 void ScoreManager::updateScore( const int& multiplier ) {
     m_score = m_step * multiplier;
 }
 
-void ScoreManager::printScore() const {
-    mvprintw( 0, 0, "Score: %d", m_score );
+void ScoreManager::printScores( 
+    const Vector2i& scorePosition,
+    const Vector2i& highScorePosition ) const 
+{
+    mvprintw( scorePosition.getY(), scorePosition.getX(), "Score: %d", m_score );
+    mvprintw( highScorePosition.getY(), highScorePosition.getX(), "High Score: %d", m_highScore );
     refresh();
 }
 

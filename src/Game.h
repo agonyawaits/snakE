@@ -14,7 +14,7 @@ public:
 
     int start();
 
-    static int run( const int windowHeight=25, const int windowWidth=37 ) {
+    static int run( const int windowHeight=15, const int windowWidth=37 ) {
         return Game( windowHeight, windowWidth ).start();
     }
 
