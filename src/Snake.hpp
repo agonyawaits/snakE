@@ -13,6 +13,7 @@ public:
     void move(const Direction&);
     void extend();
     bool alive() const;
+    Vector2i headPosition() const;
 
 private:
     Object              m_head;

@@ -70,7 +70,7 @@ bool Object::operator== (const Object& other) const {
 }
 
 bool Object::canChangeDirection(const Direction& direction) const {
-    return (m_direction == Direction::NONE) ||
+    return (direction != Direction::NONE && m_direction == Direction::NONE) ||
         (direction == Direction::UP && m_direction != Direction::DOWN) ||
         (direction == Direction::DOWN && m_direction != Direction::UP) ||
         (direction == Direction::LEFT && m_direction != Direction::RIGHT) ||

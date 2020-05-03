@@ -4,16 +4,22 @@
 #include "Direction.hpp"
 #include <ncurses.h>
 
-Snake::Snake() : m_head(Object(Vector2i())), m_alive(true)
+Snake::Snake()
+    : m_head(Object(Vector2i())), m_alive(true)
 {
 }
 
-Snake::Snake(const Vector2i& position) : m_head(Object(position)), m_alive(true)
+Snake::Snake(const Vector2i& position)
+    : m_head(Object(position)), m_alive(true)
 {
 }
 
 bool Snake::alive() const {
     return m_alive;
+}
+
+Vector2i Snake::headPosition() const {
+    return m_head.position();
 }
 
 void Snake::draw(WINDOW* window) const {
