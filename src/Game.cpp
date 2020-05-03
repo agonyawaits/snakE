@@ -14,7 +14,7 @@ bool Game::isOver() const {
     return m_isOver;
 }
 
-void Game::draw() const {
+void Game::render() const {
     m_window.clear();
     m_window.drawBorder();
     m_window.drawSnake(m_snake);
@@ -52,7 +52,7 @@ Direction Game::parseInput(const int& input) const {
 
 bool Game::noCollision() const {
     return m_snake.headPosition().x() > 0 &&
-        m_snake.headPosition().x() < m_window.w()-1 &&
+        m_snake.headPosition().x() < m_window.width()-1 &&
         m_snake.headPosition().y() > 0 &&
-        m_snake.headPosition().y() < m_window.h()-1;
+        m_snake.headPosition().y() < m_window.height()-1;
 }

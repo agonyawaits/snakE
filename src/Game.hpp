@@ -9,7 +9,7 @@ class Game final {
 public:
     Game(const Window&);
 
-    void draw() const;
+    void render() const; // TODO: Method name ?
     void update();
     bool isOver() const;
 

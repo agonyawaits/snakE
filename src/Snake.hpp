@@ -16,7 +16,7 @@ public:
     Vector2i    headPosition() const;
 
 private:
-    Object              m_head;
+    Object              m_head; // Need this?
     std::vector<Object> m_body;
     bool                m_alive;
 

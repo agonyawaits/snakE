@@ -7,19 +7,19 @@
 
 class Window final {
 public:
-    Window(const int&, const int&, const Vector2i&);
-    virtual ~Window();
+    Window(const Vector2u&, const Vector2i&);
+    ~Window();
 
-    int h() const;
-    int w() const;
-    void clear() const;
-    void drawBorder() const;
-    void drawObject(const Object&, const chtype='o') const;
-    void drawSnake(const Snake&) const;
-    int getInput() const;
-    Vector2i randomPosition() const;
+    int       height() const;
+    int       width() const;
+    void      clear() const;
+    void      drawBorder() const;
+    void      drawObject(const Object&, const chtype='o') const;
+    void      drawSnake(const Snake&) const;
+    int       getInput() const;
+    Vector2i  randomPosition() const;
 
 private:
-    int m_height, m_width;
-    WINDOW* m_window;
+    Vector2u  m_size;
+    WINDOW*   m_window;
 };

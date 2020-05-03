@@ -3,9 +3,8 @@
 #include <ncurses.h>
 #include <random>
 
-Window::Window(const int& h, const int& w, const Vector2i& position)
-    : m_height(h), m_width(w),
-    m_window(newwin(m_height, m_width, position.y(), position.x()))
+Window::Window(const Vector2u& size, const Vector2i& position)
+    : m_size(size), m_window(newwin(m_size.y(), m_size.x(), position.y(), position.x()))
 {
     keypad(m_window, TRUE);
 }
@@ -14,12 +13,12 @@ Window::~Window() {
     delwin(m_window);
 }
 
-int Window::h() const {
-    return m_height;
+int Window::height() const {
+    return m_size.y();
 }
 
-int Window::w() const {
-    return m_width;
+int Window::width() const {
+    return m_size.x();
 }
 
 void Window::clear() const {
@@ -44,7 +43,7 @@ int Window::getInput() const {
 
 Vector2i Window::randomPosition() const {
     return Vector2i(
-        rand() % (m_width-2) + 1,
-        rand() % (m_height-2) + 1
+        rand() % (m_size.x()-2) + 1,
+        rand() % (m_size.y()-2) + 1
     );
 }

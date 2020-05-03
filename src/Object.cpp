@@ -13,10 +13,6 @@ Object::Object(const Vector2i& position)
 {
 }
 
-Object::~Object()
-{
-}
-
 int Object::x() const {
     return m_position.x();
 }

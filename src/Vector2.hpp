@@ -1,7 +1,7 @@
 #pragma once
 
 template <typename T>
-class Vector2 {
+class Vector2 final {
 public:
     Vector2() : m_x(0), m_y(0) {}
     Vector2(const T& x, const T& y) : m_x(x), m_y(y) {}
@@ -18,3 +18,4 @@ private:
 };
 
 typedef Vector2<int> Vector2i;
+typedef Vector2<unsigned int> Vector2u; // TODO: Investigate if I should use this or better not.
