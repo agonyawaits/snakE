@@ -2,7 +2,6 @@
 #include "Window.hpp"
 #include "Object.hpp"
 #include "Snake.hpp"
-#include "Vector2.hpp"
 #include "Direction.hpp"
 
 Game::Game(const Window& window)
@@ -15,23 +14,21 @@ bool Game::isOver() const {
     return m_isOver;
 }
 
-void Game::update() {
-    if (m_isOver) {
-        return;
-    }
-
+void Game::draw() const {
     m_window.clear();
     m_window.drawBorder();
     m_window.drawSnake(m_snake);
     m_window.drawObject(m_apple, '@');
+}
 
+void Game::update() {
     if (m_snake.headPosition() == m_apple.position()) {
         m_apple = Object(m_window.randomPosition());
         m_snake.extend();
     }
 
     m_snake.move(parseInput(m_window.getInput()));
-    m_isOver = !(m_snake.alive() && noCollision());
+    m_isOver = m_isOver || !(m_snake.alive() && noCollision());
 }
 
 Direction Game::parseInput(const int& input) const {

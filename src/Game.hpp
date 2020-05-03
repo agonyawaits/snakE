@@ -1,16 +1,15 @@
 #pragma once
 
-#include "Vector2.hpp"
 #include "Window.hpp"
 #include "Object.hpp"
 #include "Snake.hpp"
 #include "Direction.hpp"
-#include <ncurses.h>
 
 class Game final {
 public:
     Game(const Window&);
 
+    void draw() const;
     void update();
     bool isOver() const;
 

@@ -15,6 +15,7 @@ int main() {
     Game g(w);
 
     while(!g.isOver()) {
+        g.draw();
         g.update();
     }
 

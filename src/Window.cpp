@@ -2,7 +2,6 @@
 #include "Vector2.hpp"
 #include <ncurses.h>
 #include <random>
-#include <unistd.h>
 
 Window::Window(const int& h, const int& w, const Vector2i& position)
     : m_height(h), m_width(w),
