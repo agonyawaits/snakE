@@ -8,6 +8,6 @@ $ git clone https://github.com/agonyawaits/snakE
 ```
 3) Build and run:
 ```bash
-$ bin/build
-$ bin/snake
+$ cd snakE/ && ./build
+$ ./bin/snake
 ```

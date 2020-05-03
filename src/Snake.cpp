@@ -53,10 +53,10 @@ void Snake::moveBody() {
     }
 
     for (int i = m_body.size()-1; i > 0; --i) {
-        m_body[i].move(m_body[i-1].direction());
+        m_body[i].moveTo(m_body[i-1].position());
     }
 
-    m_body.front().move(m_head.direction());
+    m_body.front().moveTo(m_head.position());
 }
 
 void Snake::postMoveUpdate() {

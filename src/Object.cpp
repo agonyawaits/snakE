@@ -65,6 +65,10 @@ void Object::move(const Direction& direction) {
     }
 }
 
+void Object::moveTo(const Vector2i& position) {
+    m_position = position;
+}
+
 bool Object::operator== (const Object& other) const {
     return other.m_position == m_position;
 }

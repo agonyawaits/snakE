@@ -9,18 +9,18 @@ public:
     Snake();
     Snake(const Vector2i&);
 
-    void draw(WINDOW*) const;
-    void move(const Direction&);
-    void extend();
-    bool alive() const;
-    Vector2i headPosition() const;
+    void        draw(WINDOW*) const;
+    void        move(const Direction&);
+    void        extend();
+    bool        alive() const;
+    Vector2i    headPosition() const;
 
 private:
     Object              m_head;
     std::vector<Object> m_body;
     bool                m_alive;
 
-    void moveBody();
-    void postMoveUpdate();
-    chtype currentHeadSymbol() const;
+    void    moveBody();
+    void    postMoveUpdate();
+    chtype  currentHeadSymbol() const;
 };
