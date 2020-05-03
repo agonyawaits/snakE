@@ -1,26 +1,20 @@
-//  Vector2.hpp
-//  snake
-//  Copyright © 2019 Nikita Tokariev. All rights reserved.
 #pragma once
 
 template <typename T>
 class Vector2 {
 public:
-    Vector2() : x( 0 ), y( 0 ) {}
-    Vector2( const T& _x, const T& _y ) : x( _x ), y( _y ) {}
+    Vector2() : m_x(0), m_y(0) {}
+    Vector2(const T& x, const T& y) : m_x(x), m_y(y) {}
 
-    inline T getX() const { return x; }
-    inline T getY() const { return y; }
-
-    inline void setX( const T& _x ) { x = _x; }
-    inline void setY( const T& _y ) { y = _y; }
-
-    bool operator== ( const Vector2& other ) {
-        return x == other.x && y == other.y;
+    T x() const { return m_x; }
+    T y() const { return m_y; }
+    bool operator== (const Vector2& other) const {
+        return other.m_x == m_x && other.m_y == m_y;
     }
+
 private:
-    T x;
-    T y;
+    T m_x;
+    T m_y;
 };
 
 typedef Vector2<int> Vector2i;

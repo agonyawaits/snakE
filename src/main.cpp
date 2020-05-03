@@ -1,14 +1,66 @@
-//  main.cpp
-//  snake
-//  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "Game.h"
-#include <random>
-#include <ctime>
+#include <ncurses.h>
+#include "Direction.hpp"
+#include "Snake.hpp"
+#include "Object.hpp"
 
-int main( int argc, const char** argv ) {
-    srand( time( nullptr ) );
+int main() {
+    initscr();
+    noecho();
+    curs_set( 0 );
+    halfdelay( 1 );
+    WINDOW* win = newwin(20, 40, 1, 0);
+    keypad(win, TRUE);
 
-    return argc < 3 ?
-        Game::run() :
-        Game::run( std::atoi( argv[ 1 ] ), std::atoi( argv[ 2 ] ) );
+    Snake obj(Vector2i(5,10));
+    Object obj1(Vector2i(10,11));
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    obj.extend();
+    while (wgetch(win) != 'c') {
+        wclear(win);
+        box(win, 0, 0);
+
+        obj.move(Direction::RIGHT);
+        obj.draw(win);
+        obj1.draw(win, '@');
+    }
+
+    while (wgetch(win) != 'c') {
+        wclear(win);
+        box(win, 0, 0);
+
+        obj.move(Direction::DOWN);
+        obj.draw(win);
+        obj1.draw(win, '@');
+    }
+
+    while (wgetch(win) != 'c') {
+        wclear(win);
+        box(win, 0, 0);
+
+        obj.move(Direction::LEFT);
+        obj.draw(win);
+        obj1.draw(win, '@');
+    }
+
+    while (wgetch(win) != 'c') {
+        wclear(win);
+        box(win, 0, 0);
+
+        obj.move(Direction::UP);
+        obj.draw(win);
+        obj1.draw(win, '@');
+    }
+
+    delwin( win );
+    endwin();
 }
