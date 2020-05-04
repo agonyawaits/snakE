@@ -5,6 +5,8 @@
 #include "Snake.hpp"
 #include <ncurses.h>
 
+class Snake; // NOTE: Forward declaration to avoid compile error.
+
 class Window final {
 public:
     Window(const Vector2i&, const Vector2i&);

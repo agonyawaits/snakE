@@ -22,13 +22,16 @@ void Game::render() const {
 }
 
 void Game::update() {
-    if (m_snake.headPosition() == m_apple.position()) {
-        m_apple = Object(m_window.randomPosition());
+    if (m_snake.head() == m_apple) {
+        do {
+            m_apple = Object(m_window.randomPosition());
+        } while(m_snake.collides(m_apple));
+
         m_snake.extend();
     }
 
     m_snake.move(parseInput(m_window.getInput()));
-    m_isOver = m_isOver || !(m_snake.alive() && noCollision());
+    m_isOver = m_isOver || !m_snake.alive() || m_snake.collides(m_window);
 }
 
 Direction Game::parseInput(const int& input) const {
@@ -48,11 +51,4 @@ Direction Game::parseInput(const int& input) const {
         default:
             return Direction::NONE;
     }
-}
-
-bool Game::noCollision() const {
-    return m_snake.headPosition().x() > 0 &&
-        m_snake.headPosition().x() < m_window.size().x()-1 &&
-        m_snake.headPosition().y() > 0 &&
-        m_snake.headPosition().y() < m_window.size().y()-1;
 }

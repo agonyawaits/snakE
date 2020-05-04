@@ -1,7 +1,8 @@
-#include "Object.hpp"
 #include "Snake.hpp"
+#include "Object.hpp"
 #include "Vector2.hpp"
 #include "Direction.hpp"
+#include "Window.hpp"
 #include <ncurses.h>
 #include <vector>
 
@@ -19,12 +20,28 @@ bool Snake::alive() const {
     return m_alive;
 }
 
-Vector2i Snake::headPosition() const {
-    return m_body.front().position();
+Object Snake::head() const {
+    return m_body.front();
+}
+
+bool Snake::collides(const Object& object) const {
+    for (const auto& block : m_body) {
+        if (block == object) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Snake::collides(const Window& window) const {
+    return head().x() == 0 ||
+        head().y() == 0 ||
+        head().x() == window.size().x()-1 ||
+        head().y() == window.size().y()-1;
 }
 
 void Snake::draw(WINDOW* window) const {
-    m_body.front().draw(window, currentHeadSymbol());
+    head().draw(window, selfie());
     for (int i = 1; i < m_body.size(); ++i) {
       m_body[i].draw(window);
     }
@@ -40,7 +57,9 @@ void Snake::move(const Direction& direction) {
     }
     m_body.front().move(direction);
 
-    postMoveUpdate();
+    if (died()) {
+        m_alive = false;
+    }
 }
 
 void Snake::extend() {
@@ -51,29 +70,30 @@ void Snake::extend() {
     );
 }
 
-void Snake::postMoveUpdate() {
+bool Snake::died() const {
     if (m_body.size() < 5) {
-        return;
+        return false;
     }
 
     for (int i = 4; i < m_body.size(); ++i) {
-        if (m_body.front() == m_body[i]) {
-            m_alive = false;
-            return;
+        if (head() == m_body[i]) {
+            return true;
         }
     }
+
+    return false;
 }
 
-chtype Snake::currentHeadSymbol() const {
-    switch (m_body.front().direction()) {
+chtype Snake::selfie() const {
+    switch (head().direction()) {
         case Direction::LEFT :
-            return ACS_LARROW;
+            return '<';
 
         case Direction::RIGHT :
-            return ACS_RARROW;
+            return '>';
 
         case Direction::UP :
-            return ACS_UARROW;
+            return '^';
 
         case Direction::DOWN :
             return 'v';

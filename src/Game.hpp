@@ -18,7 +18,6 @@ private:
     const Window&   m_window;
     Snake           m_snake;
     Object          m_apple;
-    
+
     Direction       parseInput(const int&) const;
-    bool            noCollision() const;
 };
