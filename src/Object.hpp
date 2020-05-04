@@ -4,7 +4,7 @@
 #include "Direction.hpp"
 #include <ncurses.h>
 
-class Object final { // TODO: Think if should be not final with virtual methods.
+class Object final {
 public:
     Object();
     Object(const Vector2i&);
@@ -18,10 +18,9 @@ public:
     Direction   direction() const;
     bool        operator== (const Object&) const;
 
-protected:
+private:
     Vector2i    m_position;
     Direction   m_direction;
-
-private:
-    bool canChangeDirection(const Direction&) const;
+    
+    bool        canChangeDirection(const Direction&) const;
 };

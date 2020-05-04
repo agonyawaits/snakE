@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <random>
 
-Window::Window(const Vector2u& size, const Vector2i& position)
+Window::Window(const Vector2i& size, const Vector2i& position)
     : m_size(size), m_window(newwin(m_size.y(), m_size.x(), position.y(), position.x()))
 {
     keypad(m_window, TRUE);
@@ -13,12 +13,8 @@ Window::~Window() {
     delwin(m_window);
 }
 
-int Window::height() const {
-    return m_size.y();
-}
-
-int Window::width() const {
-    return m_size.x();
+Vector2i Window::size() const {
+    return m_size;
 }
 
 void Window::clear() const {

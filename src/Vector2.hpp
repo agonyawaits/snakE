@@ -18,4 +18,3 @@ private:
 };
 
 typedef Vector2<int> Vector2i;
-typedef Vector2<unsigned int> Vector2u; // TODO: Investigate if I should use this or better not.

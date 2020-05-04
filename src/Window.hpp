@@ -7,11 +7,10 @@
 
 class Window final {
 public:
-    Window(const Vector2u&, const Vector2i&);
+    Window(const Vector2i&, const Vector2i&);
     ~Window();
 
-    int       height() const;
-    int       width() const;
+    Vector2i  size() const;
     void      clear() const;
     void      drawBorder() const;
     void      drawObject(const Object&, const chtype='o') const;
@@ -20,6 +19,6 @@ public:
     Vector2i  randomPosition() const;
 
 private:
-    Vector2u  m_size;
+    Vector2i  m_size;
     WINDOW*   m_window;
 };

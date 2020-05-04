@@ -52,7 +52,7 @@ Direction Game::parseInput(const int& input) const {
 
 bool Game::noCollision() const {
     return m_snake.headPosition().x() > 0 &&
-        m_snake.headPosition().x() < m_window.width()-1 &&
+        m_snake.headPosition().x() < m_window.size().x()-1 &&
         m_snake.headPosition().y() > 0 &&
-        m_snake.headPosition().y() < m_window.height()-1;
+        m_snake.headPosition().y() < m_window.size().y()-1;
 }

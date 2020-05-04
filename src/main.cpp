@@ -11,7 +11,7 @@ int main() {
     srand(time(nullptr));
     setupTerminal();
 
-    Window w(Vector2u(40, 20), Vector2i(0, 1));
+    Window w(Vector2i(40, 20), Vector2i(0, 1));
     Game g(w);
 
     while(!g.isOver()) {
