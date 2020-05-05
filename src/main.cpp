@@ -13,11 +13,7 @@ int main() {
 
     Window w(Vector2i(40, 20), Vector2i(0, 1));
     Game g(w);
-
-    while(!g.isOver()) {
-        g.render();
-        g.update();
-    }
+    g.execute();
 
     finalizeTerminal();
 }

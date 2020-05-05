@@ -1,11 +1,9 @@
 #pragma once
 
 #include "Object.hpp"
-#include "Window.hpp"
+#include "Board.hpp"
 #include <vector>
 #include <ncurses.h>
-
-class Window; // NOTE: Forward declaration to avoid compile error.
 
 class Snake final {
 public:
@@ -17,7 +15,7 @@ public:
     void    extend();
     bool    alive() const;
     bool    collides(const Object&) const;
-    bool    collides(const Window&) const;
+    bool    collides(const Board&) const;
     Object  head() const;
 
 private:
@@ -25,5 +23,4 @@ private:
     bool                m_alive;
 
     bool    died() const;
-    chtype  selfie() const;
 };

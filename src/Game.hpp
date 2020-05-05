@@ -4,20 +4,22 @@
 #include "Object.hpp"
 #include "Snake.hpp"
 #include "Direction.hpp"
+#include "Board.hpp"
 
 class Game final {
 public:
     Game(const Window&);
 
-    void render() const;
-    void update();
-    bool isOver() const;
+    void execute();
 
 private:
     bool            m_isOver;
     const Window&   m_window;
+    Board           m_board;
     Snake           m_snake;
     Object          m_apple;
 
+    void            render() const;
+    void            update();
     Direction       parseInput(const int&) const;
 };

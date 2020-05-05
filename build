@@ -1,6 +1,6 @@
 #!/bin/sh
 
 cd src/
-g++ main.cpp Game.cpp Window.cpp Snake.cpp Object.cpp -o snake -std=c++17 -lncurses
+g++ main.cpp Game.cpp Window.cpp Snake.cpp Object.cpp Board.cpp -o snake -std=c++17 -lncurses
 mkdir -p ../bin
 mv snake ../bin

@@ -33,15 +33,15 @@ bool Snake::collides(const Object& object) const {
     return false;
 }
 
-bool Snake::collides(const Window& window) const {
+bool Snake::collides(const Board& board) const {
     return head().x() == 0 ||
         head().y() == 0 ||
-        head().x() == window.size().x()-1 ||
-        head().y() == window.size().y()-1;
+        head().x() == board.size().x()-1 ||
+        head().y() == board.size().y()-1;
 }
 
 void Snake::draw(WINDOW* window) const {
-    head().draw(window, selfie());
+    head().draw(window, '*');
     for (int i = 1; i < m_body.size(); ++i) {
       m_body[i].draw(window);
     }
@@ -82,26 +82,4 @@ bool Snake::died() const {
     }
 
     return false;
-}
-
-chtype Snake::selfie() const {
-    switch (head().direction()) {
-        case Direction::LEFT :
-            return '<';
-
-        case Direction::RIGHT :
-            return '>';
-
-        case Direction::UP :
-            return '^';
-
-        case Direction::DOWN :
-            return 'v';
-
-        case Direction::NONE:
-            return '*';
-
-        default:
-            throw "Unsupported direction";
-    }
 }

@@ -21,6 +21,6 @@ public:
 private:
     Vector2i    m_position;
     Direction   m_direction;
-    
+
     bool        canChangeDirection(const Direction&) const;
 };
