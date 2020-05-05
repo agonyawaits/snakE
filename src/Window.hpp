@@ -4,6 +4,7 @@
 #include "Object.hpp"
 #include "Snake.hpp"
 #include "Board.hpp"
+#include "Input.hpp"
 #include <ncurses.h>
 
 class Window final {
@@ -15,8 +16,9 @@ public:
     void      render(const Board&) const;
     void      render(const Object&, const chtype='o') const;
     void      render(const Snake&) const;
-    int       getInput() const;
+    Input     getInput() const;
     Vector2i  size() const;
+    Vector2i  randomPosition() const;
 
 private:
     Vector2i  m_size;

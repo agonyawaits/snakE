@@ -5,13 +5,13 @@
 #include "Direction.hpp"
 
 Game::Game(const Window& window)
-    : m_window(window), m_board(window.size()), m_snake(Snake(m_board.randomPosition())),
-    m_apple(Object(m_board.randomPosition())), m_isOver(false)
+    : m_window(window), m_board(window.size()), m_snake(Snake(m_window.randomPosition())),
+    m_apple(Object(m_window.randomPosition())), m_wasted(false)
 {
 }
 
 void Game::execute() {
-    while (!m_isOver) {
+    while (!m_wasted) {
         render();
         update();
     }
@@ -27,31 +27,12 @@ void Game::render() const {
 void Game::update() {
     if (m_snake.head() == m_apple) {
         do {
-            m_apple = Object(m_board.randomPosition());
+            m_apple = Object(m_window.randomPosition());
         } while(m_snake.collides(m_apple));
 
         m_snake.extend();
     }
 
-    m_snake.move(parseInput(m_window.getInput()));
-    m_isOver = m_isOver || !m_snake.alive() || m_snake.collides(m_board);
-}
-
-Direction Game::parseInput(const int& input) const {
-    switch (input) {
-        case KEY_LEFT:
-            return Direction::LEFT;
-
-        case KEY_RIGHT:
-            return Direction::RIGHT;
-
-        case KEY_UP:
-            return Direction::UP;
-
-        case KEY_DOWN:
-            return Direction::DOWN;
-
-        default:
-            return Direction::NONE;
-    }
+    m_snake.move(m_window.getInput().direction());
+    m_wasted = !m_snake.alive() || m_snake.collides(m_board);
 }

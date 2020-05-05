@@ -1,7 +1,9 @@
 #include "Window.hpp"
 #include "Vector2.hpp"
 #include "Board.hpp"
+#include "Input.hpp"
 #include <ncurses.h>
+#include <random>
 
 Window::Window(const Vector2i& size, const Vector2i& position)
     : m_size(size), m_window(newwin(m_size.y(), m_size.x(), position.y(), position.x()))
@@ -28,10 +30,17 @@ void Window::render(const Snake& snake) const {
     snake.draw(m_window);
 }
 
-int Window::getInput() const {
-    return wgetch(m_window);
+Input Window::getInput() const {
+    return Input(wgetch(m_window));
 }
 
 Vector2i Window::size() const {
     return m_size;
+}
+
+Vector2i Window::randomPosition() const {
+    return Vector2i(
+        rand() % (m_size.x()-2) + 1,
+        rand() % (m_size.y()-2) + 1
+    );
 }
