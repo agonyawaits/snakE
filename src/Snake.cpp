@@ -1,5 +1,6 @@
 #include "Snake.hpp"
 #include "Object.hpp"
+#include "Edge.hpp"
 #include "Vector2.hpp"
 #include "Direction.hpp"
 #include "Window.hpp"
@@ -33,11 +34,11 @@ bool Snake::collides(const Object& object) const {
     return false;
 }
 
-bool Snake::collides(const Board& board) const {
+bool Snake::collides(const Edge& edge) const {
     return head().position().x() == 0 ||
         head().position().y() == 0 ||
-        head().position().x() == board.size().x()-1 ||
-        head().position().y() == board.size().y()-1;
+        head().position().x() == edge.size().x()-1 ||
+        head().position().y() == edge.size().y()-1;
 }
 
 void Snake::draw(WINDOW* window) const {

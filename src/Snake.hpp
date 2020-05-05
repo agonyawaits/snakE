@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.hpp"
-#include "Board.hpp"
+#include "Edge.hpp"
 #include "IDrawable.hpp"
 #include <vector>
 #include <ncurses.h>
@@ -16,7 +16,7 @@ public:
     void    extend();
     bool    alive() const;
     bool    collides(const Object&) const;
-    bool    collides(const Board&) const;
+    bool    collides(const Edge&) const;
     Object  head() const;
 
 private:

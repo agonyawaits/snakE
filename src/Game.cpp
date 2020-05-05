@@ -5,7 +5,7 @@
 #include "Direction.hpp"
 
 Game::Game(const Window& window)
-    : m_window(window), m_board(window.size()), m_snake(Snake(m_window.randomPosition())),
+    : m_window(window), m_edge(window.size()), m_snake(Snake(m_window.randomPosition())),
     m_apple(Object(m_window.randomPosition())), m_wasted(false)
 {
 }
@@ -19,7 +19,7 @@ void Game::execute() {
 
 void Game::render() const {
     m_window.clear();
-    m_window.render(m_board);
+    m_window.render(m_edge);
     m_window.render(m_snake);
     m_window.render(m_apple);
 }
@@ -34,5 +34,5 @@ void Game::update() {
     }
 
     m_snake.move(m_window.getInput().direction());
-    m_wasted = !m_snake.alive() || m_snake.collides(m_board);
+    m_wasted = !m_snake.alive() || m_snake.collides(m_edge);
 }

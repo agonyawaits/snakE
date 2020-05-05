@@ -4,7 +4,7 @@
 #include "Object.hpp"
 #include "Snake.hpp"
 #include "Direction.hpp"
-#include "Board.hpp"
+#include "Edge.hpp"
 
 class Game final {
 public:
@@ -15,7 +15,7 @@ public:
 private:
     bool            m_wasted;
     const Window&   m_window;
-    Board           m_board;
+    Edge            m_edge;
     Snake           m_snake;
     Object          m_apple;
 
