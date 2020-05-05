@@ -34,16 +34,16 @@ bool Snake::collides(const Object& object) const {
 }
 
 bool Snake::collides(const Board& board) const {
-    return head().x() == 0 ||
-        head().y() == 0 ||
-        head().x() == board.size().x()-1 ||
-        head().y() == board.size().y()-1;
+    return head().position().x() == 0 ||
+        head().position().y() == 0 ||
+        head().position().x() == board.size().x()-1 ||
+        head().position().y() == board.size().y()-1;
 }
 
 void Snake::draw(WINDOW* window) const {
     head().draw(window, '*');
     for (int i = 1; i < m_body.size(); ++i) {
-      m_body[i].draw(window);
+      m_body[i].draw(window, 'o');
     }
 }
 

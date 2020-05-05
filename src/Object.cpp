@@ -13,14 +13,6 @@ Object::Object(const Vector2i& position)
 {
 }
 
-int Object::x() const {
-    return m_position.x();
-}
-
-int Object::y() const {
-    return m_position.y();
-}
-
 Vector2i Object::position() const {
     return m_position;
 }
@@ -29,8 +21,12 @@ Direction Object::direction() const {
     return m_direction;
 }
 
-void Object::draw(WINDOW* window, const chtype symbol) const {
-    mvwaddch(window, y(), x(), symbol);
+void Object::draw(WINDOW* window) const {
+    mvwaddch(window, m_position.y(), m_position.x(), '@');
+}
+
+void Object::draw(WINDOW* window, const chtype& symbol) const {
+    mvwaddch(window, m_position.y(), m_position.x(), symbol);
 }
 
 void Object::move(const Direction& direction) {
@@ -38,19 +34,19 @@ void Object::move(const Direction& direction) {
 
     switch (m_direction) {
         case Direction::UP:
-            m_position = Vector2i(x(), y()-1);
+            m_position = Vector2i(m_position.x(), m_position.y()-1);
             break;
 
         case Direction::DOWN:
-            m_position = Vector2i(x(), y()+1);
+            m_position = Vector2i(m_position.x(), m_position.y()+1);
             break;
 
         case Direction::LEFT:
-            m_position = Vector2i(x()-1, y());
+            m_position = Vector2i(m_position.x()-1, m_position.y());
             break;
 
         case Direction::RIGHT:
-            m_position = Vector2i(x()+1, y());
+            m_position = Vector2i(m_position.x()+1, m_position.y());
             break;
 
         case Direction::NONE:

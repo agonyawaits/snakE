@@ -21,7 +21,7 @@ void Game::render() const {
     m_window.clear();
     m_window.render(m_board);
     m_window.render(m_snake);
-    m_window.render(m_apple, '@');
+    m_window.render(m_apple);
 }
 
 void Game::update() {

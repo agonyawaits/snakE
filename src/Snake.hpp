@@ -2,10 +2,11 @@
 
 #include "Object.hpp"
 #include "Board.hpp"
+#include "IDrawable.hpp"
 #include <vector>
 #include <ncurses.h>
 
-class Snake final {
+class Snake final : public IDrawable {
 public:
     Snake();
     Snake(const Vector2i&);

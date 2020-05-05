@@ -1,6 +1,6 @@
 #include "Window.hpp"
 #include "Vector2.hpp"
-#include "Board.hpp"
+#include "IDrawable.hpp"
 #include "Input.hpp"
 #include <ncurses.h>
 #include <random>
@@ -18,16 +18,8 @@ void Window::clear() const {
     wclear(m_window);
 }
 
-void Window::render(const Board& board) const {
-    board.draw(m_window);
-}
-
-void Window::render(const Object& object, const chtype symbol) const {
-    object.draw(m_window, symbol);
-}
-
-void Window::render(const Snake& snake) const {
-    snake.draw(m_window);
+void Window::render(const IDrawable& drawable) const {
+    drawable.draw(m_window);
 }
 
 Input Window::getInput() const {

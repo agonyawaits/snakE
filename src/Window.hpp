@@ -1,9 +1,7 @@
 #pragma once
 
 #include "Vector2.hpp"
-#include "Object.hpp"
-#include "Snake.hpp"
-#include "Board.hpp"
+#include "IDrawable.hpp"
 #include "Input.hpp"
 #include <ncurses.h>
 
@@ -13,9 +11,7 @@ public:
     ~Window();
 
     void      clear() const;
-    void      render(const Board&) const;
-    void      render(const Object&, const chtype='o') const;
-    void      render(const Snake&) const;
+    void      render(const IDrawable&) const;
     Input     getInput() const;
     Vector2i  size() const;
     Vector2i  randomPosition() const;

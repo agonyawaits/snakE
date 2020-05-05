@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Vector2.hpp"
+#include "IDrawable.hpp"
 #include <ncurses.h>
 
-class Board final {
+class Board final : public IDrawable {
 public:
     Board(const Vector2i&);
 
