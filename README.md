@@ -1,6 +1,6 @@
 c++ object-oriented terminal snake
 -------------------------------------------
-![snake screenshot](https://github.com/agonyawaits/snakE/blob/redesign/snake.png)
+![snake screenshot](https://github.com/agonyawaits/snakE/blob/redesign/snake.png =320x320)
 
 To play the game:
 1) Install ncurses lib (google)
