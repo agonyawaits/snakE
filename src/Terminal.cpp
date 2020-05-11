@@ -9,6 +9,7 @@ Terminal::Terminal(const Vector2i& size)
     noecho();
     curs_set(0);
     halfdelay(1);
+    start_color();
 }
 
 Terminal::~Terminal() {

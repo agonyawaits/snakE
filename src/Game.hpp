@@ -5,6 +5,7 @@
 #include "Snake.hpp"
 #include "Direction.hpp"
 #include "Board.hpp"
+#include "Score.hpp"
 
 class Game final {
 public:
@@ -18,6 +19,7 @@ private:
     Board           m_board;
     Snake           m_snake;
     Object          m_apple;
+    Score           m_score;
 
     void render() const;
     void update();

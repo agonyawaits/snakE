@@ -10,7 +10,8 @@ public:
 
     void      draw(WINDOW*) const;
     Vector2i  size() const;
-
+    Vector2i  randomPosition() const;
+    
 private:
     Vector2i m_size;
 };

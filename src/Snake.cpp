@@ -37,8 +37,8 @@ bool Snake::collides(const Object& object) const {
 bool Snake::collides(const Board& board) const {
     return head().position().x() == 0 ||
         head().position().y() == 0 ||
-        head().position().x() == board.size().x()-1 ||
-        head().position().y() == board.size().y()-1;
+        head().position().x() == board.size().x() ||
+        head().position().y() == board.size().y();
 }
 
 void Snake::draw(WINDOW* window) const {
