@@ -2,14 +2,12 @@
 #include "Window.hpp"
 #include "Object.hpp"
 #include "Snake.hpp"
-#include "Direction.hpp"
 #include "Score.hpp"
 #include "Color.hpp"
 
 Game::Game(const Window& window)
-    : m_window(window),
-    m_wasted(false),
-    m_board(Vector2i(window.size().x()-2, window.size().y()-2)),
+    : m_window(window), m_wasted(false),
+    m_board(Vector2i(m_window.size().x()-1, m_window.size().y()-2)),
     m_snake(Snake(m_board.randomPosition())),
     m_apple(Object(m_board.randomPosition())),
     m_score(Score(Vector2i(0, m_window.size().y()-1), 10))

@@ -17,7 +17,6 @@ void Board::draw(WINDOW* window) const {
     mvwhline(window, m_size.y(), 0, 0, m_size.x());
     mvwvline(window, 0, 0, 0, m_size.y());
     mvwvline(window, 0, m_size.x(), 0, m_size.y());
-
     mvwaddch(window, 0, 0, ACS_ULCORNER);
     mvwaddch(window, m_size.y(), 0, ACS_LLCORNER);
     mvwaddch(window, 0, m_size.x(), ACS_URCORNER);
