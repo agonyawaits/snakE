@@ -20,6 +20,7 @@ void Window::clear() const {
 
 void Window::render(const IDrawable& drawable) const {
     drawable.draw(m_window);
+    mvwprintw(m_window, m_size.y()-1, 0, "%d", 10);
 }
 
 Input Window::getInput() const {

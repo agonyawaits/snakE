@@ -4,9 +4,9 @@
 #include "IDrawable.hpp"
 #include <ncurses.h>
 
-class Edge final : public IDrawable {
+class Board final : public IDrawable {
 public:
-    Edge(const Vector2i&);
+    Board(const Vector2i&);
 
     void      draw(WINDOW*) const;
     Vector2i  size() const;
