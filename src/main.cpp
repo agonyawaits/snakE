@@ -1,14 +1,10 @@
-//  main.cpp
-//  snake
-//  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "Game.h"
-#include <random>
+#include "Terminal.hpp"
 #include <ctime>
+#include <random>
 
-int main( int argc, const char** argv ) {
-    srand( time( nullptr ) );
+int main() {
+    srand(time(nullptr));
 
-    return argc < 3 ?
-        Game::run() :
-        Game::run( std::atoi( argv[ 1 ] ), std::atoi( argv[ 2 ] ) );
+    Terminal terminal(Vector2i(60, 20));
+    terminal.runGame();
 }

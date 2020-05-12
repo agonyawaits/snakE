@@ -1,129 +1,83 @@
-//  Snake.cpp
-//  snake
-//  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "Snake.h"
-#include "Desk.h"
+#include "Snake.hpp"
+#include "Object.hpp"
+#include "Board.hpp"
+#include "Vector2.hpp"
+#include "Direction.hpp"
+#include "Window.hpp"
 #include <ncurses.h>
+#include <vector>
 
-Snake::Snake( const Vector2i& position )
-    : Object( position ), m_direction( Direction::RIGHT ) {}
+Snake::Snake()
+    : m_body(std::vector<Object>{ Object(Vector2i()) }), m_alive(true)
+{
+}
 
-void Snake::draw( WINDOW* window ) const {
-    mvwaddch( window, getY(), getX(), currentHeadSymbol() );
+Snake::Snake(const Vector2i& position)
+    : m_body(std::vector<Object>{ Object(position) }), m_alive(true)
+{
+}
 
-    for ( const auto& seg : m_snakeBody ) {
-        seg.draw( window );
+bool Snake::alive() const {
+    return m_alive;
+}
+
+Object Snake::head() const {
+    return m_body.front();
+}
+
+bool Snake::collides(const Object& object) const {
+    for (const auto& block : m_body) {
+        if (block == object) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Snake::collides(const Board& board) const {
+    return head().position().x() == 0 ||
+        head().position().y() == 0 ||
+        head().position().x() == board.size().x() ||
+        head().position().y() == board.size().y();
+}
+
+void Snake::draw(WINDOW* window) const {
+    head().draw(window, '*');
+    for (int i = 1; i < m_body.size(); ++i) {
+      m_body[i].draw(window, 'o');
     }
 }
 
-void Snake::update() {
-    move();
-    checkAndUpdateIfCollision();
+void Snake::move(const Direction& direction) {
+    if (!m_alive) {
+        return;
+    }
+
+    for (int i = m_body.size()-1; i > 0; --i) {
+        m_body[i].moveTo(m_body[i-1].position());
+    }
+    m_body.front().move(direction);
+
+    if (died()) {
+        m_alive = false;
+    }
 }
 
 void Snake::extend() {
-    if ( m_snakeBody.empty() ) {
-        m_snakeBody.emplace_back(
-            SnakeSegment( m_position )
-        );
-    } else {
-        m_snakeBody.emplace_back(
-            SnakeSegment( m_snakeBody.back().getPosition() )
-        );
-    }
+    m_body.emplace_back(
+        Object(
+            m_body.back().position()
+        )
+    );
 }
 
-void Snake::onInput( const int& input ) {
-    changeDirection( input );
-}
-
-void Snake::move() {
-    moveBody();
-    moveHead();
-}
-
-void Snake::checkAndUpdateIfCollision() {
-    if ( clashedMyself() ) {
-        suicide();
-    }
-}
-
-void Snake::changeDirection( const int& input ) {
-    switch ( input ) {
-        case KEY_LEFT :
-            m_direction = m_direction != Direction::RIGHT ? Direction::LEFT : m_direction;
-            break;
-
-        case KEY_RIGHT :
-            m_direction = m_direction != Direction::LEFT ? Direction::RIGHT : m_direction;
-            break;
-
-        case KEY_UP :
-            m_direction = m_direction != Direction::DOWN ? Direction::UP : m_direction;
-            break;
-
-        case KEY_DOWN :
-            m_direction = m_direction != Direction::UP ? Direction::DOWN : m_direction;
-            break;
-
-        default :
-            break;
-    }
-}
-
-void Snake::moveHead() {
-    switch ( m_direction ) {
-        case Direction::LEFT :
-            m_position.setX( m_position.getX()-1 );
-            break;
-
-        case Direction::RIGHT :
-            m_position.setX( m_position.getX()+1 );
-            break;
-
-        case Direction::UP :
-            m_position.setY( m_position.getY()-1 );
-            break;
-
-        case Direction::DOWN :
-            m_position.setY( m_position.getY()+1 );
-            break;
-    }
-}
-
-void Snake::moveBody() {
-    for ( int i = m_snakeBody.size()-1; i > 0; --i ) {
-        m_snakeBody[ i ].setPosition( m_snakeBody[ i-1 ].getPosition() );
-    }
-
-    if ( !m_snakeBody.empty() ) {
-        m_snakeBody.front().setPosition( m_position );
-    }
-}
-
-chtype Snake::currentHeadSymbol() const {
-    switch ( m_direction ) {
-        case Direction::LEFT :
-            return ACS_LARROW;
-
-        case Direction::RIGHT :
-            return ACS_RARROW;
-
-        case Direction::UP :
-            return ACS_UARROW;
-
-        case Direction::DOWN :
-            return ACS_DARROW;
-    }
-}
-
-int Snake::clashedMyself() const {
-    if ( m_snakeBody.size() < 4 ) {
+bool Snake::died() const {
+    if (m_body.size() < 5) {
         return false;
     }
 
-    for ( int i = 3; i < m_snakeBody.size(); ++i ) {
-        if ( m_snakeBody[ i ].getPosition() == m_position ) {
+    for (int i = 4; i < m_body.size(); ++i) {
+        if (head() == m_body[i]) {
             return true;
         }
     }

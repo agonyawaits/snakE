@@ -1,67 +1,44 @@
-//  Game.cpp
-//  snake
-//  Copyright © 2019 Nikita Tokariev. All rights reserved.
-#include "Game.h"
-#include "Desk.h"
-#include "Apple.h"
-#include "Snake.h"
-#include "ScoreManager.h"
-#include "Vector2.hpp"
-#include <ncurses.h>
-#include <memory>
+#include "Game.hpp"
+#include "Window.hpp"
+#include "Object.hpp"
+#include "Snake.hpp"
+#include "Score.hpp"
+#include "Color.hpp"
 
-Game::Game( const int& windowHeight, const int& windowWidth )
-    : m_scoreManager( std::make_unique<ScoreManager>() ),
-    m_windowHeight( windowHeight ), m_windowWidth( windowWidth )
+Game::Game(const Window& window)
+    : m_window(window), m_wasted(false),
+    m_board(Vector2i(m_window.size().x()-1, m_window.size().y()-2)),
+    m_snake(Snake(m_board.randomPosition())),
+    m_apple(Object(m_board.randomPosition())),
+    m_score(Score(Vector2i(0, m_window.size().y()-1), 10))
 {
-    setupScreen();
 }
 
-int Game::start() {
-    Desk desk( m_windowHeight, m_windowWidth );
-    Snake snake( Vector2i( 1, 1 ) );
-    Apple apple( desk.getRandomPosition() );
-
-    desk.setHero( &snake );
-    desk.setFood( &apple );
-
-    while ( snake.alive() ) {
-        wclear( m_window );
-
-        desk.draw( m_window );
-        desk.update( wgetch( m_window ) );
-
-        m_scoreManager->updateScore( snake.size() );
-        m_scoreManager->printScores( Vector2i( 0, 0 ), Vector2i( m_windowWidth - 15, 0 ) );
-    }
-
-    return 0;
-}
-
-Game::~Game() {
-    finalizeScreen();
-
-    int finalScore = m_scoreManager->getScore();
-    if ( finalScore > m_scoreManager->getHighScore() ) {
-        m_scoreManager->logNewHighScore( finalScore );
+void Game::execute() {
+    while (!m_wasted) {
+        render();
+        update();
     }
 }
 
-void Game::setupScreen() {
-    initscr();
-    noecho();
-    curs_set( 0 );
-    halfdelay( 1 );
-
-    m_window = newwin( m_windowHeight, m_windowWidth, 1, 0 );
-    keypad( m_window, TRUE );
+void Game::render() const {
+    m_window.clear();
+    m_window.render(m_board, Color::YELLOW);
+    m_window.render(m_snake, Color::GREEN);
+    m_window.render(m_apple, Color::RED);
+    m_window.render(m_score);
 }
 
-void Game::finalizeScreen() {
-    mvwprintw( m_window, m_windowHeight/2-1, m_windowWidth/2 - 5, "Game Over!" );
-    mvwprintw( m_window, m_windowHeight/2, m_windowWidth/2 - 10, "Press enter to exit..." );
-    nocbreak();
-    wgetch( m_window );
-    delwin( m_window );
-    endwin();
+void Game::update() {
+    if (m_snake.head() == m_apple) {
+        do {
+            m_apple = Object(m_board.randomPosition());
+        } while(m_snake.collides(m_apple));
+
+        m_snake.extend();
+        m_score.increase();
+    }
+
+    m_snake.move(m_window.getInput().direction());
+    m_wasted = !m_snake.alive() || m_snake.collides(m_board);
 }

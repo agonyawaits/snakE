@@ -1,5 +1,7 @@
 c++ object-oriented terminal snake
 -------------------------------------------
+<img src="https://github.com/agonyawaits/snakE/blob/redesign/snake.png" width="420" height="260">
+
 To play the game:
 1) Install ncurses lib (google)
 2) Clone repository
@@ -8,6 +10,6 @@ $ git clone https://github.com/agonyawaits/snakE
 ```
 3) Build and run:
 ```bash
-$ bin/build
-$ bin/snake
+$ cd snakE/ && ./build
+$ ./bin/snake
 ```

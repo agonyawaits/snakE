@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd src/
+g++ main.cpp Game.cpp Window.cpp Snake.cpp Object.cpp Board.cpp Input.cpp Score.cpp Terminal.cpp -o snake -std=c++17 -lncurses
+mkdir -p ../bin
+mv snake ../bin
