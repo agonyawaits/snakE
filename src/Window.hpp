@@ -14,7 +14,7 @@ public:
     void      clear() const;
     void      render(const IDrawable&) const;
     void      render(const IDrawable&, const Color&) const;
-    Input     getInput() const;
+    Input     input() const;
     Vector2i  size() const;
 
 private:
