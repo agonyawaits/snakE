@@ -7,10 +7,6 @@ Score::Score(const Vector2i& position, const int& step)
 {
 }
 
-int Score::score() const {
-    return m_score;
-}
-
 void Score::increase() {
     m_score += m_step;
 }

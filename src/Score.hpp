@@ -8,7 +8,6 @@ class Score final : public IDrawable {
 public:
     Score(const Vector2i&, const int&);
 
-    int     score() const;
     void    increase();
     void    draw(WINDOW*) const;
 

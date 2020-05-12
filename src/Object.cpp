@@ -34,19 +34,19 @@ void Object::move(const Direction& direction) {
 
     switch (m_direction) {
         case Direction::UP:
-            m_position = Vector2i(m_position.x(), m_position.y()-1);
+            moveTo(Vector2i(m_position.x(), m_position.y()-1));
             break;
 
         case Direction::DOWN:
-            m_position = Vector2i(m_position.x(), m_position.y()+1);
+            moveTo(Vector2i(m_position.x(), m_position.y()+1));
             break;
 
         case Direction::LEFT:
-            m_position = Vector2i(m_position.x()-1, m_position.y());
+            moveTo(Vector2i(m_position.x()-1, m_position.y()));
             break;
 
         case Direction::RIGHT:
-            m_position = Vector2i(m_position.x()+1, m_position.y());
+            moveTo(Vector2i(m_position.x()+1, m_position.y()));
             break;
 
         case Direction::NONE:
