@@ -26,7 +26,7 @@ void Window::clear() const {
     wclear(m_window);
 }
 
-Input Window::getInput() const {
+Input Window::input() const {
     return Input(wgetch(m_window));
 }
 

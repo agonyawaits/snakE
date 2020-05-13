@@ -39,6 +39,6 @@ void Game::update() {
         m_score.increase();
     }
 
-    m_snake.move(m_window.getInput().direction());
+    m_snake.move(m_window.input().direction());
     m_wasted = !m_snake.alive() || m_snake.collides(m_board);
 }
