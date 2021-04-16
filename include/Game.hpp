@@ -14,8 +14,8 @@ public:
     void execute();
 
 private:
-    bool            m_wasted;
     const Window&   m_window;
+    bool            m_wasted;
     Board           m_board;
     Snake           m_snake;
     Object          m_apple;

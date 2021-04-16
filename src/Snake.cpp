@@ -7,6 +7,8 @@
 #include <ncurses.h>
 #include <vector>
 
+const int Snake::s_minSizeCanDie = 5;
+
 Snake::Snake()
     : m_body(std::vector<Object>{ Object(Vector2i()) }), m_alive(true)
 {
@@ -43,7 +45,7 @@ bool Snake::collides(const Board& board) const {
 
 void Snake::draw(WINDOW* window) const {
     head().draw(window, '*');
-    for (int i = 1; i < m_body.size(); ++i) {
+    for (size_t i = 1; i < m_body.size(); ++i) {
       m_body[i].draw(window, 'o');
     }
 }
@@ -58,9 +60,7 @@ void Snake::move(const Direction& direction) {
     }
     m_body.front().move(direction);
 
-    if (died()) {
-        m_alive = false;
-    }
+    m_alive = !died();
 }
 
 void Snake::extend() {
@@ -72,11 +72,14 @@ void Snake::extend() {
 }
 
 bool Snake::died() const {
-    if (m_body.size() < 5) {
+    if (m_body.size() < Snake::s_minSizeCanDie) {
         return false;
     }
 
-    for (int i = 4; i < m_body.size(); ++i) {
+    for (size_t i = Snake::s_minSizeCanDie-1;
+         i < m_body.size();
+         ++i)
+    {
         if (head() == m_body[i]) {
             return true;
         }

@@ -34,26 +34,33 @@ void Object::move(const Direction& direction) {
 
     switch (m_direction) {
         case Direction::UP:
+        {
             moveTo(Vector2i(m_position.x(), m_position.y()-1));
-            break;
+        } break;
 
         case Direction::DOWN:
+        {    
             moveTo(Vector2i(m_position.x(), m_position.y()+1));
-            break;
+        } break;
 
         case Direction::LEFT:
+        {    
             moveTo(Vector2i(m_position.x()-1, m_position.y()));
-            break;
+        } break;
 
         case Direction::RIGHT:
+        {    
             moveTo(Vector2i(m_position.x()+1, m_position.y()));
-            break;
+        } break;
 
         case Direction::NONE:
-            break;
+        {    
+        } break;
 
         default:
+        {
             throw "Unsupported direction!";
+        } break;
     }
 }
 

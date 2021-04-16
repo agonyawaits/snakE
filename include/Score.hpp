@@ -6,13 +6,13 @@
 
 class Score final : public IDrawable {
 public:
-    Score(const Vector2i&, const int&);
+    Score(const Vector2i&, int);
 
-    void    increase();
-    void    draw(WINDOW*) const;
+    void increase();
+    void draw(WINDOW*) const;
 
 private:
     Vector2i    m_position;
-    int         m_step;
     int         m_score;
+    int         m_step;
 };

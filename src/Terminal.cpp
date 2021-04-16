@@ -16,7 +16,7 @@ Terminal::~Terminal() {
     endwin();
 }
 
-void Terminal::runGame() const {
+void Terminal::snake() const {
     Window window(m_size, Vector2i());
     Game game(window);
     game.execute();

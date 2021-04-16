@@ -7,7 +7,7 @@ public:
     Terminal(const Vector2i&);
     ~Terminal();
 
-    void runGame() const;
+    void snake() const;
 
 private:
     Vector2i m_size;

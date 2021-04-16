@@ -5,6 +5,6 @@
 int main() {
     srand(time(nullptr));
 
-    Terminal terminal(Vector2i(60, 20));
-    terminal.runGame();
+    Terminal t(Vector2i(60, 20));
+    t.snake();
 }

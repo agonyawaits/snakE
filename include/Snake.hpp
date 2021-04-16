@@ -20,6 +20,7 @@ public:
     Object  head() const;
 
 private:
+    static const int    s_minSizeCanDie;
     std::vector<Object> m_body;
     bool                m_alive;
 

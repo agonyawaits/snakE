@@ -41,24 +41,29 @@ void Window::render(const IDrawable& drawable) const {
 void Window::render(const IDrawable& drawable, const Color& color) const {
     switch (color) {
         case Color::GREEN:
+        {
             wattron(m_window, COLOR_PAIR(GREEN_ON_BLACK));
             drawable.draw(m_window);
             wattroff(m_window, COLOR_PAIR(GREEN_ON_BLACK));
-            return;
+        } break;
 
         case Color::RED:
+        {
             wattron(m_window, COLOR_PAIR(RED_ON_BLACK));
             drawable.draw(m_window);
             wattroff(m_window, COLOR_PAIR(RED_ON_BLACK));
-            return;
+        } break;
 
         case Color::YELLOW:
+        {    
             wattron(m_window, COLOR_PAIR(YELLOW_ON_BLACK));
             drawable.draw(m_window);
             wattroff(m_window, COLOR_PAIR(YELLOW_ON_BLACK));
-            return;
+        } break;
 
         default:
+        {
             drawable.draw(m_window);
+        } break;
     }
 }
