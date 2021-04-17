@@ -14,15 +14,12 @@ public:
     void    draw(WINDOW*) const;
     void    move(const Direction&);
     void    extend();
-    bool    alive() const;
     bool    collides(const Object&) const;
     bool    collides(const Board&) const;
+    bool    died() const;
     Object  head() const;
 
 private:
     static const int    s_minSizeCanDie;
     std::vector<Object> m_body;
-    bool                m_alive;
-
-    bool    died() const;
 };

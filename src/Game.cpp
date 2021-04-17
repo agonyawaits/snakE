@@ -40,5 +40,5 @@ void Game::update() {
     }
 
     m_snake.move(m_window.input().direction());
-    m_wasted = !m_snake.alive() || m_snake.collides(m_board);
+    m_wasted = m_snake.collides(m_board) || m_snake.died(); 
 }

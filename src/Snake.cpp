@@ -10,17 +10,13 @@
 const int Snake::s_minSizeCanDie = 5;
 
 Snake::Snake()
-    : m_body(std::vector<Object>{ Object(Vector2i()) }), m_alive(true)
+    : m_body(std::vector<Object>{ Object(Vector2i()) })
 {
 }
 
 Snake::Snake(const Vector2i& position)
-    : m_body(std::vector<Object>{ Object(position) }), m_alive(true)
+    : m_body(std::vector<Object>{ Object(position) })
 {
-}
-
-bool Snake::alive() const {
-    return m_alive;
 }
 
 Object Snake::head() const {
@@ -51,16 +47,10 @@ void Snake::draw(WINDOW* window) const {
 }
 
 void Snake::move(const Direction& direction) {
-    if (!m_alive) {
-        return;
-    }
-
     for (int i = m_body.size()-1; i > 0; --i) {
         m_body[i].moveTo(m_body[i-1].position());
     }
     m_body.front().move(direction);
-
-    m_alive = !died();
 }
 
 void Snake::extend() {
