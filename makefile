@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -Wextra -std=c++11 -ggdb -Iinclude/
-LDFLAGS=-lncurses
-SOURCES=src/main.cpp src/Board.cpp src/Game.cpp src/Input.cpp src/Object.cpp src/Score.cpp src/Snake.cpp src/Terminal.cpp src/Window.cpp
+LDFLAGS=$(shell pkg-config --libs ncurses)
+SOURCES=$(wildcard src/*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=snake
 
@@ -14,4 +14,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf src/*.o $(EXECUTABLE)
+	rm -rf $(OBJECTS) $(EXECUTABLE)

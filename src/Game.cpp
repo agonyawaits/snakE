@@ -5,12 +5,14 @@
 #include "Score.hpp"
 #include "Color.hpp"
 
+#define POINTS_PER_APPLE 10
+
 Game::Game(const Window& window)
     : m_window(window), m_wasted(false),
     m_board(Vector2i(m_window.size().x()-1, m_window.size().y()-2)),
     m_snake(Snake(m_board.randomPosition())),
     m_apple(Object(m_board.randomPosition())),
-    m_score(Score(Vector2i(0, m_window.size().y()-1), 10))
+    m_score(Score(Vector2i(0, m_window.size().y()-1), POINTS_PER_APPLE))
 {
 }
 

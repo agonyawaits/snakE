@@ -59,7 +59,6 @@ void Object::move(const Direction& direction) {
 
         default:
         {
-            throw "Unsupported direction!";
         } break;
     }
 }
