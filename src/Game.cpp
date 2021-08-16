@@ -3,7 +3,6 @@
 #include "Object.hpp"
 #include "Snake.hpp"
 #include "Score.hpp"
-#include "Color.hpp"
 
 #define POINTS_PER_APPLE 10
 
@@ -25,9 +24,9 @@ void Game::execute() {
 
 void Game::render() const {
     m_window.clear();
-    m_window.render(m_board, Color::YELLOW);
-    m_window.render(m_snake, Color::GREEN);
-    m_window.render(m_apple, Color::RED);
+    m_window.render(m_board, Window::Color::YELLOW);
+    m_window.render(m_snake, Window::Color::GREEN);
+    m_window.render(m_apple, Window::Color::RED);
     m_window.render(m_score);
 }
 

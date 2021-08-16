@@ -9,10 +9,10 @@ Input::Input(const int& input)
 
 Direction Input::direction() const {
     switch (m_input) {
-        case KEY_LEFT:  return Direction::LEFT;
-        case KEY_RIGHT: return Direction::RIGHT;
-        case KEY_UP:    return Direction::UP;
-        case KEY_DOWN:  return Direction::DOWN;
-        default:        return Direction::NONE;
+        case KEY_LEFT:  return LEFT;
+        case KEY_RIGHT: return RIGHT;
+        case KEY_UP:    return UP;
+        case KEY_DOWN:  return DOWN;
+        default:        return NONE;
     }
 }

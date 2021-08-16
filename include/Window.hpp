@@ -3,13 +3,16 @@
 #include "Vector2.hpp"
 #include "IDrawable.hpp"
 #include "Input.hpp"
-#include "Color.hpp"
 #include <ncurses.h>
 
 class Window final {
 public:
     Window(const Vector2i&, const Vector2i&);
     ~Window();
+
+    enum Color {
+        GREEN = 1, RED, YELLOW
+    };
 
     void      clear() const;
     void      render(const IDrawable&) const;

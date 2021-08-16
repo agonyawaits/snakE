@@ -3,7 +3,6 @@
 #include "Window.hpp"
 #include "Object.hpp"
 #include "Snake.hpp"
-#include "Direction.hpp"
 #include "Board.hpp"
 #include "Score.hpp"
 

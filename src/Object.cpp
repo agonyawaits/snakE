@@ -3,13 +3,15 @@
 #include "Direction.hpp"
 #include <ncurses.h>
 
+#define CHAR_DEFAULT '@'
+
 Object::Object()
-    : m_position(Vector2i()), m_direction(Direction::NONE)
+    : m_position(Vector2i()), m_direction(NONE)
 {
 }
 
 Object::Object(const Vector2i& position)
-    : m_position(position), m_direction(Direction::NONE)
+    : m_position(position), m_direction(NONE)
 {
 }
 
@@ -22,7 +24,7 @@ Direction Object::direction() const {
 }
 
 void Object::draw(WINDOW* window) const {
-    mvwaddch(window, m_position.y(), m_position.x(), '@');
+    mvwaddch(window, m_position.y(), m_position.x(), CHAR_DEFAULT);
 }
 
 void Object::draw(WINDOW* window, const chtype& symbol) const {
@@ -33,30 +35,27 @@ void Object::move(const Direction& direction) {
     m_direction = canChangeDirection(direction) ? direction : m_direction;
 
     switch (m_direction) {
-        case Direction::UP:
+        case UP:
         {
             moveTo(Vector2i(m_position.x(), m_position.y()-1));
         } break;
 
-        case Direction::DOWN:
+        case DOWN:
         {    
             moveTo(Vector2i(m_position.x(), m_position.y()+1));
         } break;
 
-        case Direction::LEFT:
+        case LEFT:
         {    
             moveTo(Vector2i(m_position.x()-1, m_position.y()));
         } break;
 
-        case Direction::RIGHT:
+        case RIGHT:
         {    
             moveTo(Vector2i(m_position.x()+1, m_position.y()));
         } break;
 
-        case Direction::NONE:
-        {    
-        } break;
-
+        case NONE:
         default:
         {
         } break;
@@ -72,9 +71,9 @@ bool Object::operator== (const Object& other) const {
 }
 
 bool Object::canChangeDirection(const Direction& direction) const {
-    return (direction != Direction::NONE && m_direction == Direction::NONE) ||
-        (direction == Direction::UP && m_direction != Direction::DOWN) ||
-        (direction == Direction::DOWN && m_direction != Direction::UP) ||
-        (direction == Direction::LEFT && m_direction != Direction::RIGHT) ||
-        (direction == Direction::RIGHT && m_direction != Direction::LEFT);
+    return (direction != NONE && m_direction == NONE) ||
+        (direction == UP && m_direction != DOWN) ||
+        (direction == DOWN && m_direction != UP) ||
+        (direction == LEFT && m_direction != RIGHT) ||
+        (direction == RIGHT && m_direction != LEFT);
 }
