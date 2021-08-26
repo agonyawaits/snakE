@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall -Wextra -std=c++11 -ggdb -Iinclude/ $(shell pkg-config --cflags ncurses)
+CFLAGS=-c -Wall -Wextra -std=c++11 -ggdb $(shell pkg-config --cflags ncurses)
 LDFLAGS=$(shell pkg-config --libs ncurses)
 SOURCES=$(wildcard src/*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)

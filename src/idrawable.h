@@ -2,8 +2,7 @@
 
 #include <ncurses.h>
 
-class IDrawable {
-public:
+struct IDrawable {
     virtual ~IDrawable() = default;
-    virtual void draw(WINDOW*) const = 0;
+    virtual void draw(WINDOW *) const = 0;
 };
