@@ -1,4 +1,6 @@
-#include "Launcher.hpp"
+#include "v2.h"
+#include "game.h"
+#include "window.h"
 #include <ctime>
 #include <random>
 
@@ -8,7 +10,8 @@
 int main() {
     srand(time(nullptr));
 
-    Launcher l(Vector2i(WINDOW_WIDTH, WINDOW_HEIGHT), Vector2i());
+    Window window({ WINDOW_WIDTH, WINDOW_HEIGHT}, { 0, 0 });
+    Game game(window);
 
     return 0;
 }
