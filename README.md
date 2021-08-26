@@ -1,6 +1,4 @@
 # Snake
-
-## Overview
 Snake game implementation in C++. Rendering is done using [ncurses](https://en.wikipedia.org/wiki/Ncurses) library.
 
 ## Build
