@@ -52,7 +52,8 @@ Entity::newPos() const {
         case DOWN:  return { m_position.x(), m_position.y()+1 };
         case LEFT:  return { m_position.x()-1, m_position.y() };
         case RIGHT: return { m_position.x()+1, m_position.y() };
-        case NONE:  return m_position;
+        case NONE:
+        default:    return m_position;
     }
 }
 
