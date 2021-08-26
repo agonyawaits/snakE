@@ -24,9 +24,9 @@ Snake::head() const {
 }
 
 bool
-Snake::collides(const Entity &Entity) const {
+Snake::collides(const Entity &entity) const {
     for(const auto &block : m_body)
-        if(block == Entity)
+        if(block == entity)
             return true;
 
     return false;
