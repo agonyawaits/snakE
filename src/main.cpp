@@ -4,8 +4,24 @@
 #include <ctime>
 #include <random>
 
-#define WINDOW_HEIGHT 20
-#define WINDOW_WIDTH 60
+#define WINDOW_HEIGHT 50
+#define WINDOW_WIDTH 170
+
+// TODO: Add menu
+//////////////////////////////////////////////////
+//                                              //
+//                                              //
+//                                              //
+//                                              //
+//                                              //
+//                    Play                      //
+//                 Borders: Off                 //
+//                    Exit                      //
+//                                              //
+//                                              //
+//                                              //
+//                                              //
+//////////////////////////////////////////////////
 
 int main() {
     srand(time(nullptr));

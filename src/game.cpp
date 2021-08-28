@@ -8,10 +8,10 @@
 
 Game::Game(const Window &window)
     : m_window(window), m_wasted(false),
-    m_board({ m_window.size().x()-1, m_window.size().y()-2 }),
+    m_board({ m_window.size().x()/3, m_window.size().y()/3 }, { 2, 1 }),
     m_snake({ m_board.spot() }),
     m_apple({ m_board.spot() }),
-    m_score({ V2(0, m_window.size().y()-1), POINTS_PER_APPLE })
+    m_score({ m_board.position().x(), m_window.size().y()/3 + m_board.position().y() + 1 }, POINTS_PER_APPLE )
 {
     while(!m_wasted) {
         render();

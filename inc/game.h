@@ -13,13 +13,17 @@ struct Score : public IDrawable {
     void draw(WINDOW *) const override;
 
 private:
-    V2    m_position;
-    int         m_score;
-    int         m_step;
+    V2  m_position;
+    int m_score;
+    int m_step;
 };
 
 struct Game {
     Game(const Window &);
+
+private:
+    void render() const;
+    void update();
 
 private:
     const Window&   m_window;
@@ -28,7 +32,4 @@ private:
     Snake           m_snake;
     Entity          m_apple;
     Score           m_score;
-
-    void render() const;
-    void update();
 };

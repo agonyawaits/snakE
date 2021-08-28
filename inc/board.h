@@ -5,12 +5,14 @@
 #include <ncurses.h>
 
 struct Board : public IDrawable {
-    Board(const V2 &);
+    Board(const V2 &, const V2 &);
 
-    void      draw(WINDOW *) const override;
-    V2  size() const;
-    V2  spot() const;
+    void    draw(WINDOW *) const override;
+    V2      size() const;
+    V2      position() const; 
+    V2      spot() const;
     
 private:
+    V2 m_position;
     V2 m_size;
 };

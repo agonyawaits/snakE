@@ -21,13 +21,13 @@ struct Window {
     Window(const V2 &, const V2 &);
     ~Window();
 
-    void      clear() const;
-    void      render(const IDrawable &) const;
-    void      render(const IDrawable &, Color) const;
-    Input     input() const;
-    V2  size() const;
+    void    clear() const;
+    void    render(const IDrawable &) const;
+    void    render(const IDrawable &, Color) const;
+    Input   input() const;
+    V2      size() const;
     
 private:
-    V2  m_size;
-    WINDOW   *m_window;
+    V2      m_size;
+    WINDOW *m_window;
 };

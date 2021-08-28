@@ -10,7 +10,7 @@ struct Snake : public IDrawable {
     Snake();
     Snake(const V2 &);
 
-    void    draw(WINDOW *) const;
+    void    draw(WINDOW *) const override;
     void    move(Direction);
     void    extend();
     bool    collides(const Entity &) const;

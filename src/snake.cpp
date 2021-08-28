@@ -34,10 +34,10 @@ Snake::collides(const Entity &entity) const {
 
 bool
 Snake::collides(const Board &board) const {
-    return head().position().x() == 0 ||
-        head().position().y() == 0 ||
-        head().position().x() == board.size().x() ||
-        head().position().y() == board.size().y();
+    return head().position().x() == board.position().x() ||
+        head().position().y() == board.position().y() ||
+        head().position().x() == board.size().x() + board.position().x() ||
+        head().position().y() == board.size().y() + board.position().y();
 }
 
 void
@@ -61,9 +61,6 @@ Snake::extend() {
 
 bool
 Snake::died() const {
-    if(m_body.size() < MIN_SIZE_CAN_DIE)
-        return false;
-
     for(size_t i = MIN_SIZE_CAN_DIE; i < m_body.size(); ++i)
         if(head() == m_body[i])
             return true;
