@@ -7,12 +7,20 @@
 #define POINTS_PER_APPLE 10
 
 Game::Game(const Window &window)
-    : m_window(window), m_wasted(false),
-    m_board({ m_window.size().x()/3, m_window.size().y()/3 }, { 2, 1 }),
+    : m_window(window),
+    m_menu({ window.size().x/2, window.size().y/2 }),
+    m_wasted(false),
+    m_board({ window.size().x*2/3, window.size().y*2/3 }, { 2, 1 }),
     m_snake({ m_board.spot() }),
     m_apple({ m_board.spot() }),
-    m_score({ m_board.position().x(), m_window.size().y()/3 + m_board.position().y() + 1 }, POINTS_PER_APPLE )
+    m_score({ m_board.position().x, m_board.size().y + m_board.position().y + 1 }, POINTS_PER_APPLE )
 {
+    while(m_menu.active()) {
+        m_window.clear();
+        m_window.render(m_menu);
+        m_menu.update(m_window.input().key());
+    }
+
     while(!m_wasted) {
         render();
         update();
@@ -55,5 +63,5 @@ Score::increase() {
 
 void
 Score::draw(WINDOW *window) const {
-    mvwprintw(window, m_position.y(), m_position.x(), "%d", m_score);
+    mvwprintw(window, m_position.y, m_position.x, "%d", m_score);
 }

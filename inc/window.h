@@ -12,13 +12,14 @@ enum Color {
 struct Input {
     Input(int);
     Direction direction() const;
+    int key() const;
 
 private:
     int m_input;
 };
 
 struct Window {
-    Window(const V2 &, const V2 &);
+    Window(const V2 &);
     ~Window();
 
     void    clear() const;

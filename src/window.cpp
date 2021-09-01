@@ -3,8 +3,7 @@
 #include "v2.h"
 #include "idrawable.h"
 
-Window::Window(const V2 &size, const V2 &position)
-    : m_size(size)
+Window::Window(const V2 &position)
 {
     initscr();
     noecho();
@@ -12,7 +11,11 @@ Window::Window(const V2 &size, const V2 &position)
     halfdelay(1);
     start_color();
 
-    m_window = newwin(m_size.y(), m_size.x(), position.y(), position.x());
+    int scwidth, scheight;
+    getmaxyx(stdscr, scwidth, scheight);
+    m_size.x = scheight/2;
+    m_size.y = scwidth/2;
+    m_window = newwin(m_size.y, m_size.x, position.y, position.x);
     keypad(m_window, TRUE);
     wattron(m_window, A_BOLD);
 
@@ -35,6 +38,12 @@ Window::clear() const
 
 Input::Input(int input) : m_input(input)
 {
+}
+
+int
+Input::key() const
+{
+    return m_input;
 }
 
 Direction

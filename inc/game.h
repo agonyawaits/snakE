@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "snake.h"
 #include "board.h"
+#include "menu.h"
 
 struct Score : public IDrawable {
     Score(const V2 &, int);
@@ -27,6 +28,7 @@ private:
 
 private:
     const Window&   m_window;
+    Menu            m_menu;
     bool            m_wasted;
     Board           m_board;
     Snake           m_snake;
