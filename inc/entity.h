@@ -10,18 +10,18 @@ enum Direction {
 
 struct Entity : public IDrawable {
     Entity();
-    Entity(const V2 &);
+    Entity(const V2 &position);
 
     void        draw(WINDOW *) const override;
     void        draw(WINDOW *, chtype) const;
     void        move(Direction);
-    void        moveTo(const V2 &);
+    void        move_to(const V2 &);
     V2          position() const;
     Direction   direction() const;
     bool        operator==(const Entity &) const;
 
 private:
-    V2          newPos() const;
+    V2          new_pos() const;
 
 private:
     V2          m_position;

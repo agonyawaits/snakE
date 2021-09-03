@@ -34,10 +34,10 @@ Snake::collides(const Entity &entity) const {
 
 bool
 Snake::collides(const Board &board) const {
-    return head().position().x() == board.position().x() ||
-        head().position().y() == board.position().y() ||
-        head().position().x() == board.size().x() + board.position().x() ||
-        head().position().y() == board.size().y() + board.position().y();
+    return head().position().x == board.position().x ||
+        head().position().y == board.position().y ||
+        head().position().x == board.size().x + board.position().x ||
+        head().position().y == board.size().y + board.position().y;
 }
 
 void
@@ -50,7 +50,7 @@ Snake::draw(WINDOW *window) const {
 void
 Snake::move(Direction direction) {
     for(size_t i = m_body.size()-1; i > 0; --i)
-        m_body[i].moveTo(m_body[i-1].position());
+        m_body[i].move_to(m_body[i-1].position());
     m_body.front().move(direction);
 }
 
@@ -66,4 +66,9 @@ Snake::died() const {
             return true;
 
     return false;
+}
+
+void
+Snake::relocate(const V2 &position) {
+    m_body.front().move_to(position);
 }

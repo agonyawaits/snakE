@@ -1,26 +1,17 @@
 #pragma once
 
 struct V2 {
-    V2() : m_x(0), m_y(0)
+    V2() : x(0), y(0)
     {
     }
 
-    V2(int x, int y) : m_x(x), m_y(y) 
+    V2(int _x, int _y) : x(_x), y(_y) 
     {
-    }
-
-    int x() const {
-        return m_x;
-    }
-
-    int y() const {
-        return m_y;
     }
 
     bool operator==(const V2 &other) const {
-        return other.m_x == m_x && other.m_y == m_y;
+        return other.x == x && other.y == y;
     }
 
-private:
-    int m_x, m_y;
+    int x, y;
 };
