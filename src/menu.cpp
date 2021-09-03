@@ -31,7 +31,8 @@ Menu::update(int key) {
         } break;
         case KEY_DOWN:
         {
-            m_selection = ++m_selection % NUM_CHOICES;
+            ++m_selection;
+            m_selection = m_selection % NUM_CHOICES;
         } break;
         case ENTER:
         {

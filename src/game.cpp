@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <cassert>
 #include "game.h"
 #include "window.h"
 #include "entity.h"
@@ -86,7 +87,7 @@ Game::update() {
 }
 
 Score::Score(const V2 &position, int step)
-    : m_position(position), m_score(0), m_step(step)
+    : m_position(position), m_score(0), m_high_score(0), m_step(step)
 {
 }
 
