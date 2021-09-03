@@ -67,3 +67,8 @@ Snake::died() const {
 
     return false;
 }
+
+void
+Snake::relocate(const V2 &position) {
+    m_body.front().move_to(position);
+}

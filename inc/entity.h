@@ -10,7 +10,7 @@ enum Direction {
 
 struct Entity : public IDrawable {
     Entity();
-    Entity(const V2 &);
+    Entity(const V2 &position);
 
     void        draw(WINDOW *) const override;
     void        draw(WINDOW *, chtype) const;

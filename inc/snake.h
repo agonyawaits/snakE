@@ -8,7 +8,7 @@
 
 struct Snake : public IDrawable {
     Snake();
-    Snake(const V2 &);
+    Snake(const V2 &position);
 
     void    draw(WINDOW *) const override;
     void    move(Direction);
@@ -17,6 +17,7 @@ struct Snake : public IDrawable {
     bool    collides(const Board &) const;
     bool    died() const;
     Entity  head() const;
+    void    relocate(const V2 &);
 
 private:
     std::vector<Entity> m_body;

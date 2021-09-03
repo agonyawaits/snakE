@@ -19,7 +19,7 @@ private:
 };
 
 struct Window {
-    Window(const V2 &);
+    Window();
     ~Window();
 
     void    clear() const;

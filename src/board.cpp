@@ -21,13 +21,13 @@ Board::position() const {
 void
 Board::draw(WINDOW *window) const {
     mvwhline(window, m_position.y, m_position.x, 0, m_size.x);
-    mvwhline(window, m_position.y + m_size.y, m_position.x, 0, m_size.x);
+    mvwhline(window, m_position.y+m_size.y, m_position.x, 0, m_size.x);
     mvwvline(window, m_position.y, m_position.x, 0, m_size.y);
-    mvwvline(window, m_position.y, m_position.x + m_size.x, 0, m_size.y);
+    mvwvline(window, m_position.y, m_position.x+m_size.x, 0, m_size.y);
     mvwaddch(window, m_position.y, m_position.x, ACS_ULCORNER);
-    mvwaddch(window, m_position.y + m_size.y, m_position.x, ACS_LLCORNER);
-    mvwaddch(window, m_position.y, m_position.x +m_size.x, ACS_URCORNER);
-    mvwaddch(window, m_position.y + m_size.y, m_position.x + m_size.x, ACS_LRCORNER);
+    mvwaddch(window, m_position.y+m_size.y, m_position.x, ACS_LLCORNER);
+    mvwaddch(window, m_position.y, m_position.x+m_size.x, ACS_URCORNER);
+    mvwaddch(window, m_position.y+m_size.y, m_position.x+m_size.x, ACS_LRCORNER);
 }
 
 V2
