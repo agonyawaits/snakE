@@ -3,8 +3,7 @@
 #include "v2.h"
 #include "idrawable.h"
 
-Window::Window()
-{
+Window::Window() {
     initscr();
     noecho();
     curs_set(0);
@@ -20,31 +19,26 @@ Window::Window()
     init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
 }
 
-Window::~Window()
-{
+Window::~Window() {
     delwin(m_window);
     endwin();
 }
 
 void
-Window::clear() const
-{
+Window::clear() const {
     wclear(m_window);
 }
 
-Input::Input(int input) : m_input(input)
-{
+Input::Input(int input) : m_input(input) {
 }
 
 int
-Input::key() const
-{
+Input::key() const {
     return m_input;
 }
 
 Direction
-Input::direction() const
-{
+Input::direction() const {
     switch(m_input) {
         case KEY_LEFT:  return LEFT;
         case KEY_RIGHT: return RIGHT;
@@ -55,8 +49,7 @@ Input::direction() const
 }
 
 Input
-Window::input() const
-{
+Window::input() const {
     return { wgetch(m_window) };
 }
 
