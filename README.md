@@ -1,16 +1,25 @@
-# Overview
-Snake game implementation in C++. Rendering is done using [ncurses](https://en.wikipedia.org/wiki/Ncurses) library.
+# Snake Game
+Terminal snake game implemented in C++.
 
 ## Build
+Dependencies: [ncurses](https://en.wikipedia.org/wiki/Ncurses)
 
 ### macOS
 ```console
 $ brew install pkg-config ncurses
-$ make
 ```
 
 ### Debian
 ```console
 $ sudo apt install pkg-config libncurses5-dev libncursesw5-dev
-$ make
-````
+```
+
+## Quick Start
+```console
+$ make -j
+$ ./snake
+```
+
+## Screenshots
+![Menu](sc/menu.png)<br>
+![Action](sc/action.png)
